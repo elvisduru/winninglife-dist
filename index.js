@@ -125,8 +125,10 @@ _models.User.find({})
         console.log(`Creating child array for ${user.username}`);
         user.children = [];
         arr.forEach(arrUser => {
-          if (arrUser.parent.toUpperCase() === user.username.toUpperCase()) {
-            user.children.push(arrUser.username);
+          if (arrUser.parent) {
+            if (arrUser.parent.toUpperCase() === user.username.toUpperCase()) {
+              user.children.push(arrUser.username);
+            }
           }
         });
         user.save((err, savedUser) => {
