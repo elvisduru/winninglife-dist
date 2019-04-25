@@ -192,12 +192,12 @@ async function fetchLevel(num, username) {
       }
     }
 
-    if (user.children < 4) {
+    if (user.children.length < 4) {
       user.nextlevel = 1;
       user.rank = "None";
     }
 
-    if (user.children === 4) {
+    if (user.children.length === 4) {
       lastCompleteLevel = levels[0];
       for (let i = 1; i < levels.length; i++) {
         if (levels[i] > lastCompleteLevel) {
@@ -236,6 +236,11 @@ async function fetchLevel(num, username) {
       // }
 
       if (levels[0] === 4 && levels.length === 1) {
+        user.nextlevel = 2;
+        user.rank = "SilverLife";
+      }
+
+      if (levels[0] === 4 && levels[1] < 16) {
         user.nextlevel = 2;
         user.rank = "SilverLife";
       }
