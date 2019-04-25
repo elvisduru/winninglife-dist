@@ -233,46 +233,46 @@ _models.User.find({})
 //         user.rank = "SapphireLife 1";
 //       }
 
-      // if (levels[0] === 4 && levels[1] < 16) {
-      //   user.nextlevel = 2;
-      //   user.rank = "SilverLife";
-      // }
+// if (levels[0] === 4 && levels[1] < 16) {
+//   user.nextlevel = 2;
+//   user.rank = "SilverLife";
+// }
 
-      // if (levels[1] === 16 && levels[2] < 64) {
-      //   user.nextlevel = 3;
-      //   user.rank = "GoldLife 1";
-      // }
+// if (levels[1] === 16 && levels[2] < 64) {
+//   user.nextlevel = 3;
+//   user.rank = "GoldLife 1";
+// }
 
-      // if (levels[2] === 64 && levels[3] < 256) {
-      //   user.nextlevel = 4;
-      //   user.rank = "GoldLife 2";
-      // }
+// if (levels[2] === 64 && levels[3] < 256) {
+//   user.nextlevel = 4;
+//   user.rank = "GoldLife 2";
+// }
 
-      // if (levels[3] === 256 && levels[4] < 1024) {
-      //   user.nextlevel = 5;
-      //   user.rank = "DiamondLife 1";
-      // }
+// if (levels[3] === 256 && levels[4] < 1024) {
+//   user.nextlevel = 5;
+//   user.rank = "DiamondLife 1";
+// }
 
-      // if (levels[4] === 1024 && levels[5] < 4096) {
-      //   user.nextlevel = 6;
-      //   user.rank = "DiamondLife 2";
-      // }
+// if (levels[4] === 1024 && levels[5] < 4096) {
+//   user.nextlevel = 6;
+//   user.rank = "DiamondLife 2";
+// }
 
-      // if (levels[5] === 4096 && levels[6] < 16384) {
-      //   user.nextlevel = 7;
-      //   user.rank = "SapphireLife 1";
-      // }
-      console.log(
-        `Processed user: ${user.username}, max: ${lastCompleteLevel}`
-      );
-    } else {
-      console.log(`Processed user: ${user.username}, None`);
-    }
+// if (levels[5] === 4096 && levels[6] < 16384) {
+//   user.nextlevel = 7;
+//   user.rank = "SapphireLife 1";
+// }
+//       console.log(
+//         `Processed user: ${user.username}, max: ${lastCompleteLevel}`
+//       );
+//     } else {
+//       console.log(`Processed user: ${user.username}, None`);
+//     }
 
-    await user.save();
-  });
-  console.log("Rank Level Update Task Completed");
-})();
+//     await user.save();
+//   });
+//   console.log("Rank Level Update Task Completed");
+// })();
 
 app.use("/auth", _auth.default);
 app.use("/user", _User.default);
