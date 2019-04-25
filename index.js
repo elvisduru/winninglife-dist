@@ -235,35 +235,35 @@ async function fetchLevel(num, username) {
       //   user.rank = "SapphireLife 1";
       // }
 
-      if (levels[0] === 4 && levels[1] < 16) {
+      if (levels[0] === 4 && levels.length === 1) {
         user.nextlevel = 2;
         user.rank = "SilverLife";
       }
 
-      if (levels[1] === 16 && levels[2] < 64) {
-        user.nextlevel = 3;
-        user.rank = "GoldLife 1";
-      }
+      // if (levels[1] === 16 && levels[2] < 64) {
+      //   user.nextlevel = 3;
+      //   user.rank = "GoldLife 1";
+      // }
 
-      if (levels[2] === 64 && levels[3] < 256) {
-        user.nextlevel = 4;
-        user.rank = "GoldLife 2";
-      }
+      // if (levels[2] === 64 && levels[3] < 256) {
+      //   user.nextlevel = 4;
+      //   user.rank = "GoldLife 2";
+      // }
 
-      if (levels[3] === 256 && levels[4] < 1024) {
-        user.nextlevel = 5;
-        user.rank = "DiamondLife 1";
-      }
+      // if (levels[3] === 256 && levels[4] < 1024) {
+      //   user.nextlevel = 5;
+      //   user.rank = "DiamondLife 1";
+      // }
 
-      if (levels[4] === 1024 && levels[5] < 4096) {
-        user.nextlevel = 6;
-        user.rank = "DiamondLife 2";
-      }
+      // if (levels[4] === 1024 && levels[5] < 4096) {
+      //   user.nextlevel = 6;
+      //   user.rank = "DiamondLife 2";
+      // }
 
-      if (levels[5] === 4096 && levels[6] < 16384) {
-        user.nextlevel = 7;
-        user.rank = "SapphireLife 1";
-      }
+      // if (levels[5] === 4096 && levels[6] < 16384) {
+      //   user.nextlevel = 7;
+      //   user.rank = "SapphireLife 1";
+      // }
       console.log(
         `Processed user: ${user.username}, max: ${lastCompleteLevel}`
       );
