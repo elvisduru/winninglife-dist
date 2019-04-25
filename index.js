@@ -117,121 +117,121 @@ let usersProcessed = 0;
 //   .catch(err => console.log(err));
 
 // Update Children Field for each user
-// _models.User.find({})
-//   .then(users => {
-//     console.log("Started Children update task");
-//     users.forEach((user, index, arr) => {
-//       if (user.username) {
-//         console.log(`Creating child array for ${user.username}`);
-//         user.children = [];
-//         arr.forEach(arrUser => {
-//           if (arrUser.parent.toUpperCase() === user.username.toUpperCase()) {
-//             user.children.push(arrUser.username);
-//           }
-//         });
-//         user.save((err, savedUser) => {
-//           if (err) console.log(err);
-//           console.log(`added users to child array for ${savedUser.username}`);
-//           usersProcessed++;
-//           console.log(usersProcessed);
-//         });
-//       }
-//     });
-//   })
-//   .catch(err => console.log(err));
-
-// Rank Update Task
-async function fetchLevel(num, username) {
-  let levelSum = await _models.User.aggregate()
-    .match({
-      username: username
-    })
-    .graphLookup({
-      from: "users",
-      startWith: "$username",
-      connectFromField: "username",
-      connectToField: "parent",
-      depthField: "depth",
-      as: "descendants"
-    })
-    .unwind("$descendants")
-    .match({
-      "descendants.depth": num
-    })
-    .group({
-      _id: null,
-      count: {
-        $sum: 1
+_models.User.find({})
+  .then(users => {
+    console.log("Started Children update task");
+    users.forEach((user, index, arr) => {
+      if (user.username) {
+        console.log(`Creating child array for ${user.username}`);
+        user.children = [];
+        arr.forEach(arrUser => {
+          if (arrUser.parent.toUpperCase() === user.username.toUpperCase()) {
+            user.children.push(arrUser.username);
+          }
+        });
+        user.save((err, savedUser) => {
+          if (err) console.log(err);
+          console.log(`added users to child array for ${savedUser.username}`);
+          usersProcessed++;
+          console.log(usersProcessed);
+        });
       }
     });
+  })
+  .catch(err => console.log(err));
 
-  return levelSum[0];
-}
+// Rank Update Task
+// async function fetchLevel(num, username) {
+//   let levelSum = await _models.User.aggregate()
+//     .match({
+//       username: username
+//     })
+//     .graphLookup({
+//       from: "users",
+//       startWith: "$username",
+//       connectFromField: "username",
+//       connectToField: "parent",
+//       depthField: "depth",
+//       as: "descendants"
+//     })
+//     .unwind("$descendants")
+//     .match({
+//       "descendants.depth": num
+//     })
+//     .group({
+//       _id: null,
+//       count: {
+//         $sum: 1
+//       }
+//     });
 
-// // // Rank Update Task
-(async function() {
-  console.log("Started Rank Level Update Task");
-  const users = await _models.User.find({});
+//   return levelSum[0];
+// }
 
-  users.forEach(async user => {
-    let emptyLevel = false;
-    let levels = [];
-    let levelsProcessed = 0;
-    let lastCompleteLevel;
+// // // // Rank Update Task
+// (async function() {
+//   console.log("Started Rank Level Update Task");
+//   const users = await _models.User.find({});
 
-    while (!emptyLevel) {
-      const level = await fetchLevel(levelsProcessed, user.username);
-      if (level === undefined) {
-        levelsProcessed = 0;
-        emptyLevel = true;
-      } else {
-        levels.push(level.count);
-        levelsProcessed++;
-      }
-    }
+//   users.forEach(async user => {
+//     let emptyLevel = false;
+//     let levels = [];
+//     let levelsProcessed = 0;
+//     let lastCompleteLevel;
 
-    if (user.children < 4) {
-      user.nextlevel = 1;
-      user.rank = "None";
-    }
+//     while (!emptyLevel) {
+//       const level = await fetchLevel(levelsProcessed, user.username);
+//       if (level === undefined) {
+//         levelsProcessed = 0;
+//         emptyLevel = true;
+//       } else {
+//         levels.push(level.count);
+//         levelsProcessed++;
+//       }
+//     }
 
-    if (levels.length) {
-      lastCompleteLevel = levels[0];
-      for (let i = 1; i < levels.length; i++) {
-        if (levels[i] > lastCompleteLevel) {
-          lastCompleteLevel = levels[i];
-        }
-      }
+//     if (user.children < 4) {
+//       user.nextlevel = 1;
+//       user.rank = "None";
+//     }
 
-      if (lastCompleteLevel === 4) {
-        user.nextlevel = 2;
-        user.rank = "SilverLife";
-      }
+//     if (levels.length) {
+//       lastCompleteLevel = levels[0];
+//       for (let i = 1; i < levels.length; i++) {
+//         if (levels[i] > lastCompleteLevel) {
+//           lastCompleteLevel = levels[i];
+//         }
+//       }
 
-      if (lastCompleteLevel === 16) {
-        user.nextlevel = 3;
-        user.rank = "GoldLife 1";
-      }
+//       if (lastCompleteLevel === 4) {
+//         user.nextlevel = 2;
+//         user.rank = "SilverLife";
+//       }
 
-      if (lastCompleteLevel === 64) {
-        user.nextlevel = 4;
-        user.rank = "GoldLife 2";
-      }
+//       if (lastCompleteLevel === 16) {
+//         user.nextlevel = 3;
+//         user.rank = "GoldLife 1";
+//       }
 
-      if (lastCompleteLevel === 256) {
-        user.nextlevel = 5;
-        user.rank = "DiamondLife 1";
-      }
+//       if (lastCompleteLevel === 64) {
+//         user.nextlevel = 4;
+//         user.rank = "GoldLife 2";
+//       }
 
-      if (lastCompleteLevel === 1024) {
-        user.nextlevel = 6;
-        user.rank = "DiamondLife 2";
-      }
+//       if (lastCompleteLevel === 256) {
+//         user.nextlevel = 5;
+//         user.rank = "DiamondLife 1";
+//       }
 
-      if (lastCompleteLevel === 4096) {
-        user.nextlevel = 7;
-        user.rank = "SapphireLife 1";
-      }
+//       if (lastCompleteLevel === 1024) {
+//         user.nextlevel = 6;
+//         user.rank = "DiamondLife 2";
+//       }
+
+//       if (lastCompleteLevel === 4096) {
+//         user.nextlevel = 7;
+//         user.rank = "SapphireLife 1";
+//       }
 
       // if (levels[0] === 4 && levels[1] < 16) {
       //   user.nextlevel = 2;
