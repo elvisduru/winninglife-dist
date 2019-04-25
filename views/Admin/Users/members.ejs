@@ -1,0 +1,53 @@
+<% include ../../partials/header %>
+<div class="padding">
+	<label>Enter Rank: </label>
+	<select class="loadRank">
+		<option value="">-- Please Choose --</option>
+		<option value="SilverLife 1">SilverLife 1</option>
+		<option value="SilverLife 2">SilverLife 2</option>
+		<option value="GoldLife 1">GoldLife 1</option>
+		<option value="GoldLife 2">GoldLife 2</option>
+		<option value="DiamondLife 1">DiamondLife 1</option>
+		<option value="DiamondLife 2">DiamondLife </option>
+		<option value="SapphireLife 1">SapphireLife 1</option>
+		<option value="SapphireLife 2">SapphireLife 2</option>
+		<option value="EmeraldLife">EmeraldLife</option>
+	</select>
+	<button type="button" class="btn btn-sm blue loadUserbtn">Submit</button>
+</div>
+<div class="padding">
+    <div class="row">
+    	<div class="col-md-3">
+    		<div class="box">
+    		  <div class="box-body">
+    		    Search: <input id="filter" type="text" class="form-control input-sm w-auto inline m-r"/>
+    		  </div>
+    		  <div>
+    		    <table class="table table-responsive m-b-none" data-ui-jp="footable" data-filter="#filter" data-page-size="5">
+    		      <thead>
+    		        <tr>
+    		            <th data-toggle="true">
+    		                #
+    		            </th>
+    		            <th>
+    		            	UserID
+    		            </th>
+    		        </tr>
+    		      </thead>
+    		      <tbody id="rankTable">
+    					          	
+				  		</tbody>
+    		      <tfoot class="hide-if-no-paging">
+    		        <tr>
+    		            <td colspan="5" class="text-center">
+    		                <ul class="pagination"></ul>
+    		            </td>
+    		        </tr>
+    		      </tfoot>
+    		    </table>
+    		  </div>
+    		</div>
+    	</div>
+    </div>
+</div>
+<% include ../../partials/footer %>

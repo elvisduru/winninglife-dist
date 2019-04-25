@@ -1,0 +1,478 @@
+<% include ../partials/header %>
+	<div class="row-col">
+		<div class="col-lg b-r">
+			<div class="row no-gutter">
+				<div class="col-xs-6 col-sm-3 b-r b-b">
+					<div class="padding">
+						<div>
+							<span class="pull-right"><i class="fa fa-caret-up text-primary m-y-xs"></i></span>
+							<span class="text-muted l-h-1x"><i class="ion-ios-grid-view text-muted"></i></span>
+						</div>
+						<div class="text-center">
+							<h2 class="text-center _600"><%= depositCount %></h2>
+							<p class="text-muted m-b-md">Total Deposits</p>
+							<div>
+								<span data-ui-jp="sparkline" data-ui-options="[2,3,2,2,1,3,6,3,2,1], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"><canvas width="60" height="20" style="display: inline-block; width: 60px; height: 20px; vertical-align: top;"></canvas></span>
+							</div>
+						</div>
+					</div>
+		        </div>
+		        <div class="col-xs-6 col-sm-3 b-r b-b">
+					<div class="padding">
+						<div>
+							<span class="pull-right"><i class="fa fa-caret-up text-primary m-y-xs"></i></span>
+							<span class="text-muted l-h-1x"><i class="ion-document text-muted"></i></span>
+						</div>
+						<div class="text-center">
+							<h2 class="text-center _600"><%= withdrawalCount %></h2>
+							<p class="text-muted m-b-md">Total Withdrawals</p>
+							<div>
+								<span data-ui-jp="sparkline" data-ui-options="[1,1,0,2,3,4,2,1,2,2], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"><canvas width="60" height="20" style="display: inline-block; width: 60px; height: 20px; vertical-align: top;"></canvas></span>
+							</div>
+						</div>
+					</div>
+		        </div>
+		        <div class="col-xs-6 col-sm-3 b-r b-b">
+					<div class="padding">
+						<div>
+							<span class="pull-right"><i class="fa fa-caret-down text-danger m-y-xs"></i></span>
+							<span class="text-muted l-h-1x"><i class="ion-pie-graph text-muted"></i></span>
+						</div>
+						<div class="text-center">
+							<h2 class="text-center _600"><%= downlines %></h2>
+							<p class="text-muted m-b-md">Total Downlines</p>
+							<div>
+								<span data-ui-jp="sparkline" data-ui-options="[9,2,5,5,7,4,4,3,2,2], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"><canvas width="60" height="20" style="display: inline-block; width: 60px; height: 20px; vertical-align: top;"></canvas></span>
+							</div>
+						</div>
+					</div>
+		        </div>
+		        <div class="col-xs-6 col-sm-3 b-b">
+					<div class="padding">
+						<div>
+							<span class="pull-right"><i class="fa fa-caret-up text-primary m-y-xs"></i></span>
+							<span class="text-muted l-h-1x"><i class="ion-paper-airplane text-muted"></i></span>
+						</div>
+						<div class="text-center">
+							<% var rankImgUrl = "/images/norank.png"; %>
+							<% if (currentUser.rank === "SilverLife 1" || currentUser.rank === "SilverLife 2") { %>
+								<% rankImgUrl = '/images/SilverLife.png'; %>
+							<% } else if (currentUser.rank === "GoldLife 1" || currentUser.rank === "GoldLife 2") {%>
+								<% rankImgUrl = '/images/GoldLife.png'; %>
+							<% } else if (currentUser.rank === "DiamondLife 1" || currentUser.rank === "DiamondLife 2") {%>
+								<% rankImgUrl = '/images/DiamondLife.png'; %>
+							<% } else if (currentUser.rank === "Sapphire 1" || currentUser.rank === "Sapphire 2") { %>
+								<% rankImgUrl = '/images/SapphireLife.png'; %>
+							<% } else if (currentUser.rank === "Emerald 1" || currentUser.rank === "Emerald 2") { %>
+								<% rankImgUrl = '/images/EmeraldLife.png'; %>
+							<% } %>
+							<h2 class="text-center _600"><img width="45" src="<%= rankImgUrl %>"></h2>
+							<p class="text-muted m-b-md"><%= currentUser.rank %></p>
+							<div>
+								<span data-ui-jp="sparkline" data-ui-options="[3,3,1,62,4,3,7,3,2,5], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"><canvas width="60" height="20" style="display: inline-block; width: 60px; height: 20px; vertical-align: top;"></canvas></span>
+							</div>
+						</div>
+					</div>
+		        </div>
+	        </div>
+			<div class="padding">
+				<div class="row">
+				    <div class="col-sm-4">
+				        <div class="box">
+				          <div class="box-header">
+				            <h3>Referral</h3>
+				            <small>A general overview of your referrals</small>
+				          </div>
+				          <div class="box-tool">
+					        <ul class="nav">
+					          <li class="nav-item inline">
+					            <a class="nav-link">
+					              <i class="ion-android-sync m-x-xs"></i>
+					            </a>
+					          </li>
+					          <li class="nav-item inline dropdown">
+					            <a class="nav-link" data-toggle="dropdown">
+					              <i class="ion-android-menu m-x-xs"></i>
+					            </a>
+					            <div class="dropdown-menu dropdown-menu-scale pull-right">
+					              <a class="dropdown-item" href="#">This week</a>
+					              <a class="dropdown-item" href="#">This month</a>
+					              <a class="dropdown-item" href="#">This week</a>
+					              <div class="dropdown-divider"></div>
+					              <a class="dropdown-item">Today</a>
+					            </div>
+					          </li>
+					        </ul>
+					      </div>
+					      	<div><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+				            <canvas data-ui-jp="chart" data-ui-options="
+					            {
+					              type: 'line',
+					              data: {
+					                  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+					                  datasets: [
+					                      {
+					                          label: 'Dataset',
+					                          data: [25, 21, 18, 20, 30, 40, 45],
+					                          fill: true,
+					                          backgroundColor: '#2196f3',
+					                          borderColor: '#2196f3',
+					                          borderWidth: 2,
+					                          borderCapStyle: 'butt',
+					                          borderDash: [],
+					                          borderDashOffset: 0.0,
+					                          borderJoinStyle: 'miter',
+					                          pointBorderColor: '#2196f3',
+					                          pointBackgroundColor: '#fff',
+					                          pointBorderWidth: 2,
+					                          pointHoverRadius: 4,
+					                          pointHoverBackgroundColor: '#2196f3',
+					                          pointHoverBorderColor: '#fff',
+					                          pointHoverBorderWidth: 2,
+					                          pointRadius: [0,4,4,4,4,4,0],
+					                          pointHitRadius: 10,
+					                          spanGaps: false
+					                      }
+					                  ]
+					              },
+					              options: {
+					              	scales: {
+					              		xAxes: [{
+						                   display: false
+						                }],
+						                yAxes: [{
+						                   display: false,
+						                   ticks:{
+						                   	 min: 0,
+						                   	 max: 60
+						               	   }
+						                }]
+					              	},
+					              	legend: {
+					              		display: false
+					              	}
+					              }
+					            }
+					            " height="128" width="257" style="display: block; width: 257px; height: 128px;">
+					            </canvas>
+					      	</div>
+					        <div class="box-body info text-center p-b-md">
+					        	<span class="dark-white rounded m-r p-x p-y-xs text-info"><i class="fa fa-caret-up"></i> 20%</span>
+					        	<span>Over last Month</span>
+					        </div>
+				        </div>
+				    </div>
+				    <div class="col-sm-4">
+				    	<div class="box">
+				          <div class="box-header">
+				            <h3>Withdrawal</h3>
+				            <small>Calculated in last 30 days</small>
+				          </div>
+				          <div class="box-tool">
+					        <ul class="nav">
+					          <li class="nav-item inline">
+					            <a class="nav-link">
+					              <i class="ion-android-sync m-x-xs"></i>
+					            </a>
+					          </li>
+					          <li class="nav-item inline dropdown">
+					            <a class="nav-link" data-toggle="dropdown">
+					              <i class="ion-android-menu m-x-xs"></i>
+					            </a>
+					            <div class="dropdown-menu dropdown-menu-scale pull-right">
+					              <a class="dropdown-item" href="#">This week</a>
+					              <a class="dropdown-item" href="#">This month</a>
+					              <a class="dropdown-item" href="#">This week</a>
+					              <div class="dropdown-divider"></div>
+					              <a class="dropdown-item">Today</a>
+					            </div>
+					          </li>
+					        </ul>
+					      </div>
+					        <div><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+				            <canvas data-ui-jp="chart" data-ui-options="
+					            {
+					              type: 'line',
+					              data: {
+					                  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+					                  datasets: [
+					                      {
+					                          label: 'Dataset',
+					                          data: [63, 57, 40, 25, 20, 22, 26],
+					                          fill: true,
+					                          backgroundColor: '#ef193c',
+					                          borderColor: '#ef193c',
+					                          borderWidth: 2,
+					                          borderCapStyle: 'butt',
+					                          borderDash: [],
+					                          borderDashOffset: 0.0,
+					                          borderJoinStyle: 'miter',
+					                          pointBorderColor: '#ef193c',
+					                          pointBackgroundColor: '#fff',
+					                          pointBorderWidth: 2,
+					                          pointHoverRadius: 4,
+					                          pointHoverBackgroundColor: '#ef193c',
+					                          pointHoverBorderColor: '#fff',
+					                          pointHoverBorderWidth: 2,
+					                          pointRadius: [0,4,4,4,4,4,0],
+					                          pointHitRadius: 10,
+					                          spanGaps: false
+					                      }
+					                  ]
+					              },
+					              options: {
+					              	scales: {
+					              		xAxes: [{
+						                   display: false
+						                }],
+						                yAxes: [{
+						                   display: false,
+						                   ticks:{
+						                   	 min: 0,
+						                   	 max: 100
+						               	   }
+						                }]
+					              	},
+					              	legend: {
+					              		display: false
+					              	}
+					              }
+					            }
+					            " height="128" width="257" style="display: block; width: 257px; height: 128px;">
+					            </canvas>
+					      	</div>
+					        <div class="box-body danger text-center p-b-md">
+					        	<span class="dark-white rounded m-r p-x p-y-xs text-danger"><i class="fa fa-caret-down"></i> 25%</span>
+					        	<span>Over last Month</span>
+					        </div>
+				        </div>
+				    </div>
+				    <div class="col-sm-4">
+				    	<div class="box">
+				          <div class="box-header">
+				            <h3>Deposit</h3>
+				            <small>Calculated in last 7 days</small>
+				          </div>
+				          <div class="box-tool">
+					        <ul class="nav">
+					          <li class="nav-item inline">
+					            <a class="nav-link">
+					              <i class="ion-android-sync m-x-xs"></i>
+					            </a>
+					          </li>
+					          <li class="nav-item inline dropdown">
+					            <a class="nav-link" data-toggle="dropdown">
+					              <i class="ion-android-menu m-x-xs"></i>
+					            </a>
+					            <div class="dropdown-menu dropdown-menu-scale pull-right">
+					              <a class="dropdown-item" href="#">This week</a>
+					              <a class="dropdown-item" href="#">This month</a>
+					              <a class="dropdown-item" href="#">This week</a>
+					              <div class="dropdown-divider"></div>
+					              <a class="dropdown-item">Today</a>
+					            </div>
+					          </li>
+					        </ul>
+					      </div>
+					        <div><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+				            <canvas data-ui-jp="chart" data-ui-options="
+					            {
+					              type: 'line',
+					              data: {
+					                  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+					                  datasets: [
+					                      {
+					                          label: 'Dataset',
+					                          data: [10, 15, 25, 40, 60, 75, 80],
+					                          fill: true,
+					                          backgroundColor: '#22b66e',
+					                          borderColor: '#22b66e',
+					                          borderWidth: 2,
+					                          borderCapStyle: 'butt',
+					                          borderDash: [],
+					                          borderDashOffset: 0.0,
+					                          borderJoinStyle: 'miter',
+					                          pointBorderColor: '#22b66e',
+					                          pointBackgroundColor: '#fff',
+					                          pointBorderWidth: 2,
+					                          pointHoverRadius: 4,
+					                          pointHoverBackgroundColor: '#22b66e',
+					                          pointHoverBorderColor: '#fff',
+					                          pointHoverBorderWidth: 2,
+					                          pointRadius: [0,4,4,4,4,4,0],
+					                          pointHitRadius: 10,
+					                          spanGaps: false
+					                      }
+					                  ]
+					              },
+					              options: {
+					              	scales: {
+					              		xAxes: [{
+						                   display: false
+						                }],
+						                yAxes: [{
+						                   display: false,
+						                   ticks:{
+						                   	 min: 0,
+						                   	 max: 120
+						               	   }
+						                }]
+					              	},
+					              	legend: {
+					              		display: false
+					              	}
+					              }
+					            }
+					            " height="128" width="257" style="display: block; width: 257px; height: 128px;">
+					            </canvas>
+					      	</div>
+					        <div class="box-body success text-center p-b-md">
+					        	<span class="dark-white rounded m-r p-x p-y-xs text-success"><i class="fa fa-caret-up"></i> 85%</span>
+					        	<span>Over last Month</span>
+					        </div>
+				        </div>
+				    </div>
+				</div>
+				<div class="padding">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="box">
+										    <div class="box-header">
+										      <h2>Withdrawal History</h2>
+										      <small>A summary of the most recent withdrawals</small>
+										    </div>
+										    <div>
+										      <table class="table table-hover table-responsive b-t">
+										          <thead>
+										            <tr>
+										              <th>#</th>
+										              <th>Type</th>
+										              <th>Amount</th>
+										              <th>Withdrawer</th>
+										              <th>Status</th>
+										              <th>Date</th>
+										            </tr>
+										          </thead>
+										          <tbody>
+										          	<% var withdrawalCounter = 1, status = "Pending", statusLabel = "warning" %>
+										          	<% latestWithdrawals.forEach(withdrawal => { %>
+																	<% if (withdrawal.approved) { %>
+																	  <% status = "Approved"; statusLabel = "success" %>
+																	<% } %>
+																	<% if (withdrawal.declined) { %>
+																	  <% status = "Declined"; statusLabel = "danger" %>
+																	<% } %>
+																	<tr>
+																	  <td><%= withdrawalCounter %></td>
+																	  <td><%= withdrawal.type %></td>
+																	  <td><%= withdrawal.amount %></td>
+																	  <td><%= currentUser.username %></td>
+																	  <td><span class="label <%= statusLabel %>" title="<%= status %>"><%= status %></span></td>
+																	  <td><%= withdrawal.createdAt.toDateString() %></td>
+																	</tr>
+																	<% withdrawalCounter++ %>
+																<% }); %>
+										          </tbody>
+										        </table>
+										    </div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="box">
+										    <div class="box-header">
+										      <h2>Deposit History</h2>
+										      <small>A summary of the most recent deposits</small>
+										    </div>
+										    <div>
+										      <table class="table table-hover table-responsive b-t">
+										          <thead>
+										            <tr>
+										              <th>#</th>
+										              <th>Amount</th>
+										              <th>Depositor</th>
+										              <th>Bank</th>
+										              <th>Mode</th>
+										              <th>Status</th>
+										              <th>Date</th>
+										            </tr>
+										          </thead>
+										          <tbody>
+										          	<% var depositCounter = 1, status = "Pending", statusLabel = "warning" %>
+										          	<% latestDeposits.forEach(deposit => { %>
+										          	<% if (deposit.approved) { %>
+										          	  <% status = "Approved"; statusLabel = "success" %>
+										          	<% } else { %>
+										          		<% status = "Pending", statusLabel = "warning" %>
+										          	<% } %>
+										          	<% if (deposit.declined) { %>
+																	  <% status = "Declined"; statusLabel = "danger" %>
+																	<% } %>
+										          	<tr>
+										          		<td><%= depositCounter %></td>
+										          		<td><%= deposit.amount %></td>
+										          		<td><%= currentUser.username %></td>
+										          		<td><%= deposit.bank %></td>
+										          		<td><%= deposit.paymentMode %></td>
+										          		<td><span class="label <%= statusLabel %>" title="<%= status %>"><%= status %></span></td>
+										          		<td><%= deposit.createdAt.toDateString() %></td>
+										          	</tr>
+																<% depositCounter++ %>
+										          	<% }); %>
+										          </tbody>
+										        </table>
+										    </div>
+										</div>
+									</div>
+								</div>
+							</div>
+			</div>
+			
+		</div>
+	<!-- Widgets -->
+		<!-- <div class="col-lg w-lg w-auto-md white bg">
+			<div>
+		        <div class="p-a">
+		        	<h6 class="text-muted m-a-0">Activities</h6>
+		        </div>
+		        <div class="streamline streamline-theme m-b">
+		          <div class="sl-item b-success">
+		            <div class="sl-content">
+		              <div>Finished task <a href="#" class="text-info">#features 4</a>.</div>
+		              <div class="sl-date text-muted">Just now</div>
+		            </div>
+		          </div>
+		          <div class="sl-item b-success active">
+		            <div class="sl-content">
+		              <div><a href="#">@Jessi</a> uploaded a file <a href="#" class="text-info">documentation.pdf</a></div>
+		              <div class="sl-date text-muted">11:30</div>
+		            </div>
+		          </div>
+		          <div class="sl-item b-info">
+		            <div class="sl-content">
+		              <div>Call to customer <a href="#" class="text-info">Jacob</a> and discuss the detail.</div>
+		              <div class="sl-date text-muted">10:30</div>
+		            </div>
+		          </div>
+		          <div class="sl-item">
+		            <div class="sl-content">
+		              <div><a href="#" class="text-info">Jessi</a> commented your post.</div>
+		              <div class="sl-date text-muted">3 days ago</div>
+		            </div>
+		          </div>
+		          <div class="sl-item">
+		            <div class="sl-content">
+		              <div><a href="#" class="text-info">Jessi</a> report a issue #2122.</div>
+		              <div class="sl-date text-muted">Thu, 10 Mar</div>
+		            </div>
+		          </div>
+		          <div class="sl-item">
+		            <div class="sl-content">
+		              <div>Prepare for presentation</div>
+		              <div class="sl-date text-muted">Sat, 5 Mar</div>
+		            </div>
+		          </div>
+		        </div>
+	        </div>
+		</div> -->
+	</div>
+<% include ../partials/footer %>

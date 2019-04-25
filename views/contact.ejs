@@ -1,0 +1,143 @@
+<% include ./partials/headerFront %>
+<div class="navbar-collapse collapse" id="navbar">
+                  <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                      <a
+                        href="/"
+                        title="Home"
+                        class="dropdown-toggle"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        >Home</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#about" title="About Us">about Us</a>
+                    </li>
+                    <%# <li>
+                      <a href="#compensation" title="Compensation Plan"
+                        >Compensation Plan</a
+                      >
+                    </li> %>
+                    <li>
+                      <a href="/gallery" title="Gallery">Gallery</a>
+                    </li>
+                    <li>
+                      <a href="#" title="News">News</a>
+                    </li>
+                    <li>
+                      <a href="#" title="Training">Training</a>
+                    </li>
+                    <li class="active">
+                      <a href="/contact" title="Contact">Contact</a>
+                    </li>
+                    <li>
+                      <a href="/auth/login" title="Sign In">Sign in</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+            <div class="col-md-2 book-now">
+              <a href="/auth/register" title="Join Us Now">Join Us Now</a>
+            </div>
+          </div>
+          <!-- Row /- -->
+        </div>
+        <!-- Container /- -->
+      </div>
+      <!-- Menu Block /- -->
+    </header>
+    <!-- Header Section /- -->
+
+	
+	<main class="site-main page-spacing">
+		<!-- Page Banner -->
+		<div class="container-fluid page-banner about-banner">
+			<div class="container">
+				<h3>contact</h3>
+				<ol class="breadcrumb">
+					<li><a href="/">Home</a></li>
+					<li class="active">contact</li>
+				</ol>
+			</div>
+		</div><!-- Page Banner /- -->
+		<!-- Map Section -->
+		<div class="map container-fluid no-padding">
+			<%# <div class="map-canvas" id="map-canvas-contact" data-lat="42.845934" data-lng="-106.386893" data-string="Hoffman Parkway, P.o Box 353 Mountain View. United States of America. " data-zoom="10"></div> %>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.4050908763998!2d3.3534179148224545!3d6.596471724140674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b931566f77a53%3A0x3809003aa50a70a3!2sWinningLife+International!5e0!3m2!1sen!2sng!4v1556161692343!5m2!1sen!2sng" width="1980" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+		</div><!--  Map Section /- -->
+		
+		<!-- Container -->
+		<div class="container" style="margin-top: 30px;">
+			<div class="row">
+				<!-- Contact content -->
+				<div class="col-md-4 col-sm-4 col-xs-12 contact-content">
+					<h4>Have A Question?</h4>
+					<p>You may also call any of our numbers Monday - Friday, 8 a.m. - 6 p.m, or email support@winninglifeinternational.com</p>
+
+<p>Please provide contact information if you are asking a question and would like a response.
+
+Your privacy is important to us.</p>
+					
+				</div><!-- Contact content /- -->
+				<!-- Contact Content -->
+				<div class="col-md-4 col-sm-4 col-xs-12 contact-content">
+					<h4>Leave A Message</h4>
+					<form class="contact-form">
+						<div class="form-group">
+							<input type="text" class="form-control" id="input_name" name="contact-name" placeholder="Full Name" required />
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" id="input_email" name="contact-email" placeholder="Email Address" required />
+						</div>
+						<div class="form-group">
+							<textarea id="textarea_message" class="form-control" rows="5" name="contact-message" placeholder="Type here message" required ></textarea>
+						</div>
+						<div class="form-group">
+							<input id="btn_submit" type="submit" value="Send Message" />
+						</div>
+						<div id="alert-msg" class="alert-msg"></div>
+					</form>
+				</div><!-- Contact Content /- -->
+				<!-- Contact Content -->
+				<div class="col-md-4 col-sm-4 col-xs-12 contact-content">
+					<h4>Contact Details</h4>
+					<div class="contact-detail">
+						<i class="fa fa-map-marker"></i>
+						<h5>Office Address</h5>
+						<p>The WinningLife Center, 3rd Floor, Gabriel Akinmade Taylor Plaza, 2 Allen Avenue, Ikeja, Lagos </p>
+					</div>
+					<div class="contact-detail">
+						<i class="fa fa-phone"></i>
+						<h5>Phone</h5>
+						<p><span>Mobile: <a href="#">+234-906-000-9285</a></span>
+						<%# <span>Local: <a href="#">1-800-123-hello</a></span> %>
+						</p>
+					</div>
+					<div class="contact-detail">
+						<i class="fa fa-envelope"></i>
+						<h5>Email Address</h5>
+						<p><a href="mailto:support@winninglifeinternational.com" title="support@winninglifeinternational.com">support@winninglifeinternational.com</a>
+						<%# <a href="http://www.winninglifeinternational.com" title="www.winninglifeinternational.com">www.winninglifeinternational.com</a> %>
+						</p>
+					</div>
+					<ul>
+						<li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+						<%# <li><a href="#" title="Dribbble"><i class="fa fa-dribbble"></i></a></li> %>
+						<li><a href="#" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+						<li><a href="#" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
+						<li><a href="#" title="Google Plus"><i class="fa fa-google-plus"></i></a></li>
+						<%# <li><a href="#" title="Skype"><i class="fa fa-skype"></i></a></li> %>
+						<li><a href="#" title="Tumblr"><i class="fa fa-tumblr"></i></a></li>
+					</ul>
+				</div><!-- Contact Content /- -->
+			</div>			
+		</div><!-- Container /- -->
+		
+		<div class="section-padding"></div>
+	</main>
+	
+<% include ./partials/footerFront %>

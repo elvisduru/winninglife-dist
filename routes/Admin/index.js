@@ -1,0 +1,109 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _express = require("express");
+
+var _passport = _interopRequireDefault(require("passport"));
+
+var _admins = require("../../controllers/admins");
+
+var _connectEnsureLogin = require("connect-ensure-login");
+
+var _users = _interopRequireDefault(require("./users"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+const router = (0, _express.Router)();
+router.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.path = req.path;
+  res.locals.originPath = req.originalUrl;
+  next();
+});
+router
+  .route("/register")
+  .get((req, res) => res.render("Admin/signup"))
+  .post(_admins.register);
+router
+  .route("/login")
+  .get((req, res) =>
+    res.render("Admin/signin", { message: req.flash("error") })
+  )
+  .post(
+    _passport.default.authenticate("admin", {
+      successReturnToOrRedirect: "/admin/dashboard",
+      failureRedirect: "/admin/login",
+      failureFlash: "Invalid username or password."
+    })
+  );
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+router
+  .route("/dashboard")
+  .get(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.loadDashboard
+  );
+router
+  .route("/deposits")
+  .get(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.loadDeposits
+  );
+router
+  .route("/deposits/:id")
+  .put(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.approveDeposit
+  )
+  .delete(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.declineDeposit
+  );
+router
+  .route("/undodeposit/:id")
+  .put(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.undoApproveDeposit
+  )
+  .delete(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.undoDeclineDeposit
+  );
+router
+  .route("/withdrawals")
+  .get(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.loadWithdrawals
+  );
+router
+  .route("/withdrawals/:id")
+  .put(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.approveWithdrawal
+  )
+  .delete(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.declineWithdrawal
+  );
+router
+  .route("/undowithdrawal/:id")
+  .put(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.undoApproveWithdrawal
+  )
+  .delete(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.undoDeclineWithdrawal
+  );
+router.use("/users", _users.default);
+var _default = router;
+exports.default = _default;

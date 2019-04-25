@@ -1,0 +1,166 @@
+<% include ../partials/header %>
+<style>
+	.btn-reset {
+		background: transparent;
+		padding: 0;
+		border: 0;
+	}
+</style>
+		<div>
+			<div class="row no-gutter">
+				<div class="col-xs-6 col-sm-3 b-r b-b">
+					<div class="padding">
+						<div>
+							<span class="pull-right"><i class="fa fa-caret-up text-primary m-y-xs"></i></span>
+							<span class="text-muted l-h-1x"><i class="ion-ios-grid-view text-muted"></i></span>
+						</div>
+						<div class="text-center">
+							<h2 class="text-center _600"><%= totalUsers %></h2>
+							<p class="text-muted m-b-md">Total Users</p>
+							<div>
+								<span data-ui-jp="sparkline" data-ui-options="[2,3,2,2,1,3,6,3,2,1], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"><canvas width="60" height="20" style="display: inline-block; width: 60px; height: 20px; vertical-align: top;"></canvas></span>
+							</div>
+						</div>
+					</div>
+		        </div>
+		        <div class="col-xs-6 col-sm-3 b-r b-b">
+					<div class="padding">
+						<div>
+							<span class="pull-right"><i class="fa fa-caret-up text-primary m-y-xs"></i></span>
+							<span class="text-muted l-h-1x"><i class="ion-document text-muted"></i></span>
+						</div>
+						<div class="text-center">
+							<h2 class="text-center _600"><%= totalDeposits %></h2>
+							<p class="text-muted m-b-md">Total Deposits</p>
+							<div>
+								<span data-ui-jp="sparkline" data-ui-options="[1,1,0,2,3,4,2,1,2,2], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"><canvas width="60" height="20" style="display: inline-block; width: 60px; height: 20px; vertical-align: top;"></canvas></span>
+							</div>
+						</div>
+					</div>
+		        </div>
+		        <div class="col-xs-6 col-sm-3 b-r b-b">
+					<div class="padding">
+						<div>
+							<span class="pull-right"><i class="fa fa-caret-down text-danger m-y-xs"></i></span>
+							<span class="text-muted l-h-1x"><i class="ion-pie-graph text-muted"></i></span>
+						</div>
+						<div class="text-center">
+							<h2 class="text-center _600"><%= totalWithdrawals %></h2>
+							<p class="text-muted m-b-md">Total Withdrawals</p>
+							<div>
+								<span data-ui-jp="sparkline" data-ui-options="[9,2,5,5,7,4,4,3,2,2], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"><canvas width="60" height="20" style="display: inline-block; width: 60px; height: 20px; vertical-align: top;"></canvas></span>
+							</div>
+						</div>
+					</div>
+		        </div>
+		        <div class="col-xs-6 col-sm-3 b-b">
+					<div class="padding">
+						<div>
+							<span class="pull-right"><i class="fa fa-caret-up text-primary m-y-xs"></i></span>
+							<span class="text-muted l-h-1x"><i class="ion-paper-airplane text-muted"></i></span>
+						</div>
+						<div class="text-center">
+							<h2 class="text-center _600">&#8358; <%= totalInvestments %></h2>
+							<p class="text-muted m-b-md">Total Investments</p>
+							<div>
+								<span data-ui-jp="sparkline" data-ui-options="[3,3,1,62,4,3,7,3,2,5], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"><canvas width="60" height="20" style="display: inline-block; width: 60px; height: 20px; vertical-align: top;"></canvas></span>
+							</div>
+						</div>
+					</div>
+		        </div>
+	        </div>
+			<div class="padding">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="box">
+						    <div class="box-header">
+						      <h2>Withdrawal History</h2>
+						      <small>A summary of the most recent withdrawals</small>
+						    </div>
+						    <div>
+						      <table class="table table-hover table-responsive b-t">
+						          <thead>
+						            <tr>
+						              <th>#</th>
+						              <th>Type</th>
+						              <th>Amount</th>
+						              <th>Withdrawer</th>
+						              <th>Status</th>
+						              <th>Date</th>
+						            </tr>
+						          </thead>
+						          <tbody>
+						          	<% var withdrawalCounter = 1, status = "Pending", statusLabel = "warning" %>
+						          	<% latestWithdrawals.forEach(withdrawal => { %>
+													<% if (withdrawal.approved) { %>
+													  <% status = "Approved"; statusLabel = "success" %>
+													<% } %>
+													<% if (withdrawal.declined) { %>
+													  <% status = "Declined"; statusLabel = "danger" %>
+													<% } %>
+													<tr>
+													  <td><%= withdrawalCounter %></td>
+													  <td><%= withdrawal.type %></td>
+													  <td><%= withdrawal.amount %></td>
+													  <td><%= withdrawal.withdrawer.username %></td>
+													  <td><span class="label <%= statusLabel %>" title="<%= status %>"><%= status %></span></td>
+													  <td><%= withdrawal.createdAt.toDateString() %></td>
+													</tr>
+													<% withdrawalCounter++ %>
+												<% }); %>
+						          </tbody>
+						        </table>
+						    </div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="box">
+						    <div class="box-header">
+						      <h2>Deposit History</h2>
+						      <small>A summary of the most recent deposits</small>
+						    </div>
+						    <div>
+						      <table class="table table-hover table-responsive b-t">
+						          <thead>
+						            <tr>
+						              <th>#</th>
+						              <th>Amount</th>
+						              <th>Depositor</th>
+						              <th>Bank</th>
+						              <th>Mode</th>
+						              <th>Status</th>
+						              <th>Date</th>
+						            </tr>
+						          </thead>
+						          <tbody>
+						          	<% var depositCounter = 1, status = "Pending", statusLabel = "warning" %>
+						          	<% latestDeposits.forEach(deposit => { %>
+						          	<% if (deposit.approved) { %>
+						          	  <% status = "Approved"; statusLabel = "success" %>
+						          	<% } else { %>
+						          		<% status = "Pending", statusLabel = "warning" %>
+						          	<% } %>
+						          	<% if (deposit.declined) { %>
+													  <% status = "Declined"; statusLabel = "danger" %>
+													<% } %>
+						          	<tr>
+						          		<td><%= depositCounter %></td>
+						          		<td><%= deposit.amount %></td>
+						          		<td><%= deposit.depositor.username %></td>
+						          		<td><%= deposit.bank %></td>
+						          		<td><%= deposit.paymentMode %></td>
+						          		<td><span class="label <%= statusLabel %>" title="<%= status %>"><%= status %></span></td>
+						          		<td><%= deposit.createdAt.toDateString() %></td>
+						          	</tr>
+												<% depositCounter++ %>
+						          	<% }); %>
+						          </tbody>
+						        </table>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+<% include ../partials/footer %>

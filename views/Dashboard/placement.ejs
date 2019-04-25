@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<div class="padding">
+	<div class="row">
+		<div class="col-md-6">
+      		<div class="box">
+		        <div class="box-header">
+		          <h2>Placements</h2>
+		          <small>Secure Your Position</small>
+		        </div>
+        		<div class="box-divider m-a-0"></div>
+		        <div class="box-body">
+		          <form role="form" autocomplete="off" data-ui-jp="parsley" id="formplace">
+		          	<p id="result" class="text-info hide"></p>
+		            <div class="form-group">
+		              <label for="exampleInputEmail1">Referral ID</label>
+		              <input type="text" required class="form-control" id="referralid" placeholder="Enter the User ID of the person who referred you to WinningLife">
+		            </div>
+		            <div class="form-group">
+		              <label for="exampleInputPassword1">Placement ID</label>
+		              <input type="text" required class="form-control" id="placementid" placeholder="Enter the User ID of the Account you should be placed under">
+		            </div>
+		            <button type="submit" id="btnsubmit" class="btn warning m-b">Continue? (Not Reversible)</button>
+		          </form>
+		        </div>
+      		</div>
+		</div>
+	</div>
+</div>
+<% include ../partials/footer %>

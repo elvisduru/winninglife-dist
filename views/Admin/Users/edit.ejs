@@ -1,0 +1,178 @@
+<% include ../../partials/header %>
+<div class="row-col m-b-lg">
+  <div class="col-sm-3 col-lg-2 b-r">
+    <div class="p-y">
+      <div class="nav-active-border left b-primary">
+        <ul class="nav nav-sm">
+          <li class="nav-item">
+            <a
+              class="nav-link block active"
+              href="#"
+              data-toggle="tab"
+              data-target="#tab-1"
+              >Profile</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link block"
+              href="#"
+              data-toggle="tab"
+              data-target="#tab-2"
+              >Security</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link block"
+              href="#"
+              data-toggle="tab"
+              data-target="#tab-3"
+              >Status</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9 col-lg-10 light bg">
+    <div class="tab-content pos-rlt">
+      <div class="tab-pane active" id="tab-1">
+        <div class="p-a-md b-b _600">Update User profile</div>
+        <form
+          role="form"
+          action="/admin/users/edit?_method=PUT"
+          method="POST"
+          class="p-a-md col-md-6"
+          id="profileForm"
+        >
+          <div class="form-group">
+            <label>Enter UserID: </label>
+            <input type="text" name="username" class="loadUser" />
+            <button type="button" class="btn btn-sm blue loadUserbtn">
+              Submit
+            </button>
+          </div>
+          <div class="form-group">
+            <label>Full Name</label>
+            <input
+              type="text"
+              name="user[fullname]"
+              id="fullname"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="user[email]"
+              id="email"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input
+              type="tel"
+              name="user[phone]"
+              id="phone"
+              class="form-control"
+            />
+          </div>
+          <div class="p-y">
+            <h6 class="text-muted">Payment Details</h6>
+          </div>
+          <div class="form-group">
+            <label>Bank Name</label>
+            <input
+              type="text"
+              name="user[bankName]"
+              id="bankName"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Bank Account Name</label>
+            <input
+              type="text"
+              name="user[accountName]"
+              id="accountName"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Bank Account Number</label>
+            <input
+              type="text"
+              name="user[accountNumber]"
+              id="accountNumber"
+              class="form-control"
+            />
+          </div>
+          <button type="submit" class="btn btn-info m-t">Update</button>
+        </form>
+      </div>
+      <div class="tab-pane" id="tab-2">
+        <div class="p-a-md b-b _600">Security</div>
+        <div class="p-a-md">
+          <div class="clearfix m-b-lg">
+            <form role="form" class="col-md-6 p-a-0" id="secuityForm">
+              <div class="form-group">
+                <label>Enter UserID: </label>
+                <input type="text" name="username" class="loadUser" />
+                <button type="button" class="btn btn-sm blue">Submit</button>
+              </div>
+              <div class="form-group">
+                <label>Old Password</label>
+                <input type="password" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>New Password</label>
+                <input type="password" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>New Password Again</label>
+                <input type="password" class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-info m-t">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-3">
+        <div class="p-a-md b-b _600">Status</div>
+        <div class="p-a-md">
+          <div class="clearfix m-b-lg">
+            <form
+              role="form"
+              action="/admin/users/status?_method=PUT"
+              method="POST"
+              class="col-md-6 p-a-0"
+              id="statusForm"
+            >
+              <div class="form-group">
+                <label>Enter UserID: </label>
+                <input type="text" name="username" class="loadUser" />
+                <button type="button" class="btn btn-sm blue loadUserbtn">
+                  Submit
+                </button>
+              </div>
+              <p id="currentStatus" class="hide"></p>
+              <div class="form-group">
+                <label>Enable/Disable User</label>
+                <select name="status" required class="form-control">
+                  <option value="">- Please Select -</option>
+                  <option value="enable">Enable</option>
+                  <option value="disable">Disable</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-info m-t">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

@@ -1,0 +1,190 @@
+<% include ../partials/header %>
+<div class="row-col m-b-lg">
+  <div class="col-sm-3 col-lg-2 b-r">
+    <div class="p-y">
+      <div class="nav-active-border left b-primary">
+        <ul class="nav nav-sm">
+          <li class="nav-item">
+            <a
+              class="nav-link block active"
+              href="#"
+              data-toggle="tab"
+              data-target="#tab-1"
+              >Profile</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link block"
+              href="#"
+              data-toggle="tab"
+              data-target="#tab-2"
+              >Next of Kin</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link block"
+              href="#"
+              data-toggle="tab"
+              data-target="#tab-3"
+              >Security</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9 col-lg-10 light bg">
+    <div class="tab-content pos-rlt">
+      <div class="tab-pane active" id="tab-1">
+        <div class="p-a-md b-b _600">Update profile</div>
+        <form
+          role="form"
+          action="profile?_method=PUT"
+          method="POST"
+          class="p-a-md col-md-6"
+        >
+          <div class="form-group">
+            <label>Full Name</label>
+            <input
+              type="text"
+              name="user[fullname]"
+              value="<%= currentUser.fullname %>"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="user[email]"
+              profile
+              value="<%= currentUser.email %>"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input
+              type="tel"
+              name="user[phone]"
+              value="<%= currentUser.phone %>"
+              class="form-control"
+            />
+          </div>
+          <div class="p-y">
+            <h6 class="text-muted">Payment Details</h6>
+          </div>
+          <div class="form-group">
+            <label>Bank Name</label>
+            <input
+              type="text"
+              name="user[bankName]"
+              value="<%= currentUser.bankName %>"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Bank Account Name</label>
+            <input
+              type="text"
+              name="user[accountName]"
+              value="<%= currentUser.accountName %>"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Bank Account Number</label>
+            <input
+              type="text"
+              name="user[accountNumber]"
+              value="<%= currentUser.accountNumber %>"
+              class="form-control"
+            />
+          </div>
+          <button type="submit" class="btn btn-info m-t">Update</button>
+        </form>
+      </div>
+      <div class="tab-pane" id="tab-2">
+        <div class="p-a-md b-b _600">Next of Kin</div>
+        <form
+          role="form"
+          action="profile?_method=PUT"
+          method="POST"
+          class="p-a-md col-md-6"
+        >
+          <div class="form-group">
+            <label>First Name</label>
+            <input
+              name="user[nok_firstname]"
+              value="<%= currentUser.nok_firstname %>"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input
+              name="user[nok_lastname]"
+              value="<%= currentUser.nok_lastname %>"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Relationship</label>
+            <input
+              name="user[nok_relationship]"
+              value="<%= currentUser.nok_relationship %>"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input
+              name="user[nok_phone]"
+              value="<%= currentUser.nok_phone %>"
+              type="tel"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              name="user[nok_email]"
+              value="<%= currentUser.nok_email %>"
+              type="email"
+              class="form-control"
+            />
+          </div>
+          <button type="submit" class="btn btn-info m-t">Update</button>
+        </form>
+      </div>
+      <div class="tab-pane" id="tab-3">
+        <div class="p-a-md b-b _600">Security</div>
+        <div class="p-a-md">
+          <div class="clearfix m-b-lg">
+            <form role="form" class="col-md-6 p-a-0">
+              <div class="form-group">
+                <label>Old Password</label>
+                <input type="password" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>New Password</label>
+                <input type="password" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>New Password Again</label>
+                <input type="password" class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-info m-t">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../partials/footer %>
