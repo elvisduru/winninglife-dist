@@ -197,7 +197,7 @@ async function fetchLevel(num, username) {
       user.rank = "None";
     }
 
-    if (levels.length) {
+    if (user.children == 4) {
       lastCompleteLevel = levels[0];
       for (let i = 1; i < levels.length; i++) {
         if (levels[i] > lastCompleteLevel) {
