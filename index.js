@@ -94,53 +94,53 @@ app.get("/gallery", (req, res) => res.render("gallery"));
 let usersProcessed = 0;
 
 // Recreate and Hash User Password
-_models.User.find({})
-  .then(function(users) {
-    console.log("Started password update task");
-    users.forEach(user => {
-      if (user.password) {
-        user.setPassword(user.password, function() {
-          console.log(`Started with ${user.username}`);
-          user.changePassword(user.password, user.password, function() {
-            console.log(`Changed ${user.username} password`);
-            user.update({ $unset: { password: 1 } }, function() {
-              user.save(function() {
-                usersProcessed++;
-                console.log(usersProcessed);
-              });
-            });
-          });
-        });
-      }
-    });
-  })
-  .catch(err => console.log(err));
-
-// Update Children Field for each user
 // _models.User.find({})
-//   .then(users => {
-//     console.log("Started Children update task");
-//     users.forEach((user, index, arr) => {
-//       if (user.username) {
-//         console.log(`Creating child array for ${user.username}`);
-//         user.children = [];
-//         arr.forEach(arrUser => {
-//           if (arrUser.parent) {
-//             if (arrUser.parent.toUpperCase() === user.username.toUpperCase()) {
-//               user.children.push(arrUser.username);
-//             }
-//           }
-//         });
-//         user.save((err, savedUser) => {
-//           if (err) console.log(err);
-//           console.log(`added users to child array for ${savedUser.username}`);
-//           usersProcessed++;
-//           console.log(usersProcessed);
+//   .then(function(users) {
+//     console.log("Started password update task");
+//     users.forEach(user => {
+//       if (user.password) {
+//         user.setPassword(user.password, function() {
+//           console.log(`Started with ${user.username}`);
+//           user.changePassword(user.password, user.password, function() {
+//             console.log(`Changed ${user.username} password`);
+//             user.update({ $unset: { password: 1 } }, function() {
+//               user.save(function() {
+//                 usersProcessed++;
+//                 console.log(usersProcessed);
+//               });
+//             });
+//           });
 //         });
 //       }
 //     });
 //   })
 //   .catch(err => console.log(err));
+
+// Update Children Field for each user
+_models.User.find({})
+  .then(users => {
+    console.log("Started Children update task");
+    users.forEach((user, index, arr) => {
+      if (user.username) {
+        console.log(`Creating child array for ${user.username}`);
+        user.children = [];
+        arr.forEach(arrUser => {
+          if (arrUser.parent) {
+            if (arrUser.parent === user.username) {
+              user.children.push(arrUser.username);
+            }
+          }
+        });
+        user.save((err, savedUser) => {
+          if (err) console.log(err);
+          console.log(`added users to child array for ${savedUser.username}`);
+          usersProcessed++;
+          console.log(usersProcessed);
+        });
+      }
+    });
+  })
+  .catch(err => console.log(err));
 
 // update all users parents to capital
 // (async function capitalizeParent() {
