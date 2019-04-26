@@ -91,30 +91,30 @@ if (environment == "production") {
 app.get("/", (req, res) => res.render("index"));
 app.get("/contact", (req, res) => res.render("contact"));
 app.get("/gallery", (req, res) => res.render("gallery"));
-// let usersProcessed = 0;
+let usersProcessed = 0;
 
 // Recreate and Hash User Password
-// _models.User.find({})
-//   .then(function(users) {
-//     console.log("Started password update task");
-//     users.forEach(user => {
-//       if (user.password) {
-//         user.setPassword(user.password, function() {
-//           console.log(`Started with ${user.username}`);
-//           user.changePassword(user.password, user.password, function() {
-//             console.log(`Changed ${user.username} password`);
-//             user.update({ $unset: { password: 1 } }, function() {
-//               user.save(function() {
-//                 usersProcessed++;
-//                 console.log(usersProcessed);
-//               });
-//             });
-//           });
-//         });
-//       }
-//     });
-//   })
-//   .catch(err => console.log(err));
+_models.User.find({})
+  .then(function(users) {
+    console.log("Started password update task");
+    users.forEach(user => {
+      if (user.password) {
+        user.setPassword(user.password, function() {
+          console.log(`Started with ${user.username}`);
+          user.changePassword(user.password, user.password, function() {
+            console.log(`Changed ${user.username} password`);
+            user.update({ $unset: { password: 1 } }, function() {
+              user.save(function() {
+                usersProcessed++;
+                console.log(usersProcessed);
+              });
+            });
+          });
+        });
+      }
+    });
+  })
+  .catch(err => console.log(err));
 
 // Update Children Field for each user
 // _models.User.find({})
