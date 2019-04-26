@@ -44,7 +44,7 @@ router
   );
 router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/");
+  res.redirect("/admin/login");
 });
 router
   .route("/dashboard")
