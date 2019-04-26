@@ -235,6 +235,11 @@ async function fetchLevel(num, username) {
       //   user.rank = "SapphireLife 1";
       // }
 
+      if (!lastCompleteLevel && user.children.length === 4) {
+        user.nextlevel = 2;
+        user.rank = "SilverLife";
+      }
+
       if (levels[0] === 4) {
         user.nextlevel = 2;
         user.rank = "SilverLife";
