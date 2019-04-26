@@ -264,27 +264,36 @@ async function fetchLevel(num, username) {
         user.rank = "SilverLife";
       }
 
-      if (levels[1] === 16 && levels[2] < 64) {
+      if ((levels[1] === 16 && levels[2] < 64) || lastCompleteLevel === 16) {
         user.nextlevel = 3;
         user.rank = "GoldLife 1";
       }
 
-      if (levels[2] === 64 && levels[3] < 256) {
+      if ((levels[2] === 64 && levels[3] < 256) || lastCompleteLevel === 64) {
         user.nextlevel = 4;
         user.rank = "GoldLife 2";
       }
 
-      if (levels[3] === 256 && levels[4] < 1024) {
+      if (
+        (levels[3] === 256 && levels[4] < 1024) ||
+        lastCompleteLevel === 256
+      ) {
         user.nextlevel = 5;
         user.rank = "DiamondLife 1";
       }
 
-      if (levels[4] === 1024 && levels[5] < 4096) {
+      if (
+        (levels[4] === 1024 && levels[5] < 4096) ||
+        lastCompleteLevel === 1024
+      ) {
         user.nextlevel = 6;
         user.rank = "DiamondLife 2";
       }
 
-      if (levels[5] === 4096 && levels[6] < 16384) {
+      if (
+        (levels[5] === 4096 && levels[6] < 16384) ||
+        lastCompleteLevel === 4096
+      ) {
         user.nextlevel = 7;
         user.rank = "SapphireLife 1";
       }
