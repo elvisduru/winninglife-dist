@@ -966,6 +966,7 @@ async function userMatrix(req, res) {
 
       return finalUser;
     });
+    console.log(finalMatrix);
     res.send(finalMatrix);
   } catch (err) {
     // console.log(err);

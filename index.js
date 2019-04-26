@@ -142,6 +142,22 @@ let usersProcessed = 0;
 //   })
 //   .catch(err => console.log(err));
 
+// update all users parents to capital
+(async function capitalizeParent() {
+  const users = await _models.User.find({});
+
+  users.forEach(async user => {
+    if (user.parent) {
+      user.parent = user.parent.toUpperCase();
+      await user.save(
+        await function() {
+          console.log("parent updated");
+        }
+      );
+    }
+  });
+})();
+
 // Rank Update Task
 // async function fetchLevel(num, username) {
 //   let levelSum = await _models.User.aggregate()
