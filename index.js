@@ -240,11 +240,6 @@ async function fetchLevel(num, username) {
         user.rank = "SilverLife";
       }
 
-      if (levels[0] === 4) {
-        user.nextlevel = 2;
-        user.rank = "SilverLife";
-      }
-
       if (levels[0] === 4 && levels[1] < 16) {
         user.nextlevel = 2;
         user.rank = "SilverLife";
