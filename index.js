@@ -91,7 +91,7 @@ if (environment == "production") {
 app.get("/", (req, res) => res.render("index"));
 app.get("/contact", (req, res) => res.render("contact"));
 app.get("/gallery", (req, res) => res.render("gallery"));
-let usersProcessed = 0;
+// let usersProcessed = 0;
 
 // Recreate and Hash User Password
 // _models.User.find({})
@@ -159,146 +159,146 @@ let usersProcessed = 0;
 // })();
 
 // Rank Update Task
-async function fetchLevel(num, username) {
-  let levelSum = await _models.User.aggregate()
-    .match({
-      username: username
-    })
-    .graphLookup({
-      from: "users",
-      startWith: "$username",
-      connectFromField: "username",
-      connectToField: "parent",
-      depthField: "depth",
-      as: "descendants"
-    })
-    .unwind("$descendants")
-    .match({
-      "descendants.depth": num
-    })
-    .group({
-      _id: null,
-      count: {
-        $sum: 1
-      }
-    });
+// async function fetchLevel(num, username) {
+//   let levelSum = await _models.User.aggregate()
+//     .match({
+//       username: username
+//     })
+//     .graphLookup({
+//       from: "users",
+//       startWith: "$username",
+//       connectFromField: "username",
+//       connectToField: "parent",
+//       depthField: "depth",
+//       as: "descendants"
+//     })
+//     .unwind("$descendants")
+//     .match({
+//       "descendants.depth": num
+//     })
+//     .group({
+//       _id: null,
+//       count: {
+//         $sum: 1
+//       }
+//     });
 
-  return levelSum[0];
-}
+//   return levelSum[0];
+// }
 
 // // // // Rank Update Task
-(async function() {
-  console.log("Started Rank Level Update Task");
-  const users = await _models.User.find({});
+// (async function() {
+//   console.log("Started Rank Level Update Task");
+//   const users = await _models.User.find({});
 
-  users.forEach(async user => {
-    let emptyLevel = false;
-    let levels = [];
-    let levelsProcessed = 0;
-    let lastCompleteLevel;
+//   users.forEach(async user => {
+//     let emptyLevel = false;
+//     let levels = [];
+//     let levelsProcessed = 0;
+//     let lastCompleteLevel;
 
-    while (!emptyLevel) {
-      const level = await fetchLevel(levelsProcessed, user.username);
-      if (level === undefined) {
-        levelsProcessed = 0;
-        emptyLevel = true;
-      } else {
-        levels.push(level.count);
-        levelsProcessed++;
-      }
-    }
+//     while (!emptyLevel) {
+//       const level = await fetchLevel(levelsProcessed, user.username);
+//       if (level === undefined) {
+//         levelsProcessed = 0;
+//         emptyLevel = true;
+//       } else {
+//         levels.push(level.count);
+//         levelsProcessed++;
+//       }
+//     }
 
-    if (user.children.length < 4) {
-      user.nextlevel = 1;
-      user.rank = "None";
-    }
+//     if (user.children.length < 4) {
+//       user.nextlevel = 1;
+//       user.rank = "None";
+//     }
 
-    if (user.children.length === 4) {
-      lastCompleteLevel = levels[0];
-      for (let i = 1; i < levels.length; i++) {
-        if (levels[i] > lastCompleteLevel) {
-          lastCompleteLevel = levels[i];
-        }
-      }
+//     if (user.children.length === 4) {
+//       lastCompleteLevel = levels[0];
+//       for (let i = 1; i < levels.length; i++) {
+//         if (levels[i] > lastCompleteLevel) {
+//           lastCompleteLevel = levels[i];
+//         }
+//       }
 
-      // if (lastCompleteLevel === 4) {
-      //   user.nextlevel = 2;
-      //   user.rank = "SilverLife";
-      // }
+//       // if (lastCompleteLevel === 4) {
+//       //   user.nextlevel = 2;
+//       //   user.rank = "SilverLife";
+//       // }
 
-      // if (lastCompleteLevel === 16) {
-      //   user.nextlevel = 3;
-      //   user.rank = "GoldLife 1";
-      // }
+//       // if (lastCompleteLevel === 16) {
+//       //   user.nextlevel = 3;
+//       //   user.rank = "GoldLife 1";
+//       // }
 
-      // if (lastCompleteLevel === 64) {
-      //   user.nextlevel = 4;
-      //   user.rank = "GoldLife 2";
-      // }
+//       // if (lastCompleteLevel === 64) {
+//       //   user.nextlevel = 4;
+//       //   user.rank = "GoldLife 2";
+//       // }
 
-      // if (lastCompleteLevel === 256) {
-      //   user.nextlevel = 5;
-      //   user.rank = "DiamondLife 1";
-      // }
+//       // if (lastCompleteLevel === 256) {
+//       //   user.nextlevel = 5;
+//       //   user.rank = "DiamondLife 1";
+//       // }
 
-      // if (lastCompleteLevel === 1024) {
-      //   user.nextlevel = 6;
-      //   user.rank = "DiamondLife 2";
-      // }
+//       // if (lastCompleteLevel === 1024) {
+//       //   user.nextlevel = 6;
+//       //   user.rank = "DiamondLife 2";
+//       // }
 
-      // if (lastCompleteLevel === 4096) {
-      //   user.nextlevel = 7;
-      //   user.rank = "SapphireLife 1";
-      // }
+//       // if (lastCompleteLevel === 4096) {
+//       //   user.nextlevel = 7;
+//       //   user.rank = "SapphireLife 1";
+//       // }
 
-      // if (!lastCompleteLevel && user.children.length === 4) {
-      //   user.nextlevel = 2;
-      //   user.rank = "SilverLife";
-      // }
+//       // if (!lastCompleteLevel && user.children.length === 4) {
+//       //   user.nextlevel = 2;
+//       //   user.rank = "SilverLife";
+//       // }
 
-      if (
-        (levels[0] === 4 && levels[1] < 16) ||
-        (levels[0] === 4 && levels.length === 1)
-      ) {
-        user.nextlevel = 2;
-        user.rank = "SilverLife";
-      }
+//       if (
+//         (levels[0] === 4 && levels[1] < 16) ||
+//         (levels[0] === 4 && levels.length === 1)
+//       ) {
+//         user.nextlevel = 2;
+//         user.rank = "SilverLife";
+//       }
 
-      if (levels[1] === 16 && levels[2] < 64 && levels.length >= 2) {
-        user.nextlevel = 3;
-        user.rank = "GoldLife 1";
-      }
+//       if (levels[1] === 16 && levels[2] < 64 && levels.length >= 2) {
+//         user.nextlevel = 3;
+//         user.rank = "GoldLife 1";
+//       }
 
-      if (levels[2] === 64 && levels[3] < 256 && levels.length >= 3) {
-        user.nextlevel = 4;
-        user.rank = "GoldLife 2";
-      }
+//       if (levels[2] === 64 && levels[3] < 256 && levels.length >= 3) {
+//         user.nextlevel = 4;
+//         user.rank = "GoldLife 2";
+//       }
 
-      if (levels[3] === 256 && levels[4] < 1024 && levels.length >= 4) {
-        user.nextlevel = 5;
-        user.rank = "DiamondLife 1";
-      }
+//       if (levels[3] === 256 && levels[4] < 1024 && levels.length >= 4) {
+//         user.nextlevel = 5;
+//         user.rank = "DiamondLife 1";
+//       }
 
-      if (levels[4] === 1024 && levels[5] < 4096 && levels.length >= 5) {
-        user.nextlevel = 6;
-        user.rank = "DiamondLife 2";
-      }
+//       if (levels[4] === 1024 && levels[5] < 4096 && levels.length >= 5) {
+//         user.nextlevel = 6;
+//         user.rank = "DiamondLife 2";
+//       }
 
-      if (levels[5] === 4096 && levels[6] < 16384 && levels.length >= 6) {
-        user.nextlevel = 7;
-        user.rank = "SapphireLife 1";
-      }
-      console.log(
-        `Processed user: ${user.username}, max: ${lastCompleteLevel}`
-      );
-    } else {
-      console.log(`Processed user: ${user.username}, None`);
-    }
+//       if (levels[5] === 4096 && levels[6] < 16384 && levels.length >= 6) {
+//         user.nextlevel = 7;
+//         user.rank = "SapphireLife 1";
+//       }
+//       console.log(
+//         `Processed user: ${user.username}, max: ${lastCompleteLevel}`
+//       );
+//     } else {
+//       console.log(`Processed user: ${user.username}, None`);
+//     }
 
-    await user.save();
-  });
-  console.log("Rank Level Update Task Completed");
-})();
+//     await user.save();
+//   });
+//   console.log("Rank Level Update Task Completed");
+// })();
 
 app.use("/auth", _auth.default);
 app.use("/user", _User.default);

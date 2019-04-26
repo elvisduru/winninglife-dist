@@ -347,7 +347,7 @@ async function graphUser(req, res) {
         }
       }
       console.log(levels, lastCompleteLevel);
-      if (lastCompleteLevel === 16 && req.user.nextlevel === 2) {
+      if (levels[1] === 16 && req.user.nextlevel === 2) {
         req.user.rank = "GoldLife 1";
         req.user.earnings.cash += 30000;
         req.user.earnings.food += 10000;
@@ -365,7 +365,7 @@ async function graphUser(req, res) {
         await rankEarning.save();
       }
 
-      if (lastCompleteLevel === 64 && req.user.nextlevel === 3) {
+      if (levels[2] === 64 && req.user.nextlevel === 3) {
         req.user.rank = "GoldLife 2";
         req.user.earnings.cash += 60000;
         req.user.earnings.food += 12000;
@@ -383,7 +383,7 @@ async function graphUser(req, res) {
         await rankEarning.save();
       }
 
-      if (lastCompleteLevel === 256 && req.user.nextlevel === 4) {
+      if (levels[3] === 256 && req.user.nextlevel === 4) {
         req.user.rank = "DiamondLife 1";
         req.user.earnings.cash += 120000;
         req.user.earnings.food += 30000;
@@ -401,7 +401,7 @@ async function graphUser(req, res) {
         await rankEarning.save();
       }
 
-      if (lastCompleteLevel === 1024 && req.user.nextlevel === 5) {
+      if (levels[4] === 1024 && req.user.nextlevel === 5) {
         req.user.rank = "DiamondLife 2";
         req.user.earnings.cash += 250000;
         req.user.earnings.food += 50000;
@@ -419,7 +419,7 @@ async function graphUser(req, res) {
         await rankEarning.save();
       } // TODO: Monthly increment of Food Bonus
 
-      if (lastCompleteLevel === 4096 && req.user.nextlevel === 6) {
+      if (levels[5] === 4096 && req.user.nextlevel === 6) {
         req.user.rank = "SapphireLife 1";
         req.user.earnings.cash += 350000;
         req.user.earnings.food += 250000;
@@ -437,7 +437,7 @@ async function graphUser(req, res) {
         await rankEarning.save();
       } // TODO: Monthly appreciation bonus of 100000 for 5 months
 
-      if (lastCompleteLevel === 16384 && req.user.nextlevel === 7) {
+      if (levels[6] === 16384 && req.user.nextlevel === 7) {
         req.user.rank = "SapphireLife 2";
         req.user.earnings.cash += 1000000;
         req.user.earnings.food += 500000;
@@ -455,7 +455,7 @@ async function graphUser(req, res) {
         await rankEarning.save();
       }
 
-      if (lastCompleteLevel === 65536 && req.user.nextlevel === 8) {
+      if (levels[7] === 65536 && req.user.nextlevel === 8) {
         req.user.rank = "EmeraldLife 1";
         req.user.earnings.cash += 1000000;
         req.user.earnings.car += 4500000;
@@ -895,6 +895,7 @@ async function userMatrix(req, res) {
         rank: 1,
         children: 1,
         username: 1,
+        fullname: 1,
         _id: 0
       });
     const rootUserArr = await _models.User.aggregate()
@@ -905,6 +906,7 @@ async function userMatrix(req, res) {
         rank: 1,
         username: 1,
         children: 1,
+        fullname: 1,
         _id: 0
       });
     const rootUser = rootUserArr[0];
@@ -923,14 +925,16 @@ async function userMatrix(req, res) {
     rootUser.image = image;
     rootUser.text = {
       name: rootUser.username,
-      rank: rootUser.rank
+      rank: rootUser.rank,
+      firstName: rootUser.fullname.substring(0, str.indexOf(" "))
     };
     rootUser.collapsed = true;
     const transformedMatrix = matrix.map((user, index, arr) => {
       var newUser = user;
       newUser.text = {
         name: newUser.username,
-        rank: newUser.rank
+        rank: newUser.rank,
+        firstName: newUser.fullname.substring(0, str.indexOf(" "))
       };
       if (newUser.rank.startsWith("SilverLife"))
         image = "/images/SilverLife.png";
