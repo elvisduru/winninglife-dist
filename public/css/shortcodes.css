@@ -47,6 +47,7 @@
 .slider-section {
   position: relative;
 }
+
 .slider-section .carousel-caption {
   bottom: auto;
   top: 50%;
@@ -67,6 +68,13 @@
   position: relative;
   font-weight: 400;
 }
+
+@media screen and (min-width: 800px) {
+  .slider-section .carousel-caption {
+    top: 59%;
+  }
+}
+
 .slider-section .carousel-caption h6 {
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
@@ -1679,10 +1687,15 @@
 }
 .event-box {
   background-color: #fff;
-  padding: 38px;
+  /* padding: 38px; */
   display: inline-block;
-  width: 100%;
+  width: 300px;
 }
+
+.event-box img {
+  width: 300px;
+}
+
 .event-box h3 {
   margin-top: 0;
   font-size: 18px;
@@ -3483,6 +3496,7 @@
   }
   .event-tabs ul li a h5 {
     width: 60px;
+    font-size: 23px;
   }
   .event-tabs ul li a h3 {
     font-size: 16px;
