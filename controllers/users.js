@@ -792,13 +792,7 @@ async function withdrawRankEarning(req, res) {
       throw "Error: You have no Rank Earnings";
     }
 
-    const {
-      amount,
-      convertedFood,
-      convertedCar,
-      convertedSuv,
-      convertedScholarship
-    } = req.body;
+    const { amount } = req.body;
 
     if (amount === 0) {
       throw "Error: Nothing to withdraw";
@@ -807,11 +801,7 @@ async function withdrawRankEarning(req, res) {
     const withdraw = new _models.Withdraw({
       type: "rank",
       withdrawer: req.user.id,
-      amount,
-      convertedFood,
-      convertedCar,
-      convertedSuv,
-      convertedScholarship
+      amount
     });
     await withdraw.save(); // Deduct earnings
 
@@ -820,54 +810,13 @@ async function withdrawRankEarning(req, res) {
         _id: req.user.id
       },
       {
-        "earnings.cash": 0
+        "earnings.cash": 0,
+        "earnings.food": 0,
+        "earnings.car": 0,
+        "earnings.suv": 0,
+        "earnings.scholarship": 0
       }
     );
-
-    if (convertedFood === "true") {
-      await _models.User.update(
-        {
-          _id: req.user.id
-        },
-        {
-          "earnings.food": 0
-        }
-      );
-    }
-
-    if (convertedCar === "true") {
-      await _models.User.update(
-        {
-          _id: req.user.id
-        },
-        {
-          "earnings.car": 0
-        }
-      );
-    }
-
-    if (convertedSuv === "true") {
-      await _models.User.update(
-        {
-          _id: req.user.id
-        },
-        {
-          "earnings.suv": 0
-        }
-      );
-    }
-
-    if (convertedScholarship === "true") {
-      await _models.User.update(
-        {
-          _id: req.user.id
-        },
-        {
-          "earnings.scholarship": 0
-        }
-      );
-    }
-
     res.send("Transaction Successful");
   } catch (err) {
     res.send(err);
@@ -972,7 +921,7 @@ async function userMatrix(req, res) {
     });
     res.send(finalMatrix);
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     res.send(err);
   }
 }
