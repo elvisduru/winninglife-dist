@@ -185,7 +185,7 @@
         $newCarEarning +
         $newSuvEarning +
         $newScholarshipEarning;
-      console.log($realTotalAmount);
+      console.log($realTotalAmount, +$("#cashEarning").val());
       $totalAmount.val($realTotalAmount);
 
       // let convertedFood = false;
