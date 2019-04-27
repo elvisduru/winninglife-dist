@@ -180,55 +180,63 @@
       const $newSuvEarning = $suvEarning - $suvEarning * 0.075;
       const $newScholarshipEarning =
         $scholarshipEarning - $scholarshipEarning * 0.075;
-      let convertedFood = false;
-      let convertedCar = false;
-      let convertedSuv = false;
-      let convertedScholarship = false;
+      const $realTotalAmount =
+        $newFoodEarning +
+        $newCarEarning +
+        $newSuvEarning +
+        $newScholarshipEarning;
+
+      $totalAmount.val($realTotalAmount);
+
+      // let convertedFood = false;
+      // let convertedCar = false;
+      // let convertedSuv = false;
+      // let convertedScholarship = false;
       $("#foodTrigger").click(function() {
         if ($(this).is(":checked")) {
           $("#foodEarning").val($newFoodEarning);
-          $totalAmount.val(+$totalAmount.val() + $newFoodEarning);
-          convertedFood = true;
+          // $totalAmount.val(+$totalAmount.val() + $newFoodEarning);
+          // convertedFood = true;
         } else if ($(this).is(":not(:checked)")) {
           $("#foodEarning").val($foodEarning);
-          $totalAmount.val(+$totalAmount.val() - $newFoodEarning);
-          convertedFood = false;
+          // $totalAmount.val(+$totalAmount.val() - $newFoodEarning);
+          // convertedFood = false;
         }
       });
 
       $("#carTrigger").click(function() {
         if ($(this).is(":checked")) {
           $("#carEarning").val($newCarEarning);
-          $totalAmount.val(+$totalAmount.val() + $newCarEarning);
-          convertedCar = true;
+          // $totalAmount.val(+$totalAmount.val() + $newCarEarning);
+          // convertedCar = true;
         } else if ($(this).is(":not(:checked)")) {
           $("#carEarning").val($carEarning);
-          $totalAmount.val(+$totalAmount.val() - $newCarEarning);
-          convertedCar = false;
+          // $totalAmount.val(+$totalAmount.val() - $newCarEarning);
+          // convertedCar = false;
         }
       });
 
       $("#suvTrigger").click(function() {
         if ($(this).is(":checked")) {
           $("#suvEarning").val($newSuvEarning);
-          $totalAmount.val(+$totalAmount.val() + $newSuvEarning);
-          convertedSuv = true;
+          // $totalAmount.val(+$totalAmount.val() + $newSuvEarning);
+          // convertedSuv = true;
         } else if ($(this).is(":not(:checked)")) {
           $("#suvEarning").val($suvEarning);
-          $totalAmount.val(+$totalAmount.val() - $newSuvEarning);
-          convertedSuv = false;
+          // $totalAmount.val(+$totalAmount.val() - $newSuvEarning);
+          // convertedSuv = false;
         }
       });
 
       $("#scholarshipTrigger").click(function() {
         if ($(this).is(":checked")) {
           $("#scholarshipEarning").val($newScholarshipEarning);
-          $totalAmount.val(+$totalAmount.val() + $newScholarshipEarning);
-          convertedScholarship = true;
+          // $totalAmount.val(+$totalAmount.val() + $newScholarshipEarning);
+          // convertedScholarship = true;
         } else if ($(this).is(":not(:checked)")) {
           $("#scholarshipEarning").val($scholarshipEarning);
-          $totalAmount.val(+$totalAmount.val() - $newScholarshipEarning);
-          convertedScholarship = false;
+          // $totalAmount.val(+$totalAmount.val() - $newScholarshipEarning);
+          // convertedScholarship = false;
         }
       });
 
@@ -264,53 +272,58 @@
 
       $("#rankEarningWithdrawBtn").click(function() {
         $("#rankEarningModal #withdrawInfo").html(
-          `Are you sure to withdraw &#8358; ${$totalAmount.val()}?`
+          `Are you sure to withdraw &#8358; ${$realTotalAmount}?`
         );
       });
 
       $("#rankEarningModal .yes").click(function() {
+        // $.post("/user/wallet/withdrawal/rank", {
+        //   amount: $totalAmount.val(),
+        //   convertedFood,
+        //   convertedCar,
+        //   convertedSuv,
+        //   convertedScholarship
+        // })
         $.post("/user/wallet/withdrawal/rank", {
-          amount: $totalAmount.val(),
-          convertedFood,
-          convertedCar,
-          convertedSuv,
-          convertedScholarship
+          amount: $realTotalAmount
         })
           .done(data => {
             const $result = $("#rankResult");
             if (data.startsWith("Error")) {
               $result.removeClass("text-info").addClass("text-danger");
             } else {
-              var finalAmt = $totalAmount.val();
-              $(".currentUserEarnings").text(
-                +$(".currentUserEarnings").text() - +$("#cashEarning").val()
-              );
+              // var finalAmt = $totalAmount.val();
+              $(".currentUserEarnings").text(0);
               $totalAmount.val(0);
               $("#cashEarning").val(0);
-              if (convertedFood) {
-                $(".currentUserEarnings").text(
-                  +$(".currentUserEarnings").text() - $foodEarning
-                );
-                $("#foodEarning").val(0);
-              }
-              if (convertedCar) {
-                $(".currentUserEarnings").text(
-                  +$(".currentUserEarnings").text() - $carEarning
-                );
-                $("#carEarning").val(0);
-              }
-              if (convertedSuv) {
-                $(".currentUserEarnings").text(
-                  +$(".currentUserEarnings").text() - $suvEarning
-                );
-                $("#suvEarning").val(0);
-              }
-              if (convertedScholarship) {
-                $(".currentUserEarnings").text(
-                  +$(".currentUserEarnings").text() - $scholarshipEarning
-                );
-                $("#scholarshipEarning").val(0);
-              }
+              $("#foodEarning").val(0);
+              $("#carEarning").val(0);
+              $("#suvEarning").val(0);
+              $("#scholarshipEarning").val(0);
+              // if (convertedFood) {
+              //   $(".currentUserEarnings").text(
+              //     +$(".currentUserEarnings").text() - $foodEarning
+              //   );
+              //   $("#foodEarning").val(0);
+              // }
+              // if (convertedCar) {
+              //   $(".currentUserEarnings").text(
+              //     +$(".currentUserEarnings").text() - $carEarning
+              //   );
+              //   $("#carEarning").val(0);
+              // }
+              // if (convertedSuv) {
+              //   $(".currentUserEarnings").text(
+              //     +$(".currentUserEarnings").text() - $suvEarning
+              //   );
+              //   $("#suvEarning").val(0);
+              // }
+              // if (convertedScholarship) {
+              //   $(".currentUserEarnings").text(
+              //     +$(".currentUserEarnings").text() - $scholarshipEarning
+              //   );
+              //   $("#scholarshipEarning").val(0);
+              // }
               $result.addClass("text-info").removeClass("text-danger");
 
               // Prepend to history table
@@ -319,7 +332,7 @@
                     <tr class="cyan">
                       <td>new</td>
                       <td>Rank</td>
-                      <td>${finalAmt}</td>
+                      <td>${$realTotalAmount}</td>
                       <td><span class="label warning" title="Pending">Pending</span></td>
                       <td>${moment(date).fromNow()}</td>
                     </tr>
