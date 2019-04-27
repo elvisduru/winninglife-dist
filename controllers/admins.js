@@ -405,38 +405,40 @@ async function userMatrix(req, res) {
     const rootUser = rootUserArr[0];
     var image = "";
     if (rootUser.rank.startsWith("SilverLife"))
-      image = "/images/silverrank.png";
+      image = "/images/SilverLife.png";
     else if (rootUser.rank.startsWith("GoldLife"))
-      image = "/images/goldrank.png";
+      image = "/images/GoldLife.png";
     else if (rootUser.rank.startsWith("EmeraldLife"))
-      image = "/images/emeraldrank.png";
+      image = "/images/EmeraldLife.png";
     else if (rootUser.rank.startsWith("SapphireLife"))
-      image = "/images/sapphirerank.png";
+      image = "/images/SapphireLife.png";
     else if (rootUser.rank.startsWith("DiamondLife"))
-      image = "/images/diamondrank.png";
+      image = "/images/DiamondLife.png";
     else image = "/images/norank.png";
     rootUser.image = image;
     rootUser.text = {
       name: rootUser.username,
-      rank: rootUser.rank
+      rank: rootUser.rank,
+      firstName: rootUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
     };
     rootUser.collapsed = true;
     const transformedMatrix = matrix.map((user, index, arr) => {
       var newUser = user;
       newUser.text = {
         name: newUser.username,
-        rank: newUser.rank
+        rank: newUser.rank,
+        firstName: newUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
       };
       if (newUser.rank.startsWith("SilverLife"))
-        image = "/images/silverrank.png";
+        image = "/images/SilverLife.png";
       else if (newUser.rank.startsWith("GoldLife"))
-        image = "/images/goldrank.png";
+        image = "/images/GoldLife.png";
       else if (newUser.rank.startsWith("EmeraldLife"))
-        image = "/images/emeraldrank.png";
+        image = "/images/EmeraldLife.png";
       else if (newUser.rank.startsWith("SapphireLife"))
-        image = "/images/sapphirerank.png";
+        image = "/images/SapphireLife.png";
       else if (newUser.rank.startsWith("DiamondLife"))
-        image = "/images/diamondrank.png";
+        image = "/images/DiamondLife.png";
       else image = "/images/norank.png";
       newUser.image = image;
       return newUser;
