@@ -180,8 +180,9 @@
       const $newSuvEarning = $suvEarning - $suvEarning * 0.075;
       const $newScholarshipEarning =
         $scholarshipEarning - $scholarshipEarning * 0.075;
-      const $realTotalAmount = +$("#cashEarning").val();
-      $newFoodEarning +
+      const $realTotalAmount =
+        +$("#cashEarning").val() +
+        $newFoodEarning +
         $newCarEarning +
         $newSuvEarning +
         $newScholarshipEarning;
