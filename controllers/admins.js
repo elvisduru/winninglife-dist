@@ -419,7 +419,9 @@ async function userMatrix(req, res) {
     rootUser.text = {
       name: rootUser.username,
       rank: rootUser.rank,
-      firstName: rootUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
+      firstName: rootUser.fullname
+        ? rootUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
+        : null
     };
     rootUser.collapsed = true;
     const transformedMatrix = matrix.map((user, index, arr) => {
@@ -427,7 +429,9 @@ async function userMatrix(req, res) {
       newUser.text = {
         name: newUser.username,
         rank: newUser.rank,
-        firstName: newUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
+        firstName: newUser.fullname
+          ? newUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
+          : null
       };
       if (newUser.rank.startsWith("SilverLife"))
         image = "/images/SilverLife.png";
