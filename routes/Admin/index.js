@@ -26,10 +26,10 @@ router.use((req, res, next) => {
   res.locals.originPath = req.originalUrl;
   next();
 });
-router
-  .route("/register")
-  .get((req, res) => res.render("Admin/signup"))
-  .post(_admins.register);
+// router
+//   .route("/register")
+//   .get((req, res) => res.render("Admin/signup"))
+//   .post(_admins.register);
 router
   .route("/login")
   .get((req, res) =>
