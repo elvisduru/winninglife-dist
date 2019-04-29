@@ -799,7 +799,7 @@ async function withdrawRankEarning(req, res) {
     }
 
     const withdraw = new _models.Withdraw({
-      type: "rank",
+      type: req.user.rank,
       withdrawer: req.user.id,
       amount
     });

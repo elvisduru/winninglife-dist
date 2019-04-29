@@ -48,7 +48,16 @@
 	                        	Amount
 	                        </th>
 	                        <th>
-	                            Withdrawer
+	                            UserID
+													</th>
+													<th>
+	                            Full Name
+													</th>
+													<th>
+	                            Bank Name
+													</th>
+													<th>
+	                            Account Number
 	                        </th>
 	                        <th>
 	                            Status
@@ -71,9 +80,12 @@
 					          	<% } %>
 					          	<tr>
 					          		<td data-value="<%= pendingCounter %>"><%= pendingCounter %></td>
-					          		<td><%= type %></td>
+					          		<td><%= withdrawal.type %></td>
 					          		<td><%= withdrawal.amount %></td>
-					          		<td><%= withdrawal.withdrawer.username %></td>
+												<td><%= withdrawal.withdrawer.username %></td>
+												<td><%= withdrawal.withdrawer.fullname %></td>
+												<td><%= withdrawal.withdrawer.bankName %></td>
+												<td><%= withdrawal.withdrawer.accountNumber %></td>
 					          		<td><span class="label warning" title="Pending">Pending</span></td>
 					          		<td data-value="<%= pendingCounter %>"><%= withdrawal.createdAt.toDateString() %></td>
 					          		<td>
@@ -123,7 +135,16 @@
 	                        	Amount
 	                        </th>
 	                        <th>
-	                            Withdrawer
+	                            UserID
+													</th>
+													<th>
+	                            Full Name
+													</th>
+													<th>
+	                            Bank Name
+													</th>
+													<th>
+	                            Account Number
 	                        </th>
 	                        <th>
 	                            Status
@@ -140,9 +161,13 @@
 					          	<% var approvedCounter = 1, type = "";%>
 					          	<% approvedWithdrawals.forEach(withdrawal => { %>
 					          	<tr>
-					          		<td data-value="<%= approvedCounter %>"><%= approvedCounter %></td>
+												<td data-value="<%= approvedCounter %>"><%= approvedCounter %></td>
+												<td><%= withdrawal.type %></td>
 					          		<td><%= withdrawal.amount %></td>
-					          		<td><%= withdrawal.withdrawer.username %></td>
+												<td><%= withdrawal.withdrawer.username %></td>
+												<td><%= withdrawal.withdrawer.fullname %></td>
+												<td><%= withdrawal.withdrawer.bankName %></td>
+												<td><%= withdrawal.withdrawer.accountNumber %></td>
 					          		<td><span class="label success" title="Approved">Approved</span></td>
 					          		<td data-value="<%= approvedCounter %>"><%= withdrawal.createdAt.toDateString() %></td>
 					          		<td>
@@ -189,7 +214,16 @@
 	                        	Amount
 	                        </th>
 	                        <th>
-	                            Withdrawer
+	                            UserID
+													</th>
+													<th>
+	                            Full Name
+													</th>
+													<th>
+	                            Bank Name
+													</th>
+													<th>
+	                            Account Number
 	                        </th>
 	                        <th>
 	                            Status
@@ -206,9 +240,13 @@
     				          	<% var declinedCounter = 1, type = "";%>
     				          	<% declinedWithdrawals.forEach(withdrawal => { %>
     				          	<tr>
-    				          		<td data-value="<%= declinedCounter %>"><%= declinedCounter %></td>
+													<td data-value="<%= declinedCounter %>"><%= declinedCounter %></td>
+													<td><%= withdrawal.type %></td>
     				          		<td><%= withdrawal.amount %></td>
-    				          		<td><%= withdrawal.withdrawer.username %></td>
+													<td><%= withdrawal.withdrawer.username %></td>
+													<td><%= withdrawal.withdrawer.fullname %></td>
+													<td><%= withdrawal.withdrawer.bankName %></td>
+													<td><%= withdrawal.withdrawer.accountNumber %></td>
     				          		<td><span class="label danger" title="Declined">Declined</span></td>
     				          		<td data-value="<%= declinedCounter %>"><%= withdrawal.createdAt.toDateString() %></td>
     				          		<td>
