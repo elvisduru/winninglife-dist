@@ -70,7 +70,8 @@
 					          	<tr>
 					          		<td data-value="<%= pendingCounter %>"><%= pendingCounter %></td>
 					          		<td><%= deposit.amount %></td>
-					          		<td><%= deposit.depositor.username %></td>
+												<td><%= deposit.depositor.username %></td>
+												<td><%= deposit.depositor.fullname %></td>
 					          		<td><%= deposit.bank %></td>
 					          		<td><%= deposit.paymentMode %></td>
 					          		<td><span class="label warning" title="Pending">Pending</span></td>
@@ -144,7 +145,8 @@
 					          	<tr>
 					          		<td data-value="<%= approvedCounter %>"><%= approvedCounter %></td>
 					          		<td><%= deposit.amount %></td>
-					          		<td><%= deposit.depositor.username %></td>
+												<td><%= deposit.depositor.username %></td>
+												<td><%= deposit.depositor.fullname %></td>
 					          		<td><%= deposit.bank %></td>
 					          		<td><%= deposit.paymentMode %></td>
 					          		<td><span class="label success" title="Approved">Approved</span></td>
@@ -215,7 +217,8 @@
     				          	<tr>
     				          		<td data-value="<%= declinedCounter %>"><%= declinedCounter %></td>
     				          		<td><%= deposit.amount %></td>
-    				          		<td><%= deposit.depositor.username %></td>
+													<td><%= deposit.depositor.username %></td>
+													<td><%= deposit.depositor.fullname %></td>
     				          		<td><%= deposit.bank %></td>
     				          		<td><%= deposit.paymentMode %></td>
     				          		<td><span class="label danger" title="Declined">Declined</span></td>
