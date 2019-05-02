@@ -35,7 +35,7 @@
 	                Search: <input id="filter4" type="text" class="form-control input-sm w-auto inline m-r"/>
 	              </div>
 	              <div>
-	                <table class="table m-b-none" data-ui-jp="footable" data-filter="#filter4" data-page-size="5">
+	                <table class="table m-b-none" id="pending-withdrawals" data-ui-jp="footable" data-filter="#filter4" data-page-size="5">
 	                  <thead>
 	                    <tr>
 	                        <th data-toggle="true">
@@ -108,7 +108,12 @@
 	                    </tr>
 	                  </tfoot>
 	                </table>
-	              </div>
+								</div>
+								<div class="p-a-md">
+									<a href="#" id="withdrawal-export-btn" class="btn btn-sm green">
+										Export to CSV
+									</a>
+								</div>
 	            </div>
 	          </div>
 	        </div>

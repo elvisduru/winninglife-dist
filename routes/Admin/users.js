@@ -18,7 +18,9 @@ router.use((req, res, next) => {
 });
 router
   .route("/edit")
-  .get((req, res) => res.render("Admin/Users/edit"))
+  .get((req, res) =>
+    res.render("Admin/Users/edit", { message: req.flash("msg") })
+  )
   .put(_admins.updateUser);
 router.get("/loadUser", _admins.loadUser);
 router.put("/status", _admins.setUserStatus);

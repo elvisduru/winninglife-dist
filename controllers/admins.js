@@ -317,6 +317,7 @@ async function updateUser(req, res) {
         },
         req.body.user
       );
+      req.flash("msg", `Editted User ${req.body.username} successfully!`);
       res.status(200).redirect("back");
     } catch (err) {
       res.status(500).send({
@@ -390,6 +391,7 @@ async function userMatrix(req, res) {
         rank: 1,
         children: 1,
         username: 1,
+        fullname: 1,
         _id: 0
       });
     const rootUserArr = await _models.User.aggregate()
@@ -400,6 +402,7 @@ async function userMatrix(req, res) {
         rank: 1,
         username: 1,
         children: 1,
+        fullname: 1,
         _id: 0
       });
     const rootUser = rootUserArr[0];

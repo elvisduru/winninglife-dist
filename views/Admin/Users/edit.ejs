@@ -39,6 +39,9 @@
     <div class="tab-content pos-rlt">
       <div class="tab-pane active" id="tab-1">
         <div class="p-a-md b-b _600">Update User profile</div>
+        <% if (message.length > 0) { %>
+          <div class="alert alert-success"><%= message %></div>
+        <%}%>
         <form
           role="form"
           action="/admin/users/edit?_method=PUT"

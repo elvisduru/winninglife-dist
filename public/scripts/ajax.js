@@ -90,11 +90,6 @@
   }
 
   $(document).on("ready pjax:end", function() {
-    if (location.pathname === "/user/wallet/deposits") {
-      $("#depositForm").submit(function() {
-        alert("Submitted successfully");
-      });
-    }
     if (location.pathname === "/user/wallet/transfer") {
       $("#formtransfer").submit(function(event) {
         event.preventDefault();
@@ -448,6 +443,7 @@
           function loadMatrix() {
             $.get(`/admin/users/loadMatrix?username=${username}`)
               .then(data => {
+                console.log(data);
                 var config = {
                   container: "#matrix",
 
@@ -504,36 +500,75 @@
       location.pathname === "/admin/deposits" ||
       location.pathname === "/admin/withdrawals"
     ) {
-      function exportTableToExcel(tableID, filename = "") {
-        var downloadLink;
-        var dataType = "application/vnd.ms-excel";
-        var tableSelect = document.getElementById(tableID);
-        var tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
+      function exportTableToCSV($table, filename) {
+        var $rows = $table.find("tr:has(td),tr:has(th)"),
+          // Temporary delimiter characters unlikely to be typed by keyboard
+          // This is to avoid accidentally splitting the actual contents
+          tmpColDelim = String.fromCharCode(11), // vertical tab character
+          tmpRowDelim = String.fromCharCode(0), // null character
+          // actual delimiter characters for CSV format
+          colDelim = '","',
+          rowDelim = '"\r\n"',
+          // Grab text from table into CSV formatted string
+          csv =
+            '"' +
+            $rows
+              .map(function(i, row) {
+                var $row = $(row),
+                  $cols = $row.find("td,th");
 
-        // Specify file name
-        filename = filename ? filename + ".xls" : "excel_data.xls";
+                return $cols
+                  .map(function(j, col) {
+                    var $col = $(col),
+                      text = $col.text();
 
-        // Create download link element
-        downloadLink = document.createElement("a");
+                    return text.replace(/"/g, '""'); // escape double quotes
+                  })
+                  .get()
+                  .join(tmpColDelim);
+              })
+              .get()
+              .join(tmpRowDelim)
+              .split(tmpRowDelim)
+              .join(rowDelim)
+              .split(tmpColDelim)
+              .join(colDelim) +
+            '"',
+          // Data URI
+          csvData =
+            "data:application/csv;charset=utf-8," + encodeURIComponent(csv);
 
-        document.body.appendChild(downloadLink);
-
-        if (navigator.msSaveOrOpenBlob) {
-          var blob = new Blob(["\ufeff", tableHTML], {
-            type: dataType
-          });
-          navigator.msSaveOrOpenBlob(blob, filename);
+        if (window.navigator.msSaveBlob) {
+          // IE 10+
+          //alert('IE' + csv);
+          window.navigator.msSaveOrOpenBlob(
+            new Blob([csv], { type: "text/plain;charset=utf-8;" }),
+            "csvname.csv"
+          );
         } else {
-          // Create a link to the file
-          downloadLink.href = "data:" + dataType + ", " + tableHTML;
-
-          // Setting the file name
-          downloadLink.download = filename;
-
-          //triggering the function
-          downloadLink.click();
+          $(this).attr({ download: filename, href: csvData, target: "_blank" });
         }
       }
+
+      $("#deposit-export-btn").click(function(event) {
+        exportTableToCSV.apply(this, [
+          $("#pending-deposits"),
+          `pending-deposits--${new Date().toLocaleDateString()}--${new Date().toLocaleTimeString()}.csv`
+        ]);
+
+        // IF CSV, don't do event.preventDefault() or return false
+        // We actually need this to be a typical hyperlink
+      });
+
+      $("#withdrawal-export-btn").click(function(event) {
+        exportTableToCSV.apply(this, [
+          $("#pending-withdrawals"),
+          `pending-withdrawals--${new Date().toLocaleDateString()}--${new Date().toLocaleTimeString()}.csv`
+        ]);
+
+        // IF CSV, don't do event.preventDefault() or return false
+        // We actually need this to be a typical hyperlink
+      });
     }
 
     if (location.pathname === "/admin/users/analysis") {

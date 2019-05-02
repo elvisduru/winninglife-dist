@@ -65,7 +65,8 @@ async function getDeposits(req, res) {
       createdAt: -1
     });
     res.render("Dashboard/deposits", {
-      deposits
+      deposits,
+      message: req.flash("msg")
     });
   } catch (err) {
     res.send(err);
@@ -700,6 +701,7 @@ async function deposit(req, res) {
         createdDeposit.amount && Number(createdDeposit.amount) > 0
           ? Number(createdDeposit.amount)
           : 0;
+      req.flash("msg", `Payment submitted successfully!`);
       res.status(201).redirect("back");
     } catch (err) {
       res.status(500).send({
