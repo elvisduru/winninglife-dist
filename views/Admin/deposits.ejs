@@ -35,7 +35,7 @@
 	                Search: <input id="filter1" type="text" class="form-control input-sm w-auto inline m-r"/>
 	              </div>
 	              <div>
-	                <table class="table m-b-none" data-ui-jp="footable" data-filter="#filter1" data-page-size="5">
+	                <table class="table m-b-none" data-ui-jp="footable" id="pending-deposits" data-filter="#filter1" data-page-size="5">
 	                  <thead>
 	                    <tr>
 	                        <th data-toggle="true">
@@ -100,6 +100,11 @@
 	                  </tfoot>
 	                </table>
 	              </div>
+								<div>
+									<button type="button" class="btn btn-sm green" onclick="exportTableToExcel('pending-deposits', `pending-deposits--${new Date().toLocaleDateString()}--${new Date().toLocaleTimeString()}`)">
+										Export to Excel
+									</button>
+								</div>
 	            </div>
 	          </div>
 	        </div>
