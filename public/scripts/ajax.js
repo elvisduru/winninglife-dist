@@ -500,6 +500,13 @@
       });
     }
 
+    if (
+      location.pathname === "/admin/deposits" ||
+      location.pathname === "/admin/withdrawals"
+    ) {
+      alert("hello");
+    }
+
     if (location.pathname === "/admin/users/analysis") {
       $(".loadUserbtn").click(function() {
         // clear all inputs
