@@ -348,6 +348,25 @@ async function graphUser(req, res) {
         }
       }
       console.log(levels, lastCompleteLevel);
+
+      if (levels[0] === 4 && req.user.nextlevel === 1) {
+        req.user.rank = "SilverLife";
+        req.user.earnings.cash += 3000;
+        req.user.earnings.food += 2000;
+        req.user.level = {
+          position: 1,
+          paid: true
+        };
+        req.user.nextlevel++;
+        await req.user.save();
+        const rankEarning = new _models.RankEarning({
+          recipient: req.user.username,
+          amount: 5000,
+          rank: "SilverLife"
+        });
+        await rankEarning.save();
+      }
+
       if (levels[1] === 16 && req.user.nextlevel === 2) {
         req.user.rank = "GoldLife 1";
         req.user.earnings.cash += 30000;
