@@ -44,7 +44,7 @@ const router = (0, _express.Router)();
 router
   .route("/register")
   .get((req, res) => {
-    const chars = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
+    const chars = [..."ABCDEFGHJKLMNPQRSTUVWXYZ0123456789"];
     const userID = [...Array(6)].map(
       i => chars[(Math.random() * chars.length) | 0]
     ).join``;
