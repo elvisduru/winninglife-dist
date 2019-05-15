@@ -571,6 +571,28 @@
       });
     }
 
+    $(".batch-process-btn").hide();
+
+    $(".md-check input:checkbox").change(function() {
+      if ($(".md-check input:checkbox:checked").length <= 2) {
+        $(".batch-process-btn").hide();
+      } else {
+        $(".batch-process-btn").show();
+      }
+    });
+
+    $("#batch-withdrawals-btn").click(function() {
+      console.log("batch withdrawals processing");
+      let transactions = $(".md-check input:checkbox:checked").serializeArray();
+      console.log(transactions);
+      $.post("/admin/withdrawals/batch", { data: transactions })
+        .done(() => {
+          console.log("sent to server");
+          location.reload(true);
+        })
+        .fail(err => console.log(err));
+    });
+
     if (location.pathname === "/admin/users/analysis") {
       $(".loadUserbtn").click(function() {
         // clear all inputs

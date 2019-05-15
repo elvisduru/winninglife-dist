@@ -8,6 +8,7 @@ exports.loadDashboard = loadDashboard;
 exports.loadDeposits = loadDeposits;
 exports.loadWithdrawals = loadWithdrawals;
 exports.approveDeposit = approveDeposit;
+exports.batchApproveWithdrawals = batchApproveWithdrawals;
 exports.approveWithdrawal = approveWithdrawal;
 exports.undoApproveDeposit = undoApproveDeposit;
 exports.undoApproveWithdrawal = undoApproveWithdrawal;
@@ -181,6 +182,21 @@ async function approveDeposit(req, res) {
     );
     res.redirect("back");
   } catch (err) {
+    res.send(err);
+  }
+}
+
+async function batchApproveWithdrawals(req, res) {
+  try {
+    const withdrawals = req.body.data;
+    withdrawals.forEach(async withdrawal => {
+      await _models.Withdraw.findByIdAndUpdate(withdrawal.value, {
+        approved: true
+      });
+    });
+    res.send("");
+  } catch (err) {
+    console.log(err);
     res.send(err);
   }
 }

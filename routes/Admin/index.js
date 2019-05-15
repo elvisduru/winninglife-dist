@@ -85,6 +85,12 @@ router
     _admins.loadWithdrawals
   );
 router
+  .route("/withdrawals/batch")
+  .post(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.batchApproveWithdrawals
+  );
+router
   .route("/withdrawals/:id")
   .put(
     (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
