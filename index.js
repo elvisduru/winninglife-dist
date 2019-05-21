@@ -96,7 +96,7 @@ app.use("/auth", _auth.default);
 app.use("/user", _User.default);
 app.use("/admin", _Admin.default); // 404
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.status(404).render("404");
 });
 app.listen(`${stage.port}`, () => {

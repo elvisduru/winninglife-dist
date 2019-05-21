@@ -270,3 +270,14 @@
 //   });
 //   console.log("Rank Level Update Task Completed");
 // })();
+
+
+// Change User Password Feature
+// const users = ["A01E9B", "91E213", "65B5D8", "B69CD3"];
+// users.forEach(async user => {
+//   const foundUser = await _models.User.findOne({ username: user });
+//   console.log(`Setting password for ${foundUser.username}`);
+//   await foundUser.setPassword("raheem");
+//   console.log(`Saving ${foundUser.username}`);
+//   await foundUser.save();
+// });
