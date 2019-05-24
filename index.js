@@ -50,8 +50,8 @@ const sessionOptions = {
   secret: "winninglifewearewinningwehavewon",
   store: new MongoStore({
     url:
-      "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
-    // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
+      // "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
+      "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
     // "mongodb://localhost/winninglife",
     ttl: 1 * 24 * 60 * 60
   }),
@@ -68,10 +68,13 @@ app.use(
 );
 app.use(_express.default.static(_path.default.join(__dirname, "/views")));
 app.use(_express.default.static(_path.default.join(__dirname, "/public")));
+app.use(_express.default.static(_path.default.join(__dirname, "/uploads")));
 app.use((0, _connectFlash.default)());
 app.use((0, _expressSession.default)(sessionOptions));
 app.use(_passport.default.initialize());
 app.use(_passport.default.session());
+
+global.__basedir = __dirname;
 
 // if (environment !== "production") {
 //   app.use((0, _morgan.default)("dev"));

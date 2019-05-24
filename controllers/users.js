@@ -198,7 +198,13 @@ async function placeUser(req, res) {
 
       if (req.user.parent === req.body.placementId) {
         throw "Error: You have already been placed under this user.";
-      } // Referral Bonus to Referrer
+      } 
+      
+      if (req.user.referrer) {
+        throw "Error: You already have a referrer"
+      }
+      
+      // Referral Bonus to Referrer
 
       const referrer = await _models.User.findOneAndUpdate(
         {
@@ -264,7 +270,7 @@ async function placeUser(req, res) {
         throw "Error: This User already has four downlines";
       }
 
-      const user = await _models.User.findOneAndUpdate(
+      await _models.User.findOneAndUpdate(
         {
           _id: req.user.id
         },
@@ -278,10 +284,6 @@ async function placeUser(req, res) {
           }
         }
       );
-
-      if (!referrer && !placement) {
-        throw "Error: No User found with such ID";
-      }
 
       res.status(200).send(`Successfully placed under ${placement.username}`);
     } catch (err) {

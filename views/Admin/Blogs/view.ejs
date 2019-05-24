@@ -1,0 +1,54 @@
+<% include ../../partials/header %>
+<style>
+  .link-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .post-image {
+    width: 100%;
+  }
+</style>
+<div class="app-body-inner">
+  <div class="row-col">
+    <div class="col-md-2">
+      <div class="box m-y-md">
+        <div class="box-header">Options</div>
+        <div class="box-body">
+          <ul class="list-unstyled m-t-n-sm">
+            <li>
+              <a href="#" class="btn btn-sm success text-u-c m-y-sm">Edit Post</a>
+            </li>
+            <li>
+              <a href="#" class="btn btn-sm danger text-u-c m-y-sm">Delete Post</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row-col">
+        <div class="row-row">
+          <div class="row-body">
+            <div class="row-inner m-b-lg">
+              <div class="padding">
+                <div class="article p-x-lg">
+                  <h1 class="m-b _600"><%= blog.title %></h1>
+                  <h3 class="p-y text-muted">
+                    <%= blog.subtitle %>
+                  </h3>
+                  <img class="post-image" src="<%= blog.image %>" alt="">
+                  <div class="m-t-lg"><%- blog.content %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

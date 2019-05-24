@@ -18,16 +18,16 @@ router.use((req, res, next) => {
 });
 router
   .route("/edit")
-  .get((req, res) =>
+  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), (req, res) =>
     res.render("Admin/Users/edit", { message: req.flash("msg") })
   )
   .put(_admins.updateUser);
-router.get("/loadUser", _admins.loadUser);
-router.put("/status", _admins.setUserStatus);
-router.get("/matrix", (req, res) => res.render("Admin/Users/matrix"));
-router.get("/loadMatrix", _admins.userMatrix);
-router.get("/members", (req, res) => res.render("Admin/Users/members"));
-router.get("/loadMembers", _admins.loadMembers);
-router.get("/analysis", (req, res) => res.render("Admin/Users/analysis"));
+router.get("/loadUser", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.loadUser);
+router.put("/status", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.setUserStatus);
+router.get("/matrix", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), (req, res) => res.render("Admin/Users/matrix"));
+router.get("/loadMatrix", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.userMatrix);
+router.get("/members", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), (req, res) => res.render("Admin/Users/members"));
+router.get("/loadMembers", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.loadMembers);
+router.get("/analysis", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), (req, res) => res.render("Admin/Users/analysis"));
 var _default = router;
 exports.default = _default;

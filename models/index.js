@@ -5,44 +5,50 @@ Object.defineProperty(exports, "__esModule", {
 });
 Object.defineProperty(exports, "User", {
   enumerable: true,
-  get: function() {
+  get: function () {
     return _user.default;
   }
 });
 Object.defineProperty(exports, "Deposit", {
   enumerable: true,
-  get: function() {
+  get: function () {
     return _deposit.default;
   }
 });
 Object.defineProperty(exports, "RankEarning", {
   enumerable: true,
-  get: function() {
+  get: function () {
     return _rankEarning.default;
   }
 });
 Object.defineProperty(exports, "RefEarning", {
   enumerable: true,
-  get: function() {
+  get: function () {
     return _refEarnings.default;
   }
 });
 Object.defineProperty(exports, "Withdraw", {
   enumerable: true,
-  get: function() {
+  get: function () {
     return _withdraw.default;
   }
 });
 Object.defineProperty(exports, "Transfer", {
   enumerable: true,
-  get: function() {
+  get: function () {
     return _transfer.default;
   }
 });
 Object.defineProperty(exports, "Admin", {
   enumerable: true,
-  get: function() {
+  get: function () {
     return _admin.default;
+  }
+});
+Object.defineProperty(exports, "Blog", {
+  enumerable: true,
+  get: function () {
+    return _blog.default;
   }
 });
 
@@ -62,14 +68,16 @@ var _transfer = _interopRequireDefault(require("./transfer"));
 
 var _admin = _interopRequireDefault(require("./admin"));
 
+var _blog = _interopRequireDefault(require("./blog"));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
 const connUri =
-  "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true";
-// "mongodb://localhost/winninglife";
-// "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife";
+  // "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true";
+  // "mongodb://localhost/winninglife";
+  "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife";
 
 _mongoose.default.connect(
   connUri,

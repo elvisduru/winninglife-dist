@@ -15,6 +15,8 @@ var _connectEnsureLogin = require("connect-ensure-login");
 
 var _users = _interopRequireDefault(require("./users"));
 
+var _blogs = _interopRequireDefault(require("./blogs"));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -110,6 +112,12 @@ router
     (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
     _admins.undoDeclineWithdrawal
   );
+
+router.route('/blogs')
+  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getBlogs)
+  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postBlog);
+
 router.use("/users", _users.default);
+router.use("/blogs", _blogs.default);
 var _default = router;
 exports.default = _default;

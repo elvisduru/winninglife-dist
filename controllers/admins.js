@@ -21,8 +21,15 @@ exports.updateUser = updateUser;
 exports.setUserStatus = setUserStatus;
 exports.loadMembers = loadMembers;
 exports.userMatrix = userMatrix;
+exports.postBlog = postBlog;
+exports.getBlogs = getBlogs;
+exports.getBlog = getBlog;
 
 var _models = require("../models/");
+
+var _formidable = require("formidable");
+
+var _sanitizeHtml = require('sanitize-html');
 
 var _passport = _interopRequireDefault(require("passport"));
 
@@ -77,7 +84,7 @@ async function loadDashboard(req, res) {
       });
     const totalDeposits = deposits.length; // Get total number of investments
 
-    const totalInvestments = deposits.reduce(function(acc, cur) {
+    const totalInvestments = deposits.reduce(function (acc, cur) {
       return acc + cur.amount;
     }, 0);
     const latestDeposits = deposits.slice(0, 4);
@@ -488,6 +495,73 @@ async function userMatrix(req, res) {
     });
     res.send(finalMatrix);
   } catch (err) {
+    res.send(err);
+  }
+}
+
+async function postBlog(req, res) {
+  try {
+    const blog = {};
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('field', (name, field) => {
+        blog[name] = _sanitizeHtml(field, {
+          allowedTags: ['h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+            'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
+            'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe', 'img', 'br', 'hr', 'audio', 'video', 'span'
+          ],
+          allowedAttributes: false,
+          allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
+        });
+      })
+      .on('fileBegin', (name, file) => {
+        form.on('fileBegin', (name, file) => {
+          newFileName = new Date().getTime() + file.name;
+          file.path = __basedir + '\\public\\uploads\\' + newFileName;
+        })
+      })
+      .on('file', (name, file) => {
+        if (file.type.startsWith('image')) {
+          blog.image = '/uploads/' + newFileName;
+        }
+      })
+      .on('end', () => {
+        var m = new Date();
+        var dateString =
+          m.getUTCFullYear() + "-" +
+          ("0" + (m.getUTCMonth() + 1)).slice(-2) + "-" +
+          ("0" + m.getUTCDate()).slice(-2) + "-" +
+          ("0" + m.getUTCHours()).slice(-2) + ":" +
+          ("0" + m.getUTCMinutes()).slice(-2) + ":" +
+          ("0" + m.getUTCSeconds()).slice(-2);
+        blog.slug = blog.title.split(" ").join("-") + dateString;
+        const Blog = new _models.Blog(blog);
+        Blog.save();
+      })
+    res.redirect("back");
+  } catch (err) {
+    console.log(err)
+    res.send(err);
+  }
+}
+
+async function getBlogs(req, res) {
+  try {
+    const blogs = await _models.Blog.find().sort({ createdAt: -1 });
+    res.render("Admin/Blogs/", { blogs })
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function getBlog(req, res) {
+  try {
+    const blog = await _models.Blog.findOne({slug: req.params.id});
+    res.render("Admin/Blogs/view", { blog })
+  } catch (err) {
+    console.log(err);
     res.send(err);
   }
 }

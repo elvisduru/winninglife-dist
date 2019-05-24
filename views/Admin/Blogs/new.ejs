@@ -1,0 +1,112 @@
+<% include ../../partials/header %>
+<style>
+  .md-form-group {
+    padding-bottom: 0;
+  }
+
+  .md-input {
+    border-bottom: unset;
+  }
+
+  .note-editable {
+    height: 200px;
+  }
+
+  .file-upload-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 2em;
+  }
+</style>
+<div class="padding m-b-lg">
+  <div class="p-y">
+    <h6 class="text-muted m-a-0">New Post</h6>
+  </div>
+  <form
+    class="m-y"
+    method="post"
+    enctype="multipart/form-data"
+    action="/admin/blogs"
+    data-ui-jp="parsley"
+  >
+    <div class="row">
+      <div class="col-md-7">
+        <div class="list box">
+          <div class="list-item">
+            <div class="list-body">
+              <div class="md-form-group">
+                <input
+                  class="md-input title"
+                  placeholder="Your Post Title Here"
+                  name="title"
+                  required
+                />
+                <label>Title</label>
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <div class="md-form-group">
+                <input
+                  class="md-input"
+                  placeholder="Your Post Subtitle Here"
+                  name="subtitle"
+                />
+                <label>Subtitle</label>
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <textarea data-ui-jp="summernote" name="content">
+                <p>Write here...</p>
+              </textarea>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <div class="form-group form-inline">
+                <label class="text-muted">Category: </label>
+                <input name="category" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <div class="form-group form-inline">
+                <label for="fileUpload">Feature Image:</label>
+                &nbsp;
+                <input
+                  type="file"
+                  class="form-control"
+                  name="featuredImg"
+                  id="fileUpload"
+                  required
+                  accept="image/*"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <div class="form-group form-inline">
+                <label class="text-muted">Status: </label>
+                <select name="status" class="form-control form-control-sm">
+                  <option value="public">Public</option>
+                  <option value="draft">Draft</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary m-b">Publish</button>
+  </form>
+</div>
+<% include ../../partials/footer %>
