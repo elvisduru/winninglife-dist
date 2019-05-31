@@ -743,7 +743,7 @@ async function updateEvent(req, res) {
           if (file.name) {
             newFileName = new Date().getTime() + file.name;
             // file.path = __basedir + '\\public\\uploads\\events\\' + newFileName;
-            file.path = path.join(__basedir, '/public/uploads/events/', newFileName);
+            file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
             console.log(file.path)
             console.log("base: ", __basename)
             console.log("pwd: ", __dirname)
