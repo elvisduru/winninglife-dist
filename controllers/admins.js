@@ -766,11 +766,10 @@ async function deleteEvent(req, res) {
     console.log("deleting event")
     const deletedEvent = await _models.Event.findByIdAndRemove(req.params.id);
     if (deletedEvent.image) {
-      console.log(deletedEvent.image)
-      // const filePath = _path.join(__basedir, '/public', deletedEvent.image);
-      // _fs.unlink(filePath, (err) => {
-      //   if (err) throw err;
-      // });
+      const filePath = _path.join(__basedir, '/public', deletedEvent.image);
+      _fs.unlink(filePath, (err) => {
+        if (err) throw err;
+      });
     }
     res.redirect("/admin/events");
   } catch (err) {
