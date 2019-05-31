@@ -531,10 +531,12 @@ async function postBlog(req, res) {
         }
       })
       .on('fileBegin', (name, file) => {
-        form.on('fileBegin', (name, file) => {
-          newFileName = new Date().getTime() + file.name;
-          file.path = _path.join(__basedir, '/public/uploads/', newFileName);
-        })
+        newFileName = new Date().getTime() + file.name;
+        file.path = _path.join(__basedir, '/public/uploads/', newFileName);
+        // form.on('fileBegin', (name, file) => {
+        //   newFileName = new Date().getTime() + file.name;
+        //   file.path = _path.join(__basedir, '/public/uploads/', newFileName);
+        // })
       })
       .on('file', (name, file) => {
         if (file.type.startsWith('image')) {
@@ -612,12 +614,16 @@ async function updateBlog(req, res) {
         }
       })
       .on('fileBegin', (name, file) => {
-        form.on('fileBegin', (name, file) => {
-          if (file.name) {
-            newFileName = new Date().getTime() + file.name;
-            file.path = _path.join(__basedir, '/public/uploads/', newFileName);
-          }
-        })
+        if (file.name) {
+          newFileName = new Date().getTime() + file.name;
+          file.path = _path.join(__basedir, '/public/uploads/', newFileName);
+        }
+        // form.on('fileBegin', (name, file) => {
+        //   if (file.name) {
+        //     newFileName = new Date().getTime() + file.name;
+        //     file.path = _path.join(__basedir, '/public/uploads/', newFileName);
+        //   }
+        // })
       })
       .on('file', (name, file) => {
         if (file.name) {
