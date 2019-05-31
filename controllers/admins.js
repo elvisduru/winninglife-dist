@@ -743,6 +743,7 @@ async function updateEvent(req, res) {
           if (file.name) {
             newFileName = new Date().getTime() + file.name;
             file.path = __basedir + '\\public\\uploads\\events\\' + newFileName;
+            console.log(_basedir);
           }
       })
       .on('file', (name, file) => {
