@@ -617,6 +617,7 @@ async function updateBlog(req, res) {
       .on('fileBegin', (name, file) => {
         if (file.name) {
           if (file.size === 0) {
+            console.log(file.name, file.path)
             _fs.unlink(file.path, (err) => {
               if (err) throw err;
             });
