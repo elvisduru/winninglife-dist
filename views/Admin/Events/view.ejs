@@ -1,0 +1,68 @@
+<% include ../../partials/header %>
+<style>
+  .link-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .post-image {
+    width: 100%;
+  }
+</style>
+<div class="app-body-inner">
+  <div class="row-col">
+    <div class="col-md-2">
+      <div class="box m-y-md">
+        <div class="box-header">Options</div>
+        <div class="box-body">
+          <ul class="list-unstyled m-t-n-sm">
+            <li>
+              <a href="<%= event._id %>/edit" class="btn btn-sm success text-u-c m-y-sm">Edit Post</a>
+            </li>
+            <li>
+              <form method="POST" action="/admin/events/<%= event._id %>?_method=DELETE">
+                <button class="btn btn-sm danger text-u-c m-y-sm">Delete Post</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row-col">
+        <div class="row-row">
+          <div class="row-body">
+            <div class="row-inner m-b-lg">
+              <div class="padding">
+                <div class="row">
+                  <div class="col-md-6">
+                    <img class="post-image" src="<%= event.image %>" alt="">
+                  </div>
+                  <div class="col-md-6">
+                    <div class="article">
+                      <h1 class="m-b _600"><%= event.title %></h1>
+                      <h3 class="p-y text-muted">
+                        <%= event.dayFrom %> - <%= event.dayTo %>, <%= event.month %>
+                      </h3>
+                      <h4 class="p-b text-muted">
+                        <%= event.timeFrom %> - <%= event.timeTo %>
+                      </h4>
+                      <div class="m-b-lg">
+                        <span class="label success pos-rlt m-r-xs"><b class="arrow right b-success pull-in"></b>Status</span>
+                        <span class="m-x-xs"><%= event.status %></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

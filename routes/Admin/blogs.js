@@ -18,11 +18,16 @@ router.use((req, res, next) => {
 });
 
 router.get('/new', (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), (req, res) => {
-  res.render('Admin/Blogs/new');
+  res.render('Admin/Blogs/new', { messages: req.flash("msg") });
 })
+
 
 router.route('/:id')
   .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getBlog)
+  .put((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.updateBlog)
+  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteBlog);
+
+router.get('/:id/edit', (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.editBlog)
 
 var _default = router;
 exports.default = _default;

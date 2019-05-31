@@ -14,24 +14,6 @@
       <div class="box m-y-md">
         <div class="box-header">Filter</div>
         <div class="box-body">
-          <ul class="list-unstyled m-t-n-sm">
-            <li class="checkbox">
-              <label class="ui-check">
-                <input type="checkbox" checked /><i></i> All
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="ui-check">
-                <input type="checkbox" checked /><i></i> News
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="ui-check">
-                <input type="checkbox" /><i></i> Events
-              </label>
-            </li>
-          </ul>
-          <div class="line line-dashed b-b m-b"></div>
           <ul class="list-unstyled">
             <li class="radio">
               <label class="ui-check">
@@ -58,40 +40,31 @@
           <div class="row-body">
             <div class="row-inner m-b-lg">
               <div class="padding">
-                <% blogs.forEach(blog => { %>
+                <% events.forEach(event => { %>
                 <div class="col-sm-4">
-                  <a class="link-overlay" href="/admin/blogs/<%= blog.slug %>">
+                  <a class="link-overlay" href="/admin/events/<%= event._id %>">
                     <div class="box">
                       <div class="box-tool">
                         <ul class="nav">
                           <li class="nav-item inline dropdown">
-                            <a
-                              class="nav-link text-muted"
-                              data-toggle="dropdown"
-                            >
+                            <a class="nav-link text-muted" data-toggle="dropdown">
                               <i class="material-icons md-18">menu</i>
                             </a>
-                            <div
-                              class="dropdown-menu dropdown-menu-scale pull-right dark"
-                            >
-                              <a class="dropdown-item" href="<%= blog._id %>/edit">Edit</a>
-                              <form method="POST" action="/admin/blogs/<%= blog._id %>?_method=DELETE">
+                            <div class="dropdown-menu dropdown-menu-scale pull-right dark">
+                              <a class="dropdown-item" href="<%= event._id %>/edit">Edit</a>
+                              <form method="POST" action="/admin/events/<%= event._id %>?_method=DELETE">
                                 <button class="dropdown-item" href="#">Delete</button>
                               </form>
                             </div>
                           </li>
                         </ul>
                       </div>
-                      <img
-                        src="<%= blog.image %>"
-                        alt=""
-                        class="img-responsive"
-                      />
+                      <img src="<%= event.image %>" alt="" class="img-responsive" />
                       <div class="p-a-sm">
                         <div class="text-ellipsis">
-                          <h4><%= blog.title %></h4>
+                          <h4><%= event.title %></h4>
                         </div>
-                        <div class="text-ellipsis"><%= blog.subtitle %></div>
+                        <div class="text-ellipsis"><%= event.dayFrom %> - <%= event.dayTo %>, <%= event.month %></div>
                       </div>
                     </div>
                   </a>

@@ -17,6 +17,8 @@ var _users = _interopRequireDefault(require("./users"));
 
 var _blogs = _interopRequireDefault(require("./blogs"));
 
+var _events = _interopRequireDefault(require("./events"));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -116,8 +118,13 @@ router
 router.route('/blogs')
   .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getBlogs)
   .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postBlog);
+  
+router.route('/events')
+  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getEvents)
+  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postEvent);
 
 router.use("/users", _users.default);
 router.use("/blogs", _blogs.default);
+router.use("/events", _events.default);
 var _default = router;
 exports.default = _default;

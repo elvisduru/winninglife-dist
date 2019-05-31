@@ -51,6 +51,12 @@ Object.defineProperty(exports, "Blog", {
     return _blog.default;
   }
 });
+Object.defineProperty(exports, "Event", {
+  enumerable: true,
+  get: function () {
+    return _event.default;
+  }
+});
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
@@ -70,14 +76,16 @@ var _admin = _interopRequireDefault(require("./admin"));
 
 var _blog = _interopRequireDefault(require("./blog"));
 
+var _event = _interopRequireDefault(require("./event"));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
 const connUri =
-  "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true";
+  // "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true";
   // "mongodb://localhost/winninglife";
-  // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife";
+  "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife";
 
 _mongoose.default.connect(
   connUri,

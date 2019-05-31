@@ -20,10 +20,12 @@
         <div class="box-body">
           <ul class="list-unstyled m-t-n-sm">
             <li>
-              <a href="#" class="btn btn-sm success text-u-c m-y-sm">Edit Post</a>
+              <a href="<%= blog._id %>/edit" class="btn btn-sm success text-u-c m-y-sm">Edit Post</a>
             </li>
             <li>
-              <a href="#" class="btn btn-sm danger text-u-c m-y-sm">Delete Post</a>
+              <form method="POST" action="/admin/blogs/<%= blog._id %>?_method=DELETE">
+                <button class="btn btn-sm danger text-u-c m-y-sm">Delete Post</button>
+              </form>
             </li>
           </ul>
         </div>

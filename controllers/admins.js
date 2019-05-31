@@ -24,10 +24,23 @@ exports.userMatrix = userMatrix;
 exports.postBlog = postBlog;
 exports.getBlogs = getBlogs;
 exports.getBlog = getBlog;
+exports.editBlog = editBlog;
+exports.updateBlog = updateBlog;
+exports.deleteBlog = deleteBlog;
+exports.postEvent = postEvent;
+exports.getEvents = getEvents;
+exports.getEvent = getEvent;
+exports.editEvent = editEvent;
+exports.updateEvent = updateEvent;
+exports.deleteEvent = deleteEvent;
 
 var _models = require("../models/");
 
 var _formidable = require("formidable");
+
+var _fs = require('fs');
+
+var _path = require('path');
 
 var _sanitizeHtml = require('sanitize-html');
 
@@ -506,14 +519,16 @@ async function postBlog(req, res) {
     const form = new _formidable.IncomingForm()
     form.parse(req)
       .on('field', (name, field) => {
-        blog[name] = _sanitizeHtml(field, {
-          allowedTags: ['h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
-            'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
-            'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe', 'img', 'br', 'hr', 'audio', 'video', 'span'
-          ],
-          allowedAttributes: false,
-          allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
-        });
+        if (field) {
+          blog[name] = _sanitizeHtml(field, {
+            allowedTags: ['h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+              'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
+              'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe', 'img', 'br', 'hr', 'audio', 'video', 'span'
+            ],
+            allowedAttributes: false,
+            allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
+          });
+        }
       })
       .on('fileBegin', (name, file) => {
         form.on('fileBegin', (name, file) => {
@@ -526,7 +541,7 @@ async function postBlog(req, res) {
           blog.image = '/uploads/' + newFileName;
         }
       })
-      .on('end', () => {
+      .on('end', async () => {
         var m = new Date();
         var dateString =
           m.getUTCFullYear() + "-" +
@@ -537,9 +552,11 @@ async function postBlog(req, res) {
           ("0" + m.getUTCSeconds()).slice(-2);
         blog.slug = blog.title.split(" ").join("-") + dateString;
         const Blog = new _models.Blog(blog);
-        Blog.save();
+        await Blog.save();
+        req.flash("msg", `Blog Created successfully!`);
+        req.flash("msg", blog.slug);
+        res.status(200).redirect("back");
       })
-    res.redirect("back");
   } catch (err) {
     console.log(err)
     res.send(err);
@@ -559,7 +576,203 @@ async function getBlogs(req, res) {
 async function getBlog(req, res) {
   try {
     const blog = await _models.Blog.findOne({slug: req.params.id});
-    res.render("Admin/Blogs/view", { blog })
+    res.render("Admin/Blogs/view", { blog });
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function editBlog(req, res) {
+  try {
+    const blog = await _models.Blog.findById(req.params.id);
+    res.render("Admin/Blogs/edit", { blog });
+  } catch (err) {
+    console.log(err)
+    res.send(err);
+  }
+}
+
+async function updateBlog(req, res) {
+  try {
+    const blog = {};
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('field', (name, field) => {
+        if (field) {
+          blog[name] = _sanitizeHtml(field, {
+            allowedTags: ['h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+              'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
+              'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe', 'img', 'br', 'hr', 'audio', 'video', 'span'
+            ],
+            allowedAttributes: false,
+            allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
+          });
+        }
+      })
+      .on('fileBegin', (name, file) => {
+        form.on('fileBegin', (name, file) => {
+          if (file.name) {
+            newFileName = new Date().getTime() + file.name;
+            file.path = __basedir + '\\public\\uploads\\' + newFileName;
+          }
+        })
+      })
+      .on('file', (name, file) => {
+        if (file.name) {
+          if (file.type.startsWith('image')) {
+            blog.image = '/uploads/' + newFileName;
+          }
+        }
+      })
+      .on('end', async () => {
+        const updatedBlog = await _models.Blog.findByIdAndUpdate(req.params.id, blog);
+        if (blog.image) {
+          const filePath = _path.join(__basedir, '/public', updatedBlog.image);
+            _fs.unlink(filePath, (err) => {
+              if (err) throw err;
+            });
+        }
+        res.redirect(`/admin/blogs/${updatedBlog.slug}`);
+      })
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function deleteBlog(req, res) {
+  try {
+    console.log("deleting blog")
+    const deletedBlog = await _models.Blog.findByIdAndRemove(req.params.id);
+    if (deletedBlog.image) {
+      const filePath = _path.join(__basedir, '/public', deletedBlog.image);
+      _fs.unlink(filePath, (err) => {
+        if(err) throw err;
+      });
+    }
+    res.redirect("/admin/blogs");
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function postEvent(req, res) {
+  try {
+    const event = {};
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('field', (name, field) => {
+        if (field) {
+          event[name] = _sanitizeHtml(field);
+        }
+      })
+      .on('fileBegin', (name, file) => {
+        newFileName = new Date().getTime() + file.name;
+        file.path = __basedir + '\\public\\uploads\\events\\' + newFileName;
+      })
+      .on('file', (name, file) => {
+        if (file.type.startsWith('image')) {
+          event.image = '/uploads/events/' + newFileName;
+        }
+      })
+      .on('end', async () => {
+        const Event = new _models.Event(event);
+        const createdEvent = await Event.save();
+        console.log(createdEvent);
+        req.flash("msg", `Event Created successfully!`);
+        req.flash("msg", createdEvent._id);
+        res.status(200).redirect("back");
+      })
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function getEvents(req, res) {
+  try {
+    const events = await _models.Event.find().sort({ createdAt: -1 });
+    res.render("Admin/Events/", { events })
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function getEvent(req, res) {
+  try {
+    const event = await _models.Event.findById(req.params.id);
+    res.render("Admin/Events/view", { event });
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function editEvent(req, res) {
+  try {
+    const event = await _models.Event.findById(req.params.id);
+    res.render("Admin/Events/edit", { event });
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function updateEvent(req, res) {
+  try {
+    const event = {};
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('field', (name, field) => {
+        if (field) {
+          event[name] = _sanitizeHtml(field);
+        }
+      })
+      .on('fileBegin', (name, file) => {
+          if (file.name) {
+            newFileName = new Date().getTime() + file.name;
+            file.path = __basedir + '\\public\\uploads\\events\\' + newFileName;
+          }
+      })
+      .on('file', (name, file) => {
+        if (file.type.startsWith('image')) {
+          event.image = '/uploads/events/' + newFileName;
+        }
+      })
+      .on('end', async () => {
+        const updatedEvent = await _models.Event.findByIdAndUpdate(req.params.id, event);
+        if (event.image) {
+          const filePath = _path.join(__basedir, '/public', updatedEvent.image);
+          _fs.unlink(filePath, (err) => {
+            if (err) throw err;
+          });
+        }
+        res.redirect(`/admin/events/${updatedEvent._id}`);
+      })
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function deleteEvent(req, res) {
+  try {
+    console.log("deleting event")
+    const deletedEvent = await _models.Event.findByIdAndRemove(req.params.id);
+    if (deletedEvent.image) {
+      console.log(deletedEvent.image)
+      // const filePath = _path.join(__basedir, '/public', deletedEvent.image);
+      // _fs.unlink(filePath, (err) => {
+      //   if (err) throw err;
+      // });
+    }
+    res.redirect("/admin/events");
   } catch (err) {
     console.log(err);
     res.send(err);

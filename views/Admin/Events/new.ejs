@@ -1,0 +1,193 @@
+<% include ../../partials/header %>
+<style>
+  .md-form-group {
+    padding-bottom: 0;
+  }
+
+  .md-input {
+    border-bottom: unset;
+  }
+
+  .title {
+    font-size: 2em;
+  }
+</style>
+<div class="padding m-b-lg">
+  <div class="p-y">
+    <h6 class="text-muted m-a-0">New Post</h6>
+  </div>
+  <% if (messages.length > 0) { %>
+  <% messages.forEach((message, index) => { %>
+  <% if (index == 1) { %>
+  <div>
+    <a class="text-info" href="/admin/events/<%= message %>">Click here to View Post</a>
+  </div>
+  <% } else { %>
+  <div class="alert alert-success"><%= message %></div>
+  <% } %>
+  <% }) %>
+  <%}%>
+  <form
+    class="m-y"
+    method="post"
+    enctype="multipart/form-data"
+    action="/admin/events"
+    data-ui-jp="parsley"
+  >
+    <div class="row">
+      <div class="col-md-7">
+        <div class="list box">
+          <div class="list-item">
+            <div class="list-body">
+              <div class="md-form-group">
+                <input
+                  class="md-input title"
+                  placeholder="Your Event Title Here"
+                  name="title"
+                  required
+                />
+                <label>Title</label>
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <div class="form-group form-inline">
+                <label class="text-muted">Day: </label>
+                <select name="dayFrom" class="form-control form-control-sm">
+                  <option value="">From</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                </select>
+                <select name="dayTo" class="form-control form-control-sm">
+                  <option value="">To</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <div class="form-group form-inline">
+                <label class="text-muted">Time: </label>
+                <input type="time" name="timeFrom" class="form-control form-control-sm">
+                <input type="time" name="timeTo" class="form-control form-control-sm">
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <div class="form-group form-inline">
+                <label class="text-muted">Month: </label>
+                <select name="month" class="form-control form-control-sm">
+                  <option>Select Month</option>
+                  <option>January</option>
+                  <option>February</option>
+                  <option>March</option>
+                  <option>April</option>
+                  <option>May</option>
+                  <option>June</option>
+                  <option>July</option>
+                  <option>August</option>
+                  <option>September</option>
+                  <option>October</option>
+                  <option>November</option>
+                  <option>December</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <div class="form-group form-inline">
+                <label for="fileUpload">Feature Image:</label>
+                &nbsp;
+                <input
+                  type="file"
+                  class="form-control"
+                  name="featuredImg"
+                  id="fileUpload"
+                  required
+                  accept="image/*"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-body">
+              <div class="form-group form-inline">
+                <label class="text-muted">Status: </label>
+                <select name="status" class="form-control form-control-sm">
+                  <option value="public">Public</option>
+                  <option value="draft">Draft</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary m-b">Publish</button>
+  </form>
+</div>
+<% include ../../partials/footer %>

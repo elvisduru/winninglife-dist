@@ -53,7 +53,7 @@
         <div data-flex class="hide-scroll">
           <% var currentPath = path.substring(1, path.length) %>
             <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
-              <% var dashActive = "", withdrawActive = "", depositActive = "", usersActive = "" %>
+              <% var dashActive = "", withdrawActive = "", depositActive = "", usersActive = "", blogActive = "", eventActive = "" %>
               <% if (currentPath === 'dashboard') { %>
                       <% dashActive = "active" %>
               <% } %>
@@ -75,7 +75,11 @@
               <% } %>
 
               <% if (currentPath === 'blogs') { %>
-                      <% usersActive = "active" %>
+                      <% blogActive = "active" %>
+              <% } %>
+
+              <% if (currentPath === 'events') { %>
+                      <% eventActive = "active" %>
               <% } %>
 
               <ul class="nav" data-ui-nav>
@@ -159,6 +163,30 @@
                     <li>
                       <a href="/admin/blogs/">
                         <span class="nav-text">View Posts</span>
+                      </a>
+                    </li>
+                  </ul>
+                
+                </li>
+                <li class="<%= usersActive %>">
+                  <a class="b-dark">
+                    <span class="nav-caret">
+                      <i class="fa fa-caret-down"></i>
+                    </span>
+                    <span class="nav-icon text-white no-fade">
+                      <i class="ion-compose"></i>
+                    </span>
+                    <span class="nav-text">Event</span>
+                  </a>
+                  <ul class="nav-sub">
+                    <li>
+                      <a href="/admin/events/new">
+                        <span class="nav-text">New Event</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/admin/events/">
+                        <span class="nav-text">View Events</span>
                       </a>
                     </li>
                   </ul>
