@@ -644,7 +644,6 @@ async function updateBlog(req, res) {
 
 async function deleteBlog(req, res) {
   try {
-    console.log("deleting blog")
     const deletedBlog = await _models.Blog.findByIdAndRemove(req.params.id);
     if (deletedBlog.image) {
       const filePath = _path.join(__basedir, '/public', deletedBlog.image);
@@ -767,7 +766,6 @@ async function updateEvent(req, res) {
 
 async function deleteEvent(req, res) {
   try {
-    console.log("deleting event")
     const deletedEvent = await _models.Event.findByIdAndRemove(req.params.id);
     if (deletedEvent.image) {
       const filePath = _path.join(__basedir, '/public', deletedEvent.image);
