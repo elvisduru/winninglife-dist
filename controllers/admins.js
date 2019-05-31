@@ -743,11 +743,11 @@ async function updateEvent(req, res) {
         }
       })
       .on('fileBegin', (name, file) => {
-        if (file.size === 0) {
-          console.log(file.name, file.path)
-          fs.unlink(file.path);
-        }
           if (file.name) {
+            if (file.size === 0) {
+              console.log(file.name, file.path)
+              fs.unlink(file.path);
+            }
             newFileName = new Date().getTime() + file.name;
             file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
           }
