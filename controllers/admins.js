@@ -667,7 +667,12 @@ async function postEvent(req, res) {
     form.parse(req)
       .on('field', (name, field) => {
         if (field) {
-          event[name] = _sanitizeHtml(field);
+          if (name === "dayFrom" || name === "dayTo") {
+            event[name] = _sanitizeHtml(tConvert(field));
+          } else {
+            event[name] = _sanitizeHtml(field);
+          }
+          console.log(name, event[name]);
         }
       })
       .on('fileBegin', (name, file) => {
@@ -682,7 +687,6 @@ async function postEvent(req, res) {
       .on('end', async () => {
         const Event = new _models.Event(event);
         const createdEvent = await Event.save();
-        console.log(createdEvent);
         req.flash("msg", `Event Created successfully!`);
         req.flash("msg", createdEvent._id);
         res.status(200).redirect("back");
@@ -776,4 +780,16 @@ async function deleteEvent(req, res) {
     console.log(err);
     res.send(err);
   }
+}
+
+function tConvert(time) {
+  // Check correct time format and split into components
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+  if (time.length > 1) { // If time format correct
+    time = time.slice(1);  // Remove full string match value
+    time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+    time[0] = +time[0] % 12 || 12; // Adjust hours
+  }
+  return time.join(''); // return adjusted time or original string
 }

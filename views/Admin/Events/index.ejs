@@ -64,7 +64,7 @@
                         <div class="text-ellipsis">
                           <h4><%= event.title %></h4>
                         </div>
-                        <div class="text-ellipsis"><%= event.dayFrom %> - <%= event.dayTo %>, <%= event.month %></div>
+                        <div class="text-ellipsis"><%= event.dayFrom %><%= event.dayTo === "same" ? null : " - " + event.dayTo %>, <%= event.month %></div>
                       </div>
                     </div>
                   </a>

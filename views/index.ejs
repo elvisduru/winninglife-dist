@@ -409,44 +409,44 @@
           <div class="col-md-5 col-sm-12 col-xs-12 event-tabs">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation">
-                <a
-                  href="#music"
-                  aria-controls="music"
-                  role="tab"
-                  data-toggle="tab"
-                >
-                  <h5 class="event-date">12 <span>May</span></h5>
-                  <h3>mega monday seminar  <span>10.30 AM - 1.00 PM</span></h3>
-                </a>
-              </li>
-              <li role="presentation" class="active">
-                <a
-                  href="#movie"
-                  aria-controls="movie"
-                  role="tab"
-                  data-toggle="tab"
-                >
-                  <h5 class="event-date">14 <span>May</span></h5>
-                  <h3>WOMEN EMPOWERING WOMEN <span>10.30 PM - 2.00 PM</span></h3>
-                </a>
-              </li>
-              <li role="presentation">
-                <a
-                  href="#freeze"
-                  aria-controls="freeze"
-                  role="tab"
-                  data-toggle="tab"
-                >
-                  <h5 class="event-date">7 - 13<span>June</span></h5>
-                  <h3>DUBAI GLOBAL RALLY 2019</h3>
-                </a>
-              </li>
+              <% events.forEach((event, index) => { %>
+                <% if (index == 0) { %>
+                  <li role="presentation" class="active">
+                    <a href="#<%= event._id%>" aria-controls="music" role="tab" data-toggle="tab">
+                      <h5 class="event-date"><%= event.dayFrom %><%= event.dayTo === "same" ? null : " - " + event.dayTo %>
+                        <span><%= event.month %></span></h5>
+                      <h3><%= event.title %> <span><%= event.timeFrom %> - <%= event.timeTo %></span></h3>
+                    </a>
+                  </li>
+                <% } else { %>
+                <li role="presentation">
+                  <a href="#<%= event._id%>" aria-controls="music" role="tab" data-toggle="tab">
+                    <h5 class="event-date"><%= event.dayFrom %><%= event.dayTo === "same" ? null : " - " + event.dayTo %> <span><%= event.month %></span></h5>
+                    <h3><%= event.title %> <span><%= event.timeFrom %> - <%= event.timeTo %></span></h3>
+                  </a>
+                </li>
+                <% } %>
+              <% }); %>
             </ul>
           </div>
           <div class="col-md-5 col-sm-12 col-xs-12">
             <div class="tab-content event-content">
-              <div role="tabpanel" class="tab-pane" id="music">
+              <% events.forEach((event, index) => { %>
+                <% if (index == 0) { %>
+                  <div role="tabpanel" class="tab-pane active" id="<%= event._id %>">
+                    <div class="event-box">
+                      <img src="<%= event.image %>" alt="event" />
+                    </div>
+                  </div>
+                <% } else { %>
+                  <div role="tabpanel" class="tab-pane" id="<%= event._id %>">
+                    <div class="event-box">
+                      <img src="<%= event.image %>" alt="event" />
+                    </div>
+                  </div>
+                <% } %>
+              <% }); %>
+              <!-- <div role="tabpanel" class="tab-pane" id="music">
                 <div class="event-box">
                   <img src="images/events/event1.jpg" alt="event"/>
                 </div>
@@ -460,7 +460,7 @@
                 <div class="event-box">
                   <img src="images/events/event2.png" alt="event"/>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

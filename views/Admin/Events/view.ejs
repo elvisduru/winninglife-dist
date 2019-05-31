@@ -45,7 +45,7 @@
                     <div class="article">
                       <h1 class="m-b _600"><%= event.title %></h1>
                       <h3 class="p-y text-muted">
-                        <%= event.dayFrom %> - <%= event.dayTo %>, <%= event.month %>
+                        <%= event.dayFrom %><%= event.dayTo === "same" ? null : " - " + event.dayTo %>, <%= event.month %>
                       </h3>
                       <h4 class="p-b text-muted">
                         <%= event.timeFrom %> - <%= event.timeTo %>
