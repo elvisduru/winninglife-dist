@@ -678,7 +678,7 @@ async function postEvent(req, res) {
       .on('fileBegin', (name, file) => {
         newFileName = new Date().getTime() + file.name;
         file.path = __basedir + '\\public\\uploads\\events\\' + newFileName;
-        console.log(_basedir);
+        console.log(__basedir);
       })
       .on('file', (name, file) => {
         if (file.type.startsWith('image')) {
@@ -743,7 +743,7 @@ async function updateEvent(req, res) {
           if (file.name) {
             newFileName = new Date().getTime() + file.name;
             file.path = __basedir + '\\public\\uploads\\events\\' + newFileName;
-            console.log(_basedir);
+            console.log(__basedir);
           }
       })
       .on('file', (name, file) => {
