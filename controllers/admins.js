@@ -681,15 +681,15 @@ async function postEvent(req, res) {
         }
       })
       .on('fileBegin', (name, file) => {
+        newFileName = new Date().getTime() + file.name;
+        file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
+      })
+      .on('file', (name, file) => {
         if (file.size === 0) {
           _fs.unlink(file.path, (err) => {
             if (err) throw err;
           });
         }
-        newFileName = new Date().getTime() + file.name;
-        file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
-      })
-      .on('file', (name, file) => {
         if (file.type.startsWith('image')) {
           event.image = '/uploads/events/' + newFileName;
         }
@@ -750,17 +750,17 @@ async function updateEvent(req, res) {
       })
       .on('fileBegin', (name, file) => {
           if (file.name) {
-            if (file.size === 0) {
-              console.log(file.name, file.path)
-              _fs.unlink(file.path, (err) => {
-                if (err) throw err;
-              });
-            }
             newFileName = new Date().getTime() + file.name;
             file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
           }
       })
       .on('file', (name, file) => {
+        if (file.size === 0) {
+          console.log(file.name, file.path)
+          _fs.unlink(file.path, (err) => {
+            if (err) throw err;
+          });
+        }
         if (file.type.startsWith('image')) {
           event.image = '/uploads/events/' + newFileName;
         }
