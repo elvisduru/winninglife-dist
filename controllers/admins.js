@@ -532,7 +532,7 @@ async function postBlog(req, res) {
       })
       .on('fileBegin', (name, file) => {
         if (file.size === 0) {
-          fs.unlink(file.path);
+          _fs.unlink(file.path);
         }
         newFileName = new Date().getTime() + file.name;
         file.path = _path.join(__basedir, '/public/uploads/', newFileName);
@@ -615,7 +615,7 @@ async function updateBlog(req, res) {
       .on('fileBegin', (name, file) => {
         if (file.name) {
           if (file.size === 0) {
-            fs.unlink(file.path);
+            _fs.unlink(file.path);
           }
           newFileName = new Date().getTime() + file.name;
           file.path = _path.join(__basedir, '/public/uploads/', newFileName);
@@ -678,7 +678,7 @@ async function postEvent(req, res) {
       })
       .on('fileBegin', (name, file) => {
         if (file.size === 0) {
-          fs.unlink(file.path);
+          _fs.unlink(file.path);
         }
         newFileName = new Date().getTime() + file.name;
         file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
@@ -746,7 +746,7 @@ async function updateEvent(req, res) {
           if (file.name) {
             if (file.size === 0) {
               console.log(file.name, file.path)
-              fs.unlink(file.path);
+              _fs.unlink(file.path);
             }
             newFileName = new Date().getTime() + file.name;
             file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
