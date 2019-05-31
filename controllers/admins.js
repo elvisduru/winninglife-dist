@@ -743,7 +743,7 @@ async function updateEvent(req, res) {
           if (file.name) {
             newFileName = new Date().getTime() + file.name;
             file.path = __basedir + '\\public\\uploads\\events\\' + newFileName;
-            console.log(__basedir);
+            console.log(file.path)
           }
       })
       .on('file', (name, file) => {
@@ -753,12 +753,12 @@ async function updateEvent(req, res) {
       })
       .on('end', async () => {
         const updatedEvent = await _models.Event.findByIdAndUpdate(req.params.id, event);
-        if (event.image) {
-          const filePath = _path.join(__basedir, '/public', updatedEvent.image);
-          _fs.unlink(filePath, (err) => {
-            if (err) throw err;
-          });
-        }
+        // if (event.image) {
+        //   const filePath = _path.join(__basedir, '/public', updatedEvent.image);
+        //   _fs.unlink(filePath, (err) => {
+        //     if (err) throw err;
+        //   });
+        // }
         res.redirect(`/admin/events/${updatedEvent._id}`);
       })
   } catch (err) {
