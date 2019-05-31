@@ -531,12 +531,11 @@ async function postBlog(req, res) {
         }
       })
       .on('fileBegin', (name, file) => {
+        if (file.size === 0) {
+          fs.unlink(file.path);
+        }
         newFileName = new Date().getTime() + file.name;
         file.path = _path.join(__basedir, '/public/uploads/', newFileName);
-        // form.on('fileBegin', (name, file) => {
-        //   newFileName = new Date().getTime() + file.name;
-        //   file.path = _path.join(__basedir, '/public/uploads/', newFileName);
-        // })
       })
       .on('file', (name, file) => {
         if (file.type.startsWith('image')) {
@@ -615,15 +614,12 @@ async function updateBlog(req, res) {
       })
       .on('fileBegin', (name, file) => {
         if (file.name) {
+          if (file.size === 0) {
+            fs.unlink(file.path);
+          }
           newFileName = new Date().getTime() + file.name;
           file.path = _path.join(__basedir, '/public/uploads/', newFileName);
         }
-        // form.on('fileBegin', (name, file) => {
-        //   if (file.name) {
-        //     newFileName = new Date().getTime() + file.name;
-        //     file.path = _path.join(__basedir, '/public/uploads/', newFileName);
-        //   }
-        // })
       })
       .on('file', (name, file) => {
         if (file.name) {
@@ -681,6 +677,9 @@ async function postEvent(req, res) {
         }
       })
       .on('fileBegin', (name, file) => {
+        if (file.size === 0) {
+          fs.unlink(file.path);
+        }
         newFileName = new Date().getTime() + file.name;
         file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
       })
@@ -745,6 +744,9 @@ async function updateEvent(req, res) {
       })
       .on('fileBegin', (name, file) => {
           if (file.name) {
+            if (file.size === 0) {
+              fs.unlink(file.path);
+            }
             newFileName = new Date().getTime() + file.name;
             file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
           }
