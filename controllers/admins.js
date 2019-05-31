@@ -741,7 +741,7 @@ async function updateEvent(req, res) {
       .on('fileBegin', (name, file) => {
           if (file.name) {
             newFileName = new Date().getTime() + file.name;
-            file.path = file.path = 
+            file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
           }
       })
       .on('file', (name, file) => {
