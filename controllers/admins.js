@@ -531,15 +531,15 @@ async function postBlog(req, res) {
         }
       })
       .on('fileBegin', (name, file) => {
+        newFileName = new Date().getTime() + file.name;
+        file.path = _path.join(__basedir, '/public/uploads/', newFileName);
+      })
+      .on('file', (name, file) => {
         if (file.size === 0) {
           _fs.unlink(file.path, (err) => {
             if (err) throw err;
           });
         }
-        newFileName = new Date().getTime() + file.name;
-        file.path = _path.join(__basedir, '/public/uploads/', newFileName);
-      })
-      .on('file', (name, file) => {
         if (file.type.startsWith('image')) {
           blog.image = '/uploads/' + newFileName;
         }
@@ -622,7 +622,6 @@ async function updateBlog(req, res) {
       })
       .on('file', (name, file) => {
         if (file.size === 0) {
-          console.log(file.name, file.path)
           _fs.unlink(file.path, (err) => {
             if (err) throw err;
           });
