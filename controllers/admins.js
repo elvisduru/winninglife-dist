@@ -533,7 +533,7 @@ async function postBlog(req, res) {
       .on('fileBegin', (name, file) => {
         form.on('fileBegin', (name, file) => {
           newFileName = new Date().getTime() + file.name;
-          file.path = __basedir + '\\public\\uploads\\' + newFileName;
+          file.path = _path.join(__basedir, '/public/uploads/', newFileName);
         })
       })
       .on('file', (name, file) => {
@@ -615,7 +615,7 @@ async function updateBlog(req, res) {
         form.on('fileBegin', (name, file) => {
           if (file.name) {
             newFileName = new Date().getTime() + file.name;
-            file.path = __basedir + '\\public\\uploads\\' + newFileName;
+            file.path = _path.join(__basedir, '/public/uploads/', newFileName);
           }
         })
       })
@@ -677,8 +677,7 @@ async function postEvent(req, res) {
       })
       .on('fileBegin', (name, file) => {
         newFileName = new Date().getTime() + file.name;
-        file.path = __basedir + '\\public\\uploads\\events\\' + newFileName;
-        console.log(__basedir);
+        file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
       })
       .on('file', (name, file) => {
         if (file.type.startsWith('image')) {
@@ -742,11 +741,7 @@ async function updateEvent(req, res) {
       .on('fileBegin', (name, file) => {
           if (file.name) {
             newFileName = new Date().getTime() + file.name;
-            // file.path = __basedir + '\\public\\uploads\\events\\' + newFileName;
-            file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
-            console.log(file.path)
-            console.log("base: ", __basedir)
-            console.log("pwd: ", __dirname)
+            file.path = file.path = 
           }
       })
       .on('file', (name, file) => {
@@ -756,12 +751,12 @@ async function updateEvent(req, res) {
       })
       .on('end', async () => {
         const updatedEvent = await _models.Event.findByIdAndUpdate(req.params.id, event);
-        // if (event.image) {
-        //   const filePath = _path.join(__basedir, '/public', updatedEvent.image);
-        //   _fs.unlink(filePath, (err) => {
-        //     if (err) throw err;
-        //   });
-        // }
+        if (event.image) {
+          const filePath = _path.join(__basedir, '/public', updatedEvent.image);
+          _fs.unlink(filePath, (err) => {
+            if (err) throw err;
+          });
+        }
         res.redirect(`/admin/events/${updatedEvent._id}`);
       })
   } catch (err) {
