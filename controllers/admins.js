@@ -818,6 +818,7 @@ async function changePassword(req, res) {
       throw "Error: Something is wrong with your input";
     }
     const foundUser = await _models.User.findOne({ username: req.body.userID });
+    if (!foundUser) throw "Error: No User found with such ID";
     console.log(`Setting password for ${foundUser.username}`);
     if (req.body.password === req.body.passwordConf) {
       await foundUser.setPassword(req.body.password);
