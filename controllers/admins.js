@@ -33,6 +33,7 @@ exports.getEvent = getEvent;
 exports.editEvent = editEvent;
 exports.updateEvent = updateEvent;
 exports.deleteEvent = deleteEvent;
+exports.changePassword = changePassword;
 
 var _models = require("../models/");
 
@@ -807,4 +808,27 @@ function tConvert(time) {
     time[0] = +time[0] % 12 || 12; // Adjust hours
   }
   return time.join(''); // return adjusted time or original string
+}
+
+// Change User Passwords
+
+async function changePassword(req, res) {
+  try {
+    if (!req.body.userID || !req.body.password || !req.body.passwordConf) {
+      throw "Error: Something is wrong with your input";
+    }
+    const foundUser = await _models.User.findOne({ username: req.body.userID });
+    console.log(`Setting password for ${foundUser.username}`);
+    if (req.body.password === req.body.passwordConf) {
+      await foundUser.setPassword(req.body.password);
+    } else {
+      throw "Error: Passwords Do Not Match"
+    }
+    console.log(`Saving ${foundUser.username}`);
+    await foundUser.save();
+    res.status(200).send("Password Changed Successfully!")
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
 }

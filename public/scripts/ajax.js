@@ -401,6 +401,38 @@
         }
       });
 
+      $("#securityForm").submit(function (event) {
+        var $btnSubmit = $("#btnsubmit");
+        $btnSubmit.text("Updating User...");
+        const userID = $(this)
+          .find("#userid")
+          .val();
+        const password = $(this)
+          .find("#password")
+          .val();
+        const passwordConf = $(this)
+          .find("#passwordconf")
+          .val();
+        // Send data to API
+        $.ajax({
+          url: "/admin/users/changepwd",
+          type: "PUT",
+          data: { userID, password, passwordConf }
+        })
+          .done(data => {
+            $btnSubmit.text("Update");
+            var $result = $("#result");
+            if (data.startsWith("Error")) {
+              $result.removeClass("text-info").addClass("text-danger");
+            } else {
+              $result.addClass("text-info").removeClass("text-danger");
+            }
+            $result.text(data).removeClass("hide");
+          })
+          .fail(err => console.log(err));
+          event.preventDefault();
+      });
+
       $("#statusForm .loadUserbtn").click(function() {
         var username = $(this)
           .siblings(".loadUser")

@@ -24,6 +24,7 @@ router
   .put(_admins.updateUser);
 router.get("/loadUser", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.loadUser);
 router.put("/status", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.setUserStatus);
+router.put("/changepwd", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.changePassword);
 router.get("/matrix", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), (req, res) => res.render("Admin/Users/matrix"));
 router.get("/loadMatrix", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.userMatrix);
 router.get("/members", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), (req, res) => res.render("Admin/Users/members"));

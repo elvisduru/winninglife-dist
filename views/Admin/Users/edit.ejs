@@ -120,25 +120,21 @@
         <div class="p-a-md b-b _600">Security</div>
         <div class="p-a-md">
           <div class="clearfix m-b-lg">
-            <form role="form" class="col-md-6 p-a-0" id="secuityForm">
+            <form role="form" class="col-md-6 p-a-0" id="securityForm" autocomplete="off" data-ui-jp="parsley">
+              <p id="result" class="text-info hide"></p>
               <div class="form-group">
-                <label>Enter UserID: </label>
-                <input type="text" name="username" class="loadUser" />
-                <button type="button" class="btn btn-sm blue">Submit</button>
-              </div>
-              <div class="form-group">
-                <label>Old Password</label>
-                <input type="password" class="form-control" />
+                <label>UserID</label>
+                <input id="userid" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label>New Password</label>
-                <input type="password" class="form-control" />
+                <input type="password" id="password" class="form-control" required autocomplete="new-password" />
               </div>
               <div class="form-group">
                 <label>New Password Again</label>
-                <input type="password" class="form-control" />
+                <input type="password" id="passwordconf" required class="form-control" />
               </div>
-              <button type="submit" class="btn btn-info m-t">Update</button>
+              <button type="submit" id="btnsubmit" class="btn btn-info m-t">Update</button>
             </form>
           </div>
         </div>
