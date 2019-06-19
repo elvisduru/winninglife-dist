@@ -34,6 +34,8 @@ exports.editEvent = editEvent;
 exports.updateEvent = updateEvent;
 exports.deleteEvent = deleteEvent;
 exports.changePassword = changePassword;
+exports.getGallery = getGallery;
+exports.postGallery = postGallery;
 
 var _models = require("../models/");
 
@@ -831,5 +833,21 @@ async function changePassword(req, res) {
   } catch (err) {
     console.log(err);
     res.send(err);
+  }
+}
+
+async function getGallery(req, res) {
+  try {
+    res.render("Admin/Gallery")
+  } catch (error) {
+    console.log(err);
+  }
+}
+
+async function postGallery(req, res) {
+  try {
+
+  } catch (error) {
+    console.log(err);
   }
 }

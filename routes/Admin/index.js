@@ -115,6 +115,11 @@ router
     _admins.undoDeclineWithdrawal
   );
 
+router
+  .route("/gallery")
+  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getGallery)
+  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postGallery);
+
 router.route('/blogs')
   .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getBlogs)
   .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postBlog);

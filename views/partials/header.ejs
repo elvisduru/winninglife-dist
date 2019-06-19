@@ -53,7 +53,7 @@
         <div data-flex class="hide-scroll">
           <% var currentPath = path.substring(1, path.length) %>
             <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
-              <% var dashActive = "", withdrawActive = "", depositActive = "", usersActive = "", blogActive = "", eventActive = "" %>
+              <% var dashActive = "", withdrawActive = "", depositActive = "", usersActive = "", blogActive = "", eventActive = "", galleryActive = "" %>
               <% if (currentPath === 'dashboard') { %>
                       <% dashActive = "active" %>
               <% } %>
@@ -80,6 +80,10 @@
 
               <% if (currentPath === 'events') { %>
                       <% eventActive = "active" %>
+              <% } %>
+
+              <% if (currentPath === 'gallery') { %>
+                      <% galleryActive = "active" %>
               <% } %>
 
               <ul class="nav" data-ui-nav>
@@ -144,7 +148,7 @@
                   </ul>
                   
                 </li>
-                <li class="<%= usersActive %>">
+                <li class="<%= blogActive %>">
                   <a class="b-blue">
                     <span class="nav-caret">
                       <i class="fa fa-caret-down"></i>
@@ -168,7 +172,7 @@
                   </ul>
                 
                 </li>
-                <li class="<%= usersActive %>">
+                <li class="<%= eventActive %>">
                   <a class="b-dark">
                     <span class="nav-caret">
                       <i class="fa fa-caret-down"></i>
@@ -191,6 +195,14 @@
                     </li>
                   </ul>
                 
+                </li>
+                <li class="<%= galleryActive %>">
+                  <a class="b-black" href="/admin/gallery">
+                    <span class="nav-icon text-white no-fade">
+                      <i class="ion-aperture"></i>
+                    </span>
+                    <span class="nav-text">Gallery</span>
+                  </a>
                 </li>
                 <li class="m-t-lg"></li>
                 <li class="nav-header hidden-folded m-t-lg">
@@ -337,11 +349,11 @@
             <a class="dropdown-item" href="/user/profile">
               <span>Profile</span>
             </a>
-            <a class="dropdown-item" href="/setting.html">
+            <a class="dropdown-item" href="#">
               <span>Settings</span>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/docs.html">
+            <a class="dropdown-item" href="#">
               Need help?
             </a>
             <% if (originPath.startsWith("/admin")) { -%>

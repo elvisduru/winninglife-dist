@@ -57,6 +57,12 @@ Object.defineProperty(exports, "Event", {
     return _event.default;
   }
 });
+Object.defineProperty(exports, "Gallery", {
+  enumerable: true,
+  get: function () {
+    return _gallery.default;
+  }
+})
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
@@ -77,6 +83,8 @@ var _admin = _interopRequireDefault(require("./admin"));
 var _blog = _interopRequireDefault(require("./blog"));
 
 var _event = _interopRequireDefault(require("./event"));
+
+var _gallery = _interopRequireDefault(require('./gallery'));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
