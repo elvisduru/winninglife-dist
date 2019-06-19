@@ -881,7 +881,6 @@ async function userMatrix(req, res) {
         fullname: 1,
         _id: 0
       });
-    console.log(rootUserArr);
     const rootUser = rootUserArr[0];
     var image = "";
     if (rootUser.rank.startsWith("SilverLife"))
@@ -913,7 +912,7 @@ async function userMatrix(req, res) {
           ? newUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
           : null
       };
-      if (newUser.text.fullname === null) {
+      if (!newUser.text.fullname) {
         console.log(newUser);
       }
       if (newUser.rank.startsWith("SilverLife"))
