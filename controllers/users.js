@@ -912,8 +912,8 @@ async function userMatrix(req, res) {
           ? newUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
           : null
       };
-      if (!newUser.text.fullname) {
-        console.log(newUser);
+      if (!newUser.text.firstName) {
+        console.log("bug found", newUser.text);
       }
       if (newUser.rank.startsWith("SilverLife"))
         image = "/images/SilverLife.png";
