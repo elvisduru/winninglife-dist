@@ -881,7 +881,7 @@ async function userMatrix(req, res) {
         fullname: 1,
         _id: 0
       });
-    console.log(rootUser);
+    console.log(rootUserArr);
     const rootUser = rootUserArr[0];
     var image = "";
     if (rootUser.rank.startsWith("SilverLife"))
