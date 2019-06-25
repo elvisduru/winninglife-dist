@@ -838,7 +838,8 @@ async function changePassword(req, res) {
 
 async function getGallery(req, res) {
   try {
-    res.render("Admin/Gallery")
+    const uploads = await _models.Gallery.find()
+    res.render("Admin/gallery", { uploads })
   } catch (error) {
     console.log(err);
   }
@@ -846,7 +847,33 @@ async function getGallery(req, res) {
 
 async function postGallery(req, res) {
   try {
-
+    let uploads = [];
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('fileBegin', (name, file) => {
+        newFileName = new Date().getTime() + file.name;
+        file.path = _path.join(__basedir, '/public/uploads/gallery/', newFileName);
+        if (file.type.startsWith('image')) {
+          uploads.push('/uploads/gallery/' + newFileName);
+        }
+      })
+      .on('file', (name, file) => {
+        if (file.size === 0) {
+          _fs.unlink(file.path, (err) => {
+            if (err) throw err;
+          });
+        }
+      })
+      .on('end', () => {
+        uploads.forEach(async upload => {
+          const file = {src: upload};
+          const Gallery = new _models.Gallery(file);
+          await Gallery.save();
+        })
+        // req.flash("msg", `Uploaded successfully!`);
+        res.status(200).redirect("back");
+      })
   } catch (error) {
     console.log(err);
   }

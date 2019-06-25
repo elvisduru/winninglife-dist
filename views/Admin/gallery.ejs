@@ -62,6 +62,14 @@
     .gallery .gallery-item:hover {
       transform: scale(1.025);
     }
+
+    .gallery-item p {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 10;
+      padding: 10px;
+    }
     @media (max-width: 600px) {
       .gallery {
         grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
@@ -150,117 +158,57 @@
     }
 
     #fileList {
-      margin: 0;
       list-style-type: none;
+      padding-left: 0;
     }
+
   </style>
   <div class="navbar box-shadow-z1">
     <ul class="nav nav-pills nav-sm pull-right m-y">
       <li class="nav-item">
         <a href="#" class="btn btn-xs rounded primary" data-toggle="modal" data-target="#uploadModal"><i class="fa fa-plus m-r-xs"></i> New Photo</a>
       </li>
-      <li class="nav-item"></li>
+      <li class="nav-item">
+        <a href="#" class="btn btn-xs rounded danger"><i
+            class="fa fa-trash m-r-xs"></i> Batch Delete</a>
+      </li>
     </ul>
   </div>
-  <!-- <div class="gallery" id="gallery">
+  <div class="gallery" id="gallery">
+    <% uploads.forEach(upload => { %>
     <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,care" alt=""></div>
+      <p>
+        <label class="md-check">
+          <input type="checkbox">
+          <i class="indigo"></i>
+        </label>
+      </p>
+      <div class="content"><img src="<%= upload.src %>" alt=""></div>
     </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,studied" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,substance" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,choose" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,past" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,lamp" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,yet" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,eight" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,crew" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,event" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,instrument" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,practical" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,pass" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,bigger" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,number" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,feature" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,line" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,railroad" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,pride" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,too" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,bottle" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,base" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,cell" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,bag" alt=""></div>
-    </div>
-    <div class="gallery-item">
-      <div class="content"><img src="https://source.unsplash.com/random/?tech,card" alt=""></div>
-    </div>
-  </div> -->
+    <% }) %>
+  </div>
   <div id="uploadModal" class="modal black-overlay in" data-backdrop="false">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal</h5>
-        </div>
-        <div class="modal-body p-lg">
-          <form action="#" method="POST" enctype="multipart/form-data">
-            <h3>Upload Files</h3>
-            <input type="file" name="images" id="images" multiple>
-          </form>
-          <ul id="fileList">
-            <li>No Files Selected</li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <div class="pull-left">
-            <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn primary p-x-md" data-dismiss="modal">Upload</button>
+      <form action="/admin/gallery" method="POST" enctype="multipart/form-data">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal</h5>
           </div>
-        </div>
-      </div><!-- /.modal-content -->
+          <div class="modal-body p-lg">
+            <h3 class="m-b">Upload Files</h3>
+            <input type="file" name="images" id="images" multiple accept="image/*">
+            <ul id="fileList" class="m-t">
+              <li>No Files Selected</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <div class="pull-left">
+              <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn primary p-x-md">Upload</button>
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </form>
     </div>
   </div>
   <% include ../partials/footer %>
