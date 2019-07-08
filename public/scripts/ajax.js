@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
   "use strict";
 
   $("[ui-jp], [data-ui-jp]").uiJp();
@@ -11,7 +11,7 @@
   }
 
   // pjax
-  $(document).on("pjaxStart", function() {
+  $(document).on("pjaxStart", function () {
     $("#aside").modal("hide");
     $("body")
       .removeClass("modal-open")
@@ -26,7 +26,7 @@
     $(document).on(
       "click",
       "a[data-pjax], [data-pjax] a, #aside a, .item a",
-      function(event) {
+      function (event) {
         if ($(".pjax-container").length == 0 || $(this).hasClass("no-ajax")) {
           return;
         }
@@ -38,11 +38,11 @@
       }
     );
 
-    $(document).on("pjax:start", function() {
+    $(document).on("pjax:start", function () {
       $(document).trigger("pjaxStart");
     });
     // fix js
-    $(document).on("pjax:end", function(event) {
+    $(document).on("pjax:end", function (event) {
       $(event.target)
         .find("[ui-jp], [data-ui-jp]")
         .uiJp();
@@ -59,7 +59,7 @@
     $(document).on(
       "click",
       "#subnav .navside a, #subnav .item-title",
-      function() {
+      function () {
         $("#list").block({
           message: '<i class="fa fa-lg fa-refresh fa-spin"></i>',
           css: {
@@ -74,7 +74,7 @@
       }
     );
 
-    $(document).on("click", "#list .item-title", function() {
+    $(document).on("click", "#list .item-title", function () {
       $("#detail").block({
         message: '<i class="fa fa-lg fa-refresh fa-spin"></i>',
         css: {
@@ -89,9 +89,9 @@
     });
   }
 
-  $(document).on("ready pjax:end", function() {
+  $(document).on("ready pjax:end", function () {
     if (location.pathname === "/user/wallet/transfer") {
-      $("#formtransfer").submit(function(event) {
+      $("#formtransfer").submit(function (event) {
         event.preventDefault();
         var $btnSubmit = $("#btnsubmit");
         $btnSubmit.text("Sending data...");
@@ -133,7 +133,7 @@
     }
 
     if (location.pathname === "/user/placement") {
-      $("#formplace").submit(function(event) {
+      $("#formplace").submit(function (event) {
         var $btnSubmit = $("#btnsubmit");
         $btnSubmit.text("Sending data...");
         const placementId = $(this)
@@ -188,7 +188,7 @@
       // let convertedCar = false;
       // let convertedSuv = false;
       // let convertedScholarship = false;
-      $("#foodTrigger").click(function() {
+      $("#foodTrigger").click(function () {
         if ($(this).is(":checked")) {
           $("#foodEarning").val($newFoodEarning);
           // $totalAmount.val(+$totalAmount.val() + $newFoodEarning);
@@ -200,7 +200,7 @@
         }
       });
 
-      $("#carTrigger").click(function() {
+      $("#carTrigger").click(function () {
         if ($(this).is(":checked")) {
           $("#carEarning").val($newCarEarning);
           // $totalAmount.val(+$totalAmount.val() + $newCarEarning);
@@ -212,7 +212,7 @@
         }
       });
 
-      $("#suvTrigger").click(function() {
+      $("#suvTrigger").click(function () {
         if ($(this).is(":checked")) {
           $("#suvEarning").val($newSuvEarning);
           // $totalAmount.val(+$totalAmount.val() + $newSuvEarning);
@@ -224,7 +224,7 @@
         }
       });
 
-      $("#scholarshipTrigger").click(function() {
+      $("#scholarshipTrigger").click(function () {
         if ($(this).is(":checked")) {
           $("#scholarshipEarning").val($newScholarshipEarning);
           // $totalAmount.val(+$totalAmount.val() + $newScholarshipEarning);
@@ -237,7 +237,7 @@
       });
 
       // Process Withdrawals
-      $("#refBonusModal .yes").click(function() {
+      $("#refBonusModal .yes").click(function () {
         $.post("/user/wallet/withdrawal/ref")
           .done(data => {
             console.log(data);
@@ -266,13 +266,13 @@
           .fail(err => console.log(err));
       });
 
-      $("#rankEarningWithdrawBtn").click(function() {
+      $("#rankEarningWithdrawBtn").click(function () {
         $("#rankEarningModal #withdrawInfo").html(
           `Are you sure to withdraw &#8358; ${$realTotalAmount}?`
         );
       });
 
-      $("#rankEarningModal .yes").click(function() {
+      $("#rankEarningModal .yes").click(function () {
         // $.post("/user/wallet/withdrawal/rank", {
         //   amount: $totalAmount.val(),
         //   convertedFood,
@@ -366,7 +366,7 @@
             // chart_config[0] = config;
             // chart_config.concat(data);
             // console.log(chart_config);
-            new Treant(chart_config, function() {
+            new Treant(chart_config, function () {
               $(".loader").remove();
             });
           })
@@ -379,7 +379,7 @@
     // Admin
 
     if (location.pathname === "/admin/users/edit") {
-      $("#profileForm .loadUserbtn").click(function() {
+      $("#profileForm .loadUserbtn").click(function () {
         var username = $(this)
           .siblings(".loadUser")
           .val()
@@ -430,10 +430,10 @@
             $result.text(data).removeClass("hide");
           })
           .fail(err => console.log(err));
-          event.preventDefault();
+        event.preventDefault();
       });
 
-      $("#statusForm .loadUserbtn").click(function() {
+      $("#statusForm .loadUserbtn").click(function () {
         var username = $(this)
           .siblings(".loadUser")
           .val()
@@ -461,7 +461,7 @@
     }
 
     if (location.pathname === "/admin/users/matrix") {
-      $(".loadUserbtn").click(function() {
+      $(".loadUserbtn").click(function () {
         $("#matrix").html("");
         var username = $(this)
           .siblings(".loadUser")
@@ -490,7 +490,7 @@
                   }
                 };
                 var chart_config = [config, ...data];
-                new Treant(chart_config, function() {
+                new Treant(chart_config, function () {
                   $(".loadUserbtn").text("Submit");
                 });
               })
@@ -503,7 +503,7 @@
     }
 
     if (location.pathname === "/admin/users/members") {
-      $(".loadUserbtn").click(function() {
+      $(".loadUserbtn").click(function () {
         $("#rankTable").html("");
         var rank = $(this)
           .siblings(".loadRank")
@@ -545,12 +545,12 @@
           csv =
             '"' +
             $rows
-              .map(function(i, row) {
+              .map(function (i, row) {
                 var $row = $(row),
                   $cols = $row.find("td,th");
 
                 return $cols
-                  .map(function(j, col) {
+                  .map(function (j, col) {
                     var $col = $(col),
                       text = $col.text();
 
@@ -582,7 +582,7 @@
         }
       }
 
-      $("#deposit-export-btn").click(function(event) {
+      $("#deposit-export-btn").click(function (event) {
         exportTableToCSV.apply(this, [
           $("#pending-deposits"),
           `pending-deposits--${new Date().toLocaleDateString()}--${new Date().toLocaleTimeString()}.csv`
@@ -592,7 +592,7 @@
         // We actually need this to be a typical hyperlink
       });
 
-      $("#withdrawal-export-btn").click(function(event) {
+      $("#withdrawal-export-btn").click(function (event) {
         exportTableToCSV.apply(this, [
           $("#pending-withdrawals"),
           `pending-withdrawals--${new Date().toLocaleDateString()}--${new Date().toLocaleTimeString()}.csv`
@@ -605,7 +605,7 @@
 
     $(".batch-process-btn").hide();
 
-    $(".md-check input:checkbox").change(function() {
+    $(".md-check input:checkbox").change(function () {
       if ($(".md-check input:checkbox:checked").length <= 2) {
         $(".batch-process-btn").hide();
       } else {
@@ -613,7 +613,7 @@
       }
     });
 
-    $("#batch-withdrawals-btn").click(function() {
+    $("#batch-withdrawals-btn").click(function () {
       console.log("batch withdrawals processing");
       let transactions = $(".md-check input:checkbox:checked").serializeArray();
       console.log(transactions);
@@ -626,7 +626,7 @@
     });
 
     if (location.pathname === "/admin/users/analysis") {
-      $(".loadUserbtn").click(function() {
+      $(".loadUserbtn").click(function () {
         // clear all inputs
         var username = $(this)
           .siblings(".loadUser")
@@ -697,25 +697,38 @@
       };
       gallery.querySelectorAll('img').forEach(function (item) {
         // item.classList.add('byebye');
-        if (item.complete) {
-          console.log(item.src);
-        }
-        else {
-          item.addEventListener('load', function () {
-            var altura = getVal(gallery, 'grid-auto-rows');
-            var gap = getVal(gallery, 'grid-row-gap');
-            var gitem = item.parentElement.parentElement;
-            gitem.style.gridRowEnd = "span " + Math.ceil((getHeight(gitem) + gap) / (altura + gap));
-            item.classList.remove('byebye');
-          });
-        }
+        // if (item.complete) {
+        //   console.log(item.src);
+        // }
+        // else {
+        item.addEventListener('load', function () {
+          var altura = getVal(gallery, 'grid-auto-rows');
+          var gap = getVal(gallery, 'grid-row-gap');
+          var gitem = item.parentElement.parentElement;
+          gitem.style.gridRowEnd = "span " + Math.ceil((getHeight(gitem) + gap) / (altura + gap));
+          item.classList.remove('byebye');
+        });
+        // }
       });
+      resizeAll();
       window.addEventListener('resize', resizeAll);
-      gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+      gallery.querySelectorAll('.gallery-item .content').forEach(function (item) {
         item.addEventListener('click', function () {
-          item.classList.toggle('full');
+          item.parentElement.classList.toggle('full');
         });
       });
+
+      // Handle Batch Delete
+      $('#deleteImgs').click(function () {
+        let selectedImgs = $(".gallery-item .md-check input:checkbox:checked").serializeArray();
+        console.log(selectedImgs);
+        $.ajax("/admin/gallery", { method: 'delete', data: selectedImgs })
+          .done(() => {
+            console.log("removing images");
+            location.reload(true);
+          })
+          .fail(err => console.log(err));
+      })
     }
   });
 })(jQuery);

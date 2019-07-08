@@ -118,12 +118,13 @@ router
 router
   .route("/gallery")
   .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getGallery)
-  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postGallery);
+  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postGallery)
+  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteGallery);
 
 router.route('/blogs')
   .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getBlogs)
   .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postBlog);
-  
+
 router.route('/events')
   .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getEvents)
   .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postEvent);

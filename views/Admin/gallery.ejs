@@ -1,214 +1,238 @@
 <% include ../partials/header %>
-  <style>
-    body {
-      background-color: #eee;
-    }
-    .hello {
-      opacity: 1 !important;
-    }
-    .full {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-    .full .content {
-      background-color: rgba(0,0,0,0.75) !important;
-      height: 100%;
-      width: 100%;
-      display: grid;
-    }
-    .full .content img {
-      left: 50%;
-      transform: translate3d(0, 0, 0);
-      animation: zoomin 1s ease;
-      max-width: 100%;
-      max-height: 80%;
-      margin: auto;
-    }
-    .byebye {
-      opacity: 0;
-    }
-    .byebye:hover {
-      transform: scale(0.2) !important;
-    }
+<style>
+  body {
+    background-color: #eee;
+  }
+  .hello {
+    opacity: 1 !important;
+  }
+  .full {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .full .content {
+    background-color: rgba(0, 0, 0, 0.75) !important;
+    height: 100%;
+    width: 100%;
+    display: grid;
+  }
+  .full .content img {
+    left: 50%;
+    transform: translate3d(0, 0, 0);
+    animation: zoomin 1s ease;
+    max-width: 100%;
+    max-height: 80%;
+    margin: auto;
+  }
+  .byebye {
+    opacity: 0;
+  }
+  .byebye:hover {
+    transform: scale(0.2) !important;
+  }
+  .gallery {
+    display: grid;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 8px;
+  }
+  .gallery img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 16px #333;
+    transition: all 1.5s ease;
+  }
+  .gallery img:hover {
+    box-shadow: 0 0 32px #333;
+  }
+  .gallery .content {
+    padding: 4px;
+  }
+  .gallery .gallery-item {
+    transition: grid-row-start 300ms linear;
+    transition: transform 300ms ease;
+    transition: all 0.5s ease;
+    cursor: pointer;
+  }
+
+  .gallery .gallery-item {
+    transform: scale(1);
+  }
+
+  .gallery .gallery-item:hover {
+    transform: scale(1.025);
+  }
+
+  .gallery-item p {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    padding: 10px;
+  }
+  @media (max-width: 600px) {
     .gallery {
-      display: grid;
-      grid-column-gap: 8px;
-      grid-row-gap: 8px;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      grid-auto-rows: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     }
-    .gallery img {
+  }
+  @media (max-width: 400px) {
+    .gallery {
+      grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+    }
+  }
+  @-moz-keyframes zoomin {
+    0% {
+      max-width: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
+    }
+    30% {
+      filter: blur(4px);
+      transform: rotate(-80deg);
+    }
+    70% {
+      max-width: 50%;
+      transform: rotate(45deg);
+    }
+    100% {
       max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 0 16px #333;
-      transition: all 1.5s ease;
+      transform: rotate(0deg);
     }
-    .gallery img:hover {
-      box-shadow: 0 0 32px #333;
+  }
+  @-webkit-keyframes zoomin {
+    0% {
+      max-width: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
     }
-    .gallery .content {
-      padding: 4px;
+    30% {
+      filter: blur(4px);
+      transform: rotate(-80deg);
     }
-    .gallery .gallery-item {
-      transition: grid-row-start 300ms linear;
-      transition: transform 300ms ease;
-      transition: all 0.5s ease;
-      cursor: pointer;
+    70% {
+      max-width: 50%;
+      transform: rotate(45deg);
     }
-    .gallery .gallery-item:hover {
-      transform: scale(1.025);
+    100% {
+      max-width: 100%;
+      transform: rotate(0deg);
     }
+  }
+  @-o-keyframes zoomin {
+    0% {
+      max-width: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
+    }
+    30% {
+      filter: blur(4px);
+      transform: rotate(-80deg);
+    }
+    70% {
+      max-width: 50%;
+      transform: rotate(45deg);
+    }
+    100% {
+      max-width: 100%;
+      transform: rotate(0deg);
+    }
+  }
+  @keyframes zoomin {
+    0% {
+      max-width: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
+    }
+    30% {
+      filter: blur(4px);
+      transform: rotate(-80deg);
+    }
+    70% {
+      max-width: 50%;
+      transform: rotate(45deg);
+    }
+    100% {
+      max-width: 100%;
+      transform: rotate(0deg);
+    }
+  }
 
-    .gallery-item p {
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      z-index: 10;
-      padding: 10px;
-    }
-    @media (max-width: 600px) {
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-      }
-    }
-    @media (max-width: 400px) {
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
-      }
-    }
-    @-moz-keyframes zoomin {
-      0% {
-        max-width: 50%;
-        transform: rotate(-30deg);
-        filter: blur(4px);
-      }
-      30% {
-        filter: blur(4px);
-        transform: rotate(-80deg);
-      }
-      70% {
-        max-width: 50%;
-        transform: rotate(45deg);
-      }
-      100% {
-        max-width: 100%;
-        transform: rotate(0deg);
-      }
-    }
-    @-webkit-keyframes zoomin {
-      0% {
-        max-width: 50%;
-        transform: rotate(-30deg);
-        filter: blur(4px);
-      }
-      30% {
-        filter: blur(4px);
-        transform: rotate(-80deg);
-      }
-      70% {
-        max-width: 50%;
-        transform: rotate(45deg);
-      }
-      100% {
-        max-width: 100%;
-        transform: rotate(0deg);
-      }
-    }
-    @-o-keyframes zoomin {
-      0% {
-        max-width: 50%;
-        transform: rotate(-30deg);
-        filter: blur(4px);
-      }
-      30% {
-        filter: blur(4px);
-        transform: rotate(-80deg);
-      }
-      70% {
-        max-width: 50%;
-        transform: rotate(45deg);
-      }
-      100% {
-        max-width: 100%;
-        transform: rotate(0deg);
-      }
-    }
-    @keyframes zoomin {
-      0% {
-        max-width: 50%;
-        transform: rotate(-30deg);
-        filter: blur(4px);
-      }
-      30% {
-        filter: blur(4px);
-        transform: rotate(-80deg);
-      }
-      70% {
-        max-width: 50%;
-        transform: rotate(45deg);
-      }
-      100% {
-        max-width: 100%;
-        transform: rotate(0deg);
-      }
-    }
-
-    #fileList {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-  </style>
-  <div class="navbar box-shadow-z1">
-    <ul class="nav nav-pills nav-sm pull-right m-y">
-      <li class="nav-item">
-        <a href="#" class="btn btn-xs rounded primary" data-toggle="modal" data-target="#uploadModal"><i class="fa fa-plus m-r-xs"></i> New Photo</a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="btn btn-xs rounded danger"><i
-            class="fa fa-trash m-r-xs"></i> Batch Delete</a>
-      </li>
-    </ul>
+  #fileList {
+    list-style-type: none;
+    padding-left: 0;
+  }
+</style>
+<div class="navbar box-shadow-z1">
+  <ul class="nav nav-pills nav-sm pull-right m-y">
+    <li class="nav-item">
+      <a
+        href="#"
+        class="btn btn-xs rounded primary"
+        data-toggle="modal"
+        data-target="#uploadModal"
+        ><i class="fa fa-plus m-r-xs"></i> New Photo</a
+      >
+    </li>
+    <li class="nav-item" id="deleteImgs">
+      <a href="#" class="btn btn-xs rounded danger"
+        ><i class="fa fa-trash m-r-xs"></i> Batch Delete</a
+      >
+    </li>
+  </ul>
+</div>
+<div class="gallery" id="gallery">
+  <% uploads.forEach(upload => { %>
+  <div class="gallery-item">
+    <div class="content"><img src="<%= upload.src %>" alt="" /></div>
+    <p>
+      <label class="md-check">
+        <input type="checkbox" name="images" value="<%= upload.id %>" />
+        <i class="indigo"></i>
+      </label>
+    </p>
   </div>
-  <div class="gallery" id="gallery">
-    <% uploads.forEach(upload => { %>
-    <div class="gallery-item">
-      <p>
-        <label class="md-check">
-          <input type="checkbox">
-          <i class="indigo"></i>
-        </label>
-      </p>
-      <div class="content"><img src="<%= upload.src %>" alt=""></div>
-    </div>
-    <% }) %>
+  <% }) %>
+</div>
+<div id="uploadModal" class="modal black-overlay in" data-backdrop="false">
+  <div class="modal-dialog">
+    <form action="/admin/gallery" method="POST" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal</h5>
+        </div>
+        <div class="modal-body p-lg">
+          <h3 class="m-b">Upload Files</h3>
+          <input
+            type="file"
+            name="images"
+            id="images"
+            multiple
+            accept="image/*"
+          />
+          <ul id="fileList" class="m-t">
+            <li>No Files Selected</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <div class="pull-left">
+            <button
+              type="button"
+              class="btn dark-white p-x-md"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn primary p-x-md">Upload</button>
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </form>
   </div>
-  <div id="uploadModal" class="modal black-overlay in" data-backdrop="false">
-    <div class="modal-dialog">
-      <form action="/admin/gallery" method="POST" enctype="multipart/form-data">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal</h5>
-          </div>
-          <div class="modal-body p-lg">
-            <h3 class="m-b">Upload Files</h3>
-            <input type="file" name="images" id="images" multiple accept="image/*">
-            <ul id="fileList" class="m-t">
-              <li>No Files Selected</li>
-            </ul>
-          </div>
-          <div class="modal-footer">
-            <div class="pull-left">
-              <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn primary p-x-md">Upload</button>
-            </div>
-          </div>
-        </div><!-- /.modal-content -->
-      </form>
-    </div>
-  </div>
-  <% include ../partials/footer %>
+</div>
+<% include ../partials/footer %>

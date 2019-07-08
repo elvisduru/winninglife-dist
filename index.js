@@ -50,9 +50,9 @@ const sessionOptions = {
   secret: "winninglifewearewinningwehavewon",
   store: new MongoStore({
     url:
-      "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
+      // "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
       // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
-    // "mongodb://localhost/winninglife",
+      "mongodb://localhost/winninglife",
     ttl: 1 * 24 * 60 * 60
   }),
   resave: false,
@@ -94,11 +94,17 @@ if (environment == "production") {
 app.get("/", (req, res) => {
   _models.Event.find({}, (err, events) => {
     if (err) console.log(err);
-    res.render("index", {events})
+    res.render("index", { events })
   })
 });
 app.get("/contact", (req, res) => res.render("contact"));
-app.get("/gallery", (req, res) => res.render("gallery"));
+app.get("/gallery", async (req, res) => {
+  const uploads = await _models.Gallery.find().sort({
+    created: -1
+  })
+  console.log(uploads)
+  res.render("gallery", { uploads })
+});
 
 app.use("/auth", _auth.default);
 app.use("/user", _User.default);

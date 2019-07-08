@@ -79,7 +79,15 @@
 				</ul><!-- / Portfolio Filters -->
 				
 				<div class="col-md-12 col-sm-12 col-xs-12 portfolio-list no-padding">
-					<div class="col-md-4 col-sm-4 col-xs-6 no-padding portfolio-box deluxe">
+					<% uploads.forEach(upload => { %>
+						<div class="col-md-4 col-sm-4 col-xs-6 no-padding portfolio-box deluxe">
+							<a href="<%= upload.src %>" title="Portfolio" class="popup-modal">
+								<img width="387" height="350" alt="Portfolio" src="<%= upload.src %>" />
+								<h3><span> winninglife </span></h3>
+							</a>
+						</div>
+					<% }) %>
+					<!-- <div class="col-md-4 col-sm-4 col-xs-6 no-padding portfolio-box deluxe">
 						<a href="images/gallery/gallery1.jpg" title="Portfolio" class="popup-modal">
 							<img width="387" height="350" alt="Portfolio" src="images/gallery/gallery1.jpg" />
 							<h3><span> winninglife </span></h3>
@@ -174,7 +182,7 @@
 							<img width="387" height="350" alt="Portfolio" src="images/gallery/gallery16.jpg" />
 							<h3><span> winninglife </span></h3>
 						</a>						
-					</div>
+					</div> -->
 				</div>
 				<nav class="ow-pagination">
 					<ul class="pagination">						

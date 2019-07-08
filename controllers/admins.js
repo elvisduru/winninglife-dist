@@ -36,6 +36,7 @@ exports.deleteEvent = deleteEvent;
 exports.changePassword = changePassword;
 exports.getGallery = getGallery;
 exports.postGallery = postGallery;
+exports.deleteGallery = deleteGallery;
 
 var _models = require("../models/");
 
@@ -581,7 +582,7 @@ async function getBlogs(req, res) {
 
 async function getBlog(req, res) {
   try {
-    const blog = await _models.Blog.findOne({slug: req.params.id});
+    const blog = await _models.Blog.findOne({ slug: req.params.id });
     res.render("Admin/Blogs/view", { blog });
   } catch (err) {
     console.log(err);
@@ -639,9 +640,9 @@ async function updateBlog(req, res) {
         const updatedBlog = await _models.Blog.findByIdAndUpdate(req.params.id, blog);
         if (blog.image) {
           const filePath = _path.join(__basedir, '/public', updatedBlog.image);
-            _fs.unlink(filePath, (err) => {
-              if (err) throw err;
-            });
+          _fs.unlink(filePath, (err) => {
+            if (err) throw err;
+          });
         }
         res.redirect(`/admin/blogs/${updatedBlog.slug}`);
       })
@@ -657,7 +658,7 @@ async function deleteBlog(req, res) {
     if (deletedBlog.image) {
       const filePath = _path.join(__basedir, '/public', deletedBlog.image);
       _fs.unlink(filePath, (err) => {
-        if(err) throw err;
+        if (err) throw err;
       });
     }
     res.redirect("/admin/blogs");
@@ -752,10 +753,10 @@ async function updateEvent(req, res) {
         }
       })
       .on('fileBegin', (name, file) => {
-          if (file.name) {
-            newFileName = new Date().getTime() + file.name;
-            file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
-          }
+        if (file.name) {
+          newFileName = new Date().getTime() + file.name;
+          file.path = _path.join(__basedir, '/public/uploads/events/', newFileName);
+        }
       })
       .on('file', (name, file) => {
         if (file.size === 0) {
@@ -838,7 +839,9 @@ async function changePassword(req, res) {
 
 async function getGallery(req, res) {
   try {
-    const uploads = await _models.Gallery.find()
+    const uploads = await _models.Gallery.find().sort({
+      created: -1
+    })
     res.render("Admin/gallery", { uploads })
   } catch (error) {
     console.log(err);
@@ -867,7 +870,7 @@ async function postGallery(req, res) {
       })
       .on('end', () => {
         uploads.forEach(async upload => {
-          const file = {src: upload};
+          const file = { src: upload };
           const Gallery = new _models.Gallery(file);
           await Gallery.save();
         })
@@ -876,5 +879,22 @@ async function postGallery(req, res) {
       })
   } catch (error) {
     console.log(err);
+  }
+}
+
+async function deleteGallery(req, res) {
+  try {
+    const deletedImages = req.body.images;
+    deletedImages.forEach(async image => {
+      const deletedImage = await _models.Gallery.findByIdAndRemove(image);
+      const filePath = _path.join(__basedir, '/public', deletedImage.src);
+      _fs.unlink(filePath, (err) => {
+        if (err) throw err;
+      });
+    })
+    res.status(200).send("");
+  } catch (err) {
+    console.log(err);
+    res.send(err);
   }
 }
