@@ -134,6 +134,13 @@
 
     if (location.pathname === "/user/placement") {
       $("#formplace").submit(function (event) {
+        var me = $(this);
+        event.preventDefault();
+
+        if (me.data('requestRunning')) {
+          return;
+        }
+
         var $btnSubmit = $("#btnsubmit");
         $btnSubmit.text("Sending data...");
         const placementId = $(this)
@@ -142,11 +149,17 @@
         const referralId = $(this)
           .find("#referralid")
           .val();
+
+        me.data('requestRunning', true);
+
         // Send data to API
         $.ajax({
           url: "/user/placement",
           type: "PUT",
-          data: { referralId, placementId }
+          data: { referralId, placementId },
+          complete: function () {
+            me.data('requestRunning', false);
+          }
         })
           .done(data => {
             $btnSubmit.text("Continue? (Not Reversible)");
@@ -160,7 +173,6 @@
           })
           .fail(err => console.log(err));
         // return false;
-        event.preventDefault();
       });
     }
 

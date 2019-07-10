@@ -334,11 +334,23 @@
         <div class="nav-fold dropup">
           <a data-toggle="dropdown">
               <div class="pull-left">
-                <div class="inline"><span class="avatar w-40 grey"><%= currentUser.fullname.split(" ")[2] ? currentUser.fullname.split(" ")[0][0] + currentUser.fullname.split(" ")[2][0] : currentUser.fullname.split(" ")[0][0] + currentUser.fullname.split(" ")[1][0] %></span></div>
+                <div class="inline"><span class="avatar w-40 grey"><% if (currentUser.fullname.split(" ") > 2) { %> <%=
+                                      currentUser.fullname.split(" ")[0][0] +
+                                      currentUser.fullname.split(" ")[2][0] %> <% } else if
+                                      (currentUser.fullname.split(" ") === 1) { %> <%=
+                                      currentUser.fullname.split(" ")[0][0] +
+                                      currentUser.fullname.split(" ")[1][0] %> <% } else { %>
+                <%= currentUser.fullname[0] %> <% } %></span></div>
                 <img src="/images/a0.jpg" alt="..." class="w-40 img-circle hide">
               </div>
               <div class="clear hidden-folded p-x">
-                <span class="block _500 text-muted"><%= currentUser.fullname.split(" ")[2] ? currentUser.fullname.split(" ")[0] + " " + currentUser.fullname.split(" ")[2] : currentUser.fullname.split(" ")[0] + " " + currentUser.fullname.split(" ")[1] %></span>
+                <span class="block _500 text-muted"><% if (currentUser.fullname.split(" ") > 2) { %> <%=
+                                    currentUser.fullname.split(" ")[0] + " " +
+                                    currentUser.fullname.split(" ")[2] %> <% } else if
+                                    (currentUser.fullname.split(" ") === 1) { %> <%=
+                                    currentUser.fullname.split(" ")[0] + " " +
+                                    currentUser.fullname.split(" ")[1] %> <% } else { %> <%=
+                                    currentUser.fullname %> <% } %></span>
                 <div class="progress-xxs m-y-sm lt progress">
                     <div class="progress-bar info" style="width: 15%;">
                     </div>
