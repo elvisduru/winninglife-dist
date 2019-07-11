@@ -32,19 +32,26 @@ async function register(req, res) {
     const { email, username, password, fullname, phone, gender } = req.body;
 
     try {
-      const user = new _models.User({
-        email,
-        username,
-        fullname,
-        phone,
-        gender
-      });
-      await user.setPassword(password);
-      await user.save();
+      const foundUser = await _models.User.findOne({ username: username });
 
-      _passport.default.authenticate("user")(req, res, () => {
-        res.status(201).redirect("/user/profile");
-      });
+      if (foundUser) {
+        console.log('User already created');
+        res.redirect('back');
+      } else {
+        const user = new _models.User({
+          email,
+          username,
+          fullname,
+          phone,
+          gender
+        });
+        await user.setPassword(password);
+        await user.save();
+
+        _passport.default.authenticate("user")(req, res, () => {
+          res.status(201).redirect("/user/profile");
+        });
+      }
     } catch (err) {
       res.status(500).send({
         err
@@ -165,7 +172,7 @@ async function transferFund(req, res) {
           .status(200)
           .send(
             `Successfully transfered ${req.body.amount} to ${
-              fundedUser.username
+            fundedUser.username
             }`
           );
       }
@@ -198,12 +205,12 @@ async function placeUser(req, res) {
 
       if (req.user.parent === req.body.placementId) {
         throw "Error: You have already been placed under this user.";
-      } 
-      
+      }
+
       if (req.user.referrer) {
         throw "Error: You already have a referrer"
       }
-      
+
       // Referral Bonus to Referrer
 
       const referrer = await _models.User.findOneAndUpdate(
