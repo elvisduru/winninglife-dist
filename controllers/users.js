@@ -187,6 +187,13 @@ async function transferFund(req, res) {
 async function placeUser(req, res) {
   if (req.body.referralId && req.body.placementId) {
     try {
+      // check if record is created
+      const referralRecord = await _models.RefEarning.findOne({ from: req.user.username });
+
+      if (referralRecord) {
+        throw "Error: Referral has already been created."
+      }
+
       // check if placement is current user
       if (
         req.body.referralId === req.user.username ||
@@ -208,21 +215,14 @@ async function placeUser(req, res) {
       }
 
       if (req.user.referrer) {
-        throw "Error: You already have a referrer"
+        throw "Error: You already have a referrer";
       }
 
-      // Referral Bonus to Referrer
-
-      const referrer = await _models.User.findOneAndUpdate(
-        {
-          username: req.body.referralId
-        },
-        {
-          $inc: {
-            referralBonus: 1000
-          }
-        }
-      ); // Find Placement
+      // Find Referrer
+      const referrer = await _models.User.findOne({
+        username: req.body.referralId
+      });
+      // Find Placement
 
       const placement = await _models.User.findOne({
         username: req.body.placementId
@@ -232,15 +232,14 @@ async function placeUser(req, res) {
         throw "Error: No User found with such ID";
       }
 
-      const refEarning = new _models.RefEarning({
-        recipient: req.body.referralId,
-        from: req.user.username
-      });
-      await refEarning.save(); // User Placement
+      // User Placement
 
       if (placement.children.length < 4) {
         placement.children.push(req.user.username);
         placement.downlines++;
+
+        // Referral Bonus to Referrer
+        referrer.referralBonus += 1000;
 
         if (placement.downlines === 4) {
           placement.rank = "SilverLife";
@@ -259,21 +258,28 @@ async function placeUser(req, res) {
           await rankEarning.save();
         }
 
+        await referrer.save();
         await placement.save();
-      } else {
-        if (req.body.referralId === req.body.placementId) {
-          await _models.User.findOneAndUpdate(
-            {
-              username: req.body.referralId
-            },
-            {
-              $inc: {
-                referralBonus: -1000
-              }
-            }
-          );
-        }
 
+        const refEarning = new _models.RefEarning({
+          recipient: req.body.referralId,
+          from: req.user.username
+        });
+        await refEarning.save();
+
+      } else {
+        // if (req.body.referralId === req.body.placementId) {
+        //   await _models.User.findOneAndUpdate(
+        //     {
+        //       username: req.body.referralId
+        //     },
+        //     {
+        //       $inc: {
+        //         referralBonus: -1000
+        //       }
+        //     }
+        //   );
+        // }
         throw "Error: This User already has four downlines";
       }
 

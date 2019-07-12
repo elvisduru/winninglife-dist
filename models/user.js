@@ -35,8 +35,14 @@ const userSchema = new _mongoose.default.Schema({
   },
   phone: String,
   gender: String,
-  parent: String,
-  referrer: String,
+  parent: {
+    type: String,
+    trim: true
+  },
+  referrer: {
+    type: String,
+    trim: true
+  },
   children: [String],
   downlines: {
     type: Number,

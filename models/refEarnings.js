@@ -15,7 +15,7 @@ const refEarningSchema = new _mongoose.default.Schema({
     type: Number,
     default: 1000
   },
-  from: String,
+  from: { type: String, unique: true },
   created: {
     type: Date,
     default: Date.now
