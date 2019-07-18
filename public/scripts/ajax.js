@@ -742,5 +742,22 @@
           .fail(err => console.log(err));
       })
     }
+
+    // Mini Gallery - Landing Page
+
+    if (location.pathname === "/admin/landing") {
+      // Handle Batch Delete
+      $('#deleteImgs').click(function () {
+        let selectedImgs = $(".gallery-item .md-check input:checkbox:checked").serializeArray();
+        console.log(selectedImgs);
+        $.ajax("/admin/minigallery", { method: 'delete', data: selectedImgs })
+          .done(() => {
+            console.log("removing images");
+            location.reload(true);
+          })
+          .fail(err => console.log(err));
+      })
+    }
+
   });
 })(jQuery);

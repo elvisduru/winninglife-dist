@@ -1,0 +1,322 @@
+<% include ../partials/header %>
+
+<style>
+  .gallery {
+    display: grid;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 8px;
+  }
+  .gallery img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 16px #333;
+    transition: all 1.5s ease;
+  }
+  .gallery img:hover {
+    box-shadow: 0 0 32px #333;
+  }
+  .gallery .content {
+    padding: 4px;
+  }
+  .gallery .gallery-item {
+    transition: grid-row-start 300ms linear;
+    transition: transform 300ms ease;
+    transition: all 0.5s ease;
+    cursor: pointer;
+  }
+
+  .gallery .gallery-item {
+    transform: scale(1);
+  }
+
+  .gallery .gallery-item:hover {
+    transform: scale(1.025);
+  }
+
+  .gallery-item p {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    padding: 10px;
+  }
+  @media (max-width: 600px) {
+    .gallery {
+      grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    }
+  }
+  @media (max-width: 400px) {
+    .gallery {
+      grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+    }
+  }
+  @-moz-keyframes zoomin {
+    0% {
+      max-width: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
+    }
+    30% {
+      filter: blur(4px);
+      transform: rotate(-80deg);
+    }
+    70% {
+      max-width: 50%;
+      transform: rotate(45deg);
+    }
+    100% {
+      max-width: 100%;
+      transform: rotate(0deg);
+    }
+  }
+  @-webkit-keyframes zoomin {
+    0% {
+      max-width: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
+    }
+    30% {
+      filter: blur(4px);
+      transform: rotate(-80deg);
+    }
+    70% {
+      max-width: 50%;
+      transform: rotate(45deg);
+    }
+    100% {
+      max-width: 100%;
+      transform: rotate(0deg);
+    }
+  }
+  @-o-keyframes zoomin {
+    0% {
+      max-width: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
+    }
+    30% {
+      filter: blur(4px);
+      transform: rotate(-80deg);
+    }
+    70% {
+      max-width: 50%;
+      transform: rotate(45deg);
+    }
+    100% {
+      max-width: 100%;
+      transform: rotate(0deg);
+    }
+  }
+  @keyframes zoomin {
+    0% {
+      max-width: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
+    }
+    30% {
+      filter: blur(4px);
+      transform: rotate(-80deg);
+    }
+    70% {
+      max-width: 50%;
+      transform: rotate(45deg);
+    }
+    100% {
+      max-width: 100%;
+      transform: rotate(0deg);
+    }
+  }
+
+  #fileList {
+    list-style-type: none;
+    padding-left: 0;
+  }
+</style>
+
+<div class="row-col m-b-lg">
+  <div class="col-sm-3 col-lg-2 b-r">
+    <div class="p-y">
+      <div class="nav-active-border left b-primary">
+        <ul class="nav nav-sm">
+          <li class="nav-item">
+            <a class="nav-link block active" href="#" data-toggle="tab" data-target="#tab-1">Slider</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-2">Mini Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-3">Footer</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9 col-lg-10 light bg">
+    <div class="tab-content pos-rlt">
+      <div class="tab-pane active" id="tab-1">
+        <div class="p-a-md b-b _600">Edit Slider</div>
+        <div class="p-a-md">
+          <div class="clearfix m-b-lg">
+            <div class="row m-b">
+              <div class="col-sm-4">
+                <div class="box">
+                  <div class="box-header">
+                    <h3>Edit Silder 1</h3>
+                  </div>
+                  <div class="box-body">
+                    <form action="#" role="form">
+                      <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" placeholder="Enter Slider Title" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="leading">Leading</label>
+                        <input type="text" name="leading" placeholder="Enter Slider Leading" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="image">Image: </label>
+                        <label class="custom-file">
+                          <input type="file" class="custom-file-input">
+                          <span class="custom-file-control"></span>
+                        </label>
+                      </div>
+                      <button type="submit" class="btn white m-b">Submit</button>
+                    </form>                      
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="box">
+                  <div class="box-header">
+                    <h3>Edit Silder 2</h3>
+                  </div>
+                  <div class="box-body">
+                    <form action="#" role="form">
+                      <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" placeholder="Enter Slider Title" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="leading">Leading</label>
+                        <input type="text" name="leading" placeholder="Enter Slider Leading" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="image">Image: </label>
+                        <label class="custom-file">
+                          <input type="file" class="custom-file-input">
+                          <span class="custom-file-control"></span>
+                        </label>
+                      </div>
+                      <button type="submit" class="btn white m-b">Submit</button>
+                    </form>                      
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="box">
+                  <div class="box-header">
+                    <h3>Edit Silder 3</h3>
+                  </div>
+                  <div class="box-body">
+                    <form action="#" role="form">
+                      <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" placeholder="Enter Slider Title" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="leading">Leading</label>
+                        <input type="text" name="leading" placeholder="Enter Slider Leading" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="image">Image: </label>
+                        <label class="custom-file">
+                          <input type="file" class="custom-file-input">
+                          <span class="custom-file-control"></span>
+                        </label>
+                      </div>
+                      <button type="submit" class="btn white m-b">Submit</button>
+                    </form>                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-2">
+        <div class="p-a-md b-b _600">Edit Mini Gallery</div>
+        <div class="p-a-md">
+          <div class="clearfix m-b-lg">
+            <div class="box">
+              <div class="navbar box-shadow-z1">
+                <ul class="nav nav-pills nav-sm pull-right m-y">
+                  <li class="nav-item">
+                    <a href="#" class="btn btn-xs rounded primary" data-toggle="modal" data-target="#uploadModal"><i
+                        class="fa fa-plus m-r-xs"></i> New Photo</a>
+                  </li>
+                  <li class="nav-item" id="deleteImgs">
+                    <a href="#" class="btn btn-xs rounded danger"><i class="fa fa-trash m-r-xs"></i> Batch Delete</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="gallery" id="gallery">
+                <% uploads.forEach(upload => { %>
+                <div class="gallery-item">
+                  <div class="content"><img src="<%= upload.src %>" alt="" /></div>
+                  <p>
+                    <label class="md-check">
+                      <input type="checkbox" name="images" value="<%= upload.id %>" />
+                      <i class="indigo"></i>
+                    </label>
+                  </p>
+                </div>
+                <% }) %>
+              </div>
+              <div id="uploadModal" class="modal black-overlay in" data-backdrop="false">
+                <div class="modal-dialog">
+                  <form action="/admin/minigallery" method="POST" enctype="multipart/form-data">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                      </div>
+                      <div class="modal-body p-lg">
+                        <h3 class="m-b">Upload Files</h3>
+                        <input type="file" name="images" id="images" multiple accept="image/*" />
+                        <ul id="fileList" class="m-t">
+                          <li>No Files Selected</li>
+                        </ul>
+                      </div>
+                      <div class="modal-footer">
+                        <div class="pull-left">
+                          <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">
+                            Cancel
+                          </button>
+                          <button type="submit" class="btn primary p-x-md">Upload</button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.modal-content -->
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-3">
+        <div class="p-a-md b-b _600">Footer</div>
+        <div class="p-a-md">
+          <div class="clearfix m-b-lg">
+            <div class="box">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../partials/footer %>

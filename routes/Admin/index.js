@@ -121,6 +121,14 @@ router
   .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postGallery)
   .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteGallery);
 
+router.route('/landing')
+  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getLanding);
+
+router
+  .route("/minigallery")
+  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postMiniGallery)
+  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteMiniGallery);
+
 router.route('/blogs')
   .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getBlogs)
   .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postBlog);

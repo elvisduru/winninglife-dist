@@ -63,6 +63,18 @@ Object.defineProperty(exports, "Gallery", {
     return _gallery.default;
   }
 })
+Object.defineProperty(exports, "MiniGallery", {
+  enumerable: true,
+  get: function () {
+    return _miniGallery.default;
+  }
+})
+Object.defineProperty(exports, "Slider", {
+  enumerable: true,
+  get: function () {
+    return _slider.default;
+  }
+})
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
@@ -86,13 +98,17 @@ var _event = _interopRequireDefault(require("./event"));
 
 var _gallery = _interopRequireDefault(require('./gallery'));
 
+var _miniGallery = _interopRequireDefault(require('./miniGallery'));
+
+var _slider = _interopRequireDefault(require('./slider'));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
 const connUri =
-  "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true";
-// "mongodb://localhost/winninglife";
+  // "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true";
+  "mongodb://localhost/winninglife";
 // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife";
 
 _mongoose.default.connect(

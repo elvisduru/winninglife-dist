@@ -1248,6 +1248,32 @@
   right: 0;
   top: 0;
 }
+
+.slick-center-container {
+  /* background-image: url("../images/slider/slider3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; */
+  background-color: #05022c;
+  position: relative;
+  color: white;
+  padding: 70px 0;
+}
+
+.slick-center-container .section-header h3 {
+  color: #fff;
+}
+
+/* .slick-center-container::before {
+  background-color: rgba(43, 6, 59, 0.4);
+  bottom: 0;
+  content: "";
+  display: inline-block;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+} */
+
 .room-section .section-padding {
   display: inline-block;
   width: 100%;

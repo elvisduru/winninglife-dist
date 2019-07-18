@@ -178,12 +178,6 @@
           <div class="content-block container-fluid">
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 90px;">
-                <%# <div id="twenty-twenty">
-                  <!-- The before image is first -->
-                  <img src="./images/before-after-1.jpg" />
-                  <!-- The after image is last -->
-                  <img src="./images/before-after-2.jpg" />
-                </div> %>
                 <img src="./uploads/gallery/gallery16.jpg" />
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -216,6 +210,23 @@
       </div>
       <!-- Offer Section /- -->
 
+      <div id="recommended-section" class="slick-center-container recommended-section container-fluid no-padding">
+        <!-- Container -->
+        <div class="container">
+          <div class="section-header">
+            <h3>Some of our cherished moments</h3>
+          </div>
+          <div class="slick-div">
+            <% uploads.forEach(upload => { %>
+              <div class="image" style="padding: 20px;position: relative;">
+                <a href="/gallery" style="position: absolute; width: 100%; height: 100%; opacity: 0;"></a>
+                <img style="object-fit: cover; width: 100%; height: 250px" src="<%= upload.src %>" />
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+
       <div class="section-padding"></div>
 
       <!-- Recommended Section -->
@@ -235,15 +246,15 @@
             <div class="col-md-3 col-sm-12 col-xs-12 no-padding hotel-detail">
               <img src="images/brands-4.jpg" alt="Recommended" />
             </div>
-            <%# <div class="col-md-4 col-sm-12 col-xs-12 no-padding hotel-detail">
+            <!--  <div class="col-md-4 col-sm-12 col-xs-12 no-padding hotel-detail">
               <img src="images/brands-3.png" alt="Recommended" />
-            </div> %>
+            </div>  -->
             <div class="col-md-3 col-sm-12 col-xs-12 no-padding hotel-detail">
               <img src="images/brands-2.png" alt="Recommended" />
             </div>
-            <%# <div class="col-md-4 col-sm-12 col-xs-12 no-padding hotel-detail">
+            <!--  <div class="col-md-4 col-sm-12 col-xs-12 no-padding hotel-detail">
               <img src="images/brands-5.png" alt="Recommended" />
-            </div> %>
+            </div>  -->
             <div class="col-md-3 col-sm-12 col-xs-12 no-padding hotel-detail">
               <img src="images/brands-6.png" alt="Recommended" />
             </div>
@@ -251,7 +262,7 @@
         </div>
       </div>
       <!-- Container /- -->
-      <%# <div class="section-padding"></div> %>
+      <!-- <div class="section-padding"></div> -->
       <!-- Recommended Section /- -->
 
       <!-- Room Section -->

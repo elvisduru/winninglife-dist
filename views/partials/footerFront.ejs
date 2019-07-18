@@ -106,6 +106,35 @@
     <script src="libraries/calender/jquery-ui-datepicker.min.js"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 
+    <script type="text/javascript" src="/slick/slick.min.js"></script>
+
+    <script>
+      $('.slick-div').slick({
+          centerMode: true,
+          infinite: true,
+          centerPadding: '60px',
+          slidesToShow: 3,
+          speed: 500,
+          responsive: [{
+            breakpoint: 768,
+            settings: {
+              arrows: false,
+              centerMode: true,
+              centerPadding: '40px',
+              slidesToShow: 3
+            }
+          }, {
+            breakpoint: 480,
+            settings: {
+              arrows: false,
+              centerMode: true,
+              centerPadding: '40px',
+              slidesToShow: 1
+            }
+          }]
+        });
+    </script>
+
     <!-- Library - Theme JS -->
     <script src="js/functions.js"></script>
     

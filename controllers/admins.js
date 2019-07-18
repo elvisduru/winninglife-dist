@@ -37,6 +37,9 @@ exports.changePassword = changePassword;
 exports.getGallery = getGallery;
 exports.postGallery = postGallery;
 exports.deleteGallery = deleteGallery;
+exports.getLanding = getLanding;
+exports.postMiniGallery = postMiniGallery;
+exports.deleteMiniGallery = deleteMiniGallery;
 
 var _models = require("../models/");
 
@@ -884,9 +887,71 @@ async function postGallery(req, res) {
 
 async function deleteGallery(req, res) {
   try {
-    const deletedImages = req.body.images;
+    const deletedImages = [].concat(req.body.images);
     deletedImages.forEach(async image => {
       const deletedImage = await _models.Gallery.findByIdAndRemove(image);
+      const filePath = _path.join(__basedir, '/public', deletedImage.src);
+      _fs.unlink(filePath, (err) => {
+        if (err) throw err;
+      });
+    })
+    res.status(200).send("");
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+}
+
+async function getLanding(req, res) {
+  try {
+    const uploads = await _models.MiniGallery.find().sort({
+      created: -1
+    })
+    res.render('Admin/landing', {uploads})
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function postMiniGallery(req, res) {
+  try {
+    let uploads = [];
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('fileBegin', (name, file) => {
+        newFileName = new Date().getTime() + file.name;
+        file.path = _path.join(__basedir, '/public/uploads/gallery/mini/', newFileName);
+        if (file.type.startsWith('image')) {
+          uploads.push('/uploads/gallery/mini/' + newFileName);
+        }
+      })
+      .on('file', (name, file) => {
+        if (file.size === 0) {
+          _fs.unlink(file.path, (err) => {
+            if (err) throw err;
+          });
+        }
+      })
+      .on('end', () => {
+        uploads.forEach(async upload => {
+          const file = { src: upload };
+          const Gallery = new _models.MiniGallery(file);
+          await Gallery.save();
+        })
+        // req.flash("msg", `Uploaded successfully!`);
+        res.status(200).redirect("back");
+      })
+  } catch (error) {
+    console.log(err);
+  }
+}
+
+async function deleteMiniGallery(req, res) {
+  try {
+    const deletedImages = [].concat(req.body.images);
+    deletedImages.forEach(async image => {
+      const deletedImage = await _models.MiniGallery.findByIdAndRemove(image);
       const filePath = _path.join(__basedir, '/public', deletedImage.src);
       _fs.unlink(filePath, (err) => {
         if (err) throw err;

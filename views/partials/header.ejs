@@ -53,7 +53,7 @@
         <div data-flex class="hide-scroll">
           <% var currentPath = path.substring(1, path.length) %>
             <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
-              <% var dashActive = "", withdrawActive = "", depositActive = "", usersActive = "", blogActive = "", eventActive = "", galleryActive = "" %>
+              <% var dashActive = "", withdrawActive = "", depositActive = "", usersActive = "", blogActive = "", eventActive = "", galleryActive = "", landingActive = "" %>
               <% if (currentPath === 'dashboard') { %>
                       <% dashActive = "active" %>
               <% } %>
@@ -84,6 +84,10 @@
 
               <% if (currentPath === 'gallery') { %>
                       <% galleryActive = "active" %>
+              <% } %>
+
+              <% if (currentPath === 'landing') { %>
+                <% landingActive = "active" %>
               <% } %>
 
               <ul class="nav" data-ui-nav>
@@ -202,6 +206,14 @@
                       <i class="ion-aperture"></i>
                     </span>
                     <span class="nav-text">Gallery</span>
+                  </a>
+                </li>
+                <li class="<%= landingActive %>">
+                  <a class="b-black" href="/admin/landing">
+                    <span class="nav-icon text-white no-fade">
+                      <i class="ion-home"></i>
+                    </span>
+                    <span class="nav-text">Landing</span>
                   </a>
                 </li>
                 <li class="m-t-lg"></li>
