@@ -40,6 +40,9 @@ exports.deleteGallery = deleteGallery;
 exports.getLanding = getLanding;
 exports.postMiniGallery = postMiniGallery;
 exports.deleteMiniGallery = deleteMiniGallery;
+exports.postSlider = postSlider;
+exports.editSlider = editSlider;
+exports.deleteSlider = deleteSlider;
 
 var _models = require("../models/");
 
@@ -907,7 +910,10 @@ async function getLanding(req, res) {
     const uploads = await _models.MiniGallery.find().sort({
       created: -1
     })
-    res.render('Admin/landing', {uploads})
+    const slides = await _models.Slider.find().sort({
+      created: 1
+    })
+    res.render('Admin/landing', {uploads, slides})
   } catch (err) {
     console.log(err);
   }
@@ -961,5 +967,99 @@ async function deleteMiniGallery(req, res) {
   } catch (err) {
     console.log(err);
     res.send(err);
+  }
+}
+
+async function postSlider(req, res) {
+  try {
+    const slide = {};
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('field', (name, field) => {
+        if (field) {
+          slide[name] = _sanitizeHtml(field);
+        }
+      })
+      .on('fileBegin', (name, file) => {
+        newFileName = new Date().getTime() + file.name;
+        file.path = _path.join(__basedir, '/public/uploads/slider/', newFileName);
+      })
+      .on('file', (name, file) => {
+        if (file.size === 0) {
+          _fs.unlink(file.path, (err) => {
+            if (err) throw err;
+          });
+        }
+        if (file.type.startsWith('image')) {
+          slide.image = '/uploads/slider/' + newFileName;
+        }
+      })
+      .on('end', async () => {
+        const Slide = new _models.Slider(slide);
+        await Slide.save();
+        res.status(200).redirect("back");
+      })
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function editSlider(req, res) {
+  try {
+    const slide = {};
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('field', (name, field) => {
+        if (field) {
+          slide[name] = _sanitizeHtml(field);
+        }
+      })
+      .on('fileBegin', (name, file) => {
+        if (file.name) {
+          newFileName = new Date().getTime() + file.name;
+          file.path = _path.join(__basedir, '/public/uploads/slider/', newFileName);
+        }
+      })
+      .on('file', (name, file) => {
+        if (file.size === 0) {
+          console.log(file.name, file.path)
+          _fs.unlink(file.path, (err) => {
+            if (err) throw err;
+          });
+        }
+        if (file.type.startsWith('image')) {
+          slide.image = '/uploads/slider/' + newFileName;
+        }
+      })
+      .on('end', async () => {
+        const updatedSlide = await _models.Slider.findByIdAndUpdate(req.params.id, slide);
+        if (slide.image) {
+          const filePath = _path.join(__basedir, '/public', updatedSlide.image);
+          _fs.unlink(filePath, (err) => {
+            if (err) throw err;
+          });
+        }
+        console.log(slide)
+        res.status(200).redirect('back');
+      })
+  } catch (err) {
+    
+  }
+}
+
+async function deleteSlider(req, res) {
+  try {
+    const deletedSlide = await _models.Slider.findByIdAndRemove(req.params.id);
+    if (deletedSlide.image) {
+      const filePath = _path.join(__basedir, '/public', deletedSlide.image);
+      _fs.unlink(filePath, (err) => {
+        if (err) throw err;
+      });
+    }
+    res.redirect("back");
+  } catch (err) {
+    console.log(err)
   }
 }

@@ -160,40 +160,54 @@
         <div class="p-a-md">
           <div class="clearfix m-b-lg">
             <div class="row m-b">
+              <% var count = 1; %>
+              <% slides.forEach(slide => { %>
               <div class="col-sm-4">
                 <div class="box">
-                  <div class="box-header">
-                    <h3>Edit Silder 1</h3>
+                  <div class="box-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Edit Slider <%= count++ %></h3>
+                    <form method="POST" action="/admin/sliders/<%= slide._id %>?_method=DELETE">
+                      <button class="btn-reset" title="Delete Slide">
+                        <i class="ion-ios-trash text-danger"></i>
+                      </button>
+                    </form>
                   </div>
                   <div class="box-body">
-                    <form action="#" role="form">
+                    <form enctype="multipart/form-data" action="/admin/sliders/<%= slide._id %>?_method=PUT" method="POST" role="form">
                       <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" name="title" placeholder="Enter Slider Title" class="form-control">
+                        <input type="text" name="title" placeholder="Enter Slider Title" class="form-control" value="<%= slide.title %>">
                       </div>
                       <div class="form-group">
                         <label for="leading">Leading</label>
-                        <input type="text" name="leading" placeholder="Enter Slider Leading" class="form-control">
+                        <input type="text" name="leading" placeholder="Enter Slider Leading" class="form-control" value="<%= slide.leading %>">
                       </div>
                       <div class="form-group">
                         <label for="image">Image: </label>
-                        <label class="custom-file">
-                          <input type="file" class="custom-file-input">
-                          <span class="custom-file-control"></span>
-                        </label>
+                        <input type="file" class="form-control" name="slideImg" id="fileUpload" required accept="image/*" />
                       </div>
                       <button type="submit" class="btn white m-b">Submit</button>
-                    </form>                      
+                    </form>
                   </div>
                 </div>
               </div>
+              <% }) %>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="p-a-md b-b _600">New Slider</div>
+        <div class="p-a-md">
+          <div class="clearfix m-b-lg">
+            <div class="row m-b">
               <div class="col-sm-4">
                 <div class="box">
                   <div class="box-header">
-                    <h3>Edit Silder 2</h3>
+                    <h3>Add New Slider</h3>
                   </div>
                   <div class="box-body">
-                    <form action="#" role="form">
+                    <form action="/admin/sliders" method="POST" role="form" enctype="multipart/form-data">
                       <div class="form-group">
                         <label for="title">Title</label>
                         <input type="text" name="title" placeholder="Enter Slider Title" class="form-control">
@@ -204,45 +218,15 @@
                       </div>
                       <div class="form-group">
                         <label for="image">Image: </label>
-                        <label class="custom-file">
-                          <input type="file" class="custom-file-input">
-                          <span class="custom-file-control"></span>
-                        </label>
+                        <input type="file" class="form-control" name="slideImg" id="fileUpload" required accept="image/*" />
                       </div>
                       <button type="submit" class="btn white m-b">Submit</button>
-                    </form>                      
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="box">
-                  <div class="box-header">
-                    <h3>Edit Silder 3</h3>
-                  </div>
-                  <div class="box-body">
-                    <form action="#" role="form">
-                      <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" name="title" placeholder="Enter Slider Title" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <label for="leading">Leading</label>
-                        <input type="text" name="leading" placeholder="Enter Slider Leading" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <label for="image">Image: </label>
-                        <label class="custom-file">
-                          <input type="file" class="custom-file-input">
-                          <span class="custom-file-control"></span>
-                        </label>
-                      </div>
-                      <button type="submit" class="btn white m-b">Submit</button>
-                    </form>                    
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
-            
+        
           </div>
         </div>
       </div>
