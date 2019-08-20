@@ -108,7 +108,7 @@ function _interopRequireDefault(obj) {
 
 const connUri =
   "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true";
-  // "mongodb://localhost/winninglife";
+// "mongodb://localhost/winninglife";
 // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife";
 
 _mongoose.default.connect(
