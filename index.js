@@ -50,9 +50,9 @@ const sessionOptions = {
   secret: "winninglifewearewinningwehavewon",
   store: new MongoStore({
     url:
-      "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
-    // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
-    // "mongodb://localhost/winninglife",
+      // "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
+      // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
+      "mongodb://localhost/winninglife",
     ttl: 1 * 24 * 60 * 60
   }),
   resave: false,
@@ -108,6 +108,9 @@ app.get("/gallery", async (req, res) => {
   })
   res.render("gallery", { uploads })
 });
+
+app.get("/incentives", (req, res) => res.render("incentives"));
+app.get("/rally", (req, res) => res.render("rally"));
 
 app.use("/auth", _auth.default);
 app.use("/user", _User.default);

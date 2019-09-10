@@ -1534,3 +1534,340 @@ main {
 .hotel-detail img {
   max-width: 180px;
 }
+
+.incentives {
+  display: flex;
+  flex-direction: column;
+}
+
+.incentives header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: url("../images/incentives_header.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  padding-right: 30px;
+}
+
+.incentives header h1 {
+  color: white;
+  font-weight: black;
+  margin-top: 15%;
+  font-size: 100px;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.67);
+}
+
+.incentives .content {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.incentives .content__intro {
+  display: flex;
+  flex-direction: column;
+  padding: 60px 30% 40px 11%;
+  background-color: #5b5b5b;
+  color: #fff;
+}
+
+.incentives .content__intro h2 {
+  font-size: 45px;
+}
+
+.incentives .content__intro p:first-of-type {
+  font-size: 19px;
+}
+
+.incentives .content > div:not(.content__intro) {
+  display: flex;
+  justify-content: space-between;
+  min-height: 300px;
+  max-height: 500px;
+}
+
+.incentives .content > div:not(.content__intro) div:first-child {
+  width: 30%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: white;
+}
+
+.incentives .content > div:not(.content__intro) div:first-child a {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  outline: none;
+  background: white;
+  color: #c70baa;
+  text-transform: uppercase;
+  border: none;
+  font-weight: 100;
+  margin-top: 30px;
+  transition: all 0.3s ease-out;
+  border: 1px solid #c70baa;
+  text-decoration: none;
+}
+
+.incentives .content > div:not(.content__intro) div:first-child a:hover {
+  background-color: #c70baa;
+  color: white;
+  border: 1px solid #fff;
+}
+
+.incentives
+  .content
+  > div:not(.content__intro)
+  div:first-child
+  a
+  span:first-of-type {
+  margin-right: 15px;
+}
+
+.incentives .content > div:not(.content__intro):nth-of-type(2) div:first-child {
+  background-color: #c70baa;
+}
+
+.incentives .content > div:not(.content__intro):nth-of-type(3) div:first-child {
+  background-color: #0099e0;
+}
+
+.incentives .content > div:not(.content__intro):nth-of-type(4) div:first-child {
+  background-color: #fec00f;
+}
+
+.incentives .content > div:not(.content__intro):nth-of-type(5) div:first-child {
+  background-color: #00d247;
+}
+
+.incentives .content h4 {
+  font-size: 45px;
+  text-transform: uppercase;
+}
+
+.incentives .content > div:not(.content__intro) div:last-child {
+  width: 70%;
+}
+
+.incentives .content > div:not(.content__intro) div:last-child img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .incentives
+    .content
+    > div:not(.content__intro):nth-of-type(3)
+    div:first-child {
+    order: 1;
+  }
+
+  .incentives
+    .content
+    > div:not(.content__intro):nth-of-type(5)
+    div:first-child {
+    order: 1;
+  }
+}
+
+.rally {
+  display: flex;
+  flex-direction: column;
+}
+
+.rally header {
+  display: flex;
+  align-items: center;
+  background: url("../images/rally-header.png");
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  padding-left: 10%;
+}
+
+.rally header h1 {
+  color: white;
+  font-weight: black;
+  margin-top: 15%;
+  font-size: 100px;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.67);
+}
+
+.rally .content {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.rally .content__intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rally .content__intro > div {
+  width: 50%;
+}
+
+.rally .content__description {
+  display: flex;
+  flex-direction: column;
+}
+
+.rally .content__features {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rally .content__feature {
+  width: 600px;
+  display: flex;
+}
+
+.rally .content__feature div:first-child {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.rally .content__feature div:first-child img {
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+.rally .qualify {
+  display: flex;
+  flex-direction: column;
+}
+
+.rally .qualify .ranks {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.rally .qualify .ranks > div {
+  margin: 0 40px;
+}
+
+.rally .qualify .ranks h5 {
+  margin-bottom: 5px;
+}
+
+.rally .qualify .ranks > div div,
+.rally .qualify .ranks h5 {
+  background-color: #ccc;
+  font-size: 18px;
+  padding: 15px;
+}
+
+.rally .terms {
+  margin-top: 30px;
+  color: rgb(224, 183, 0);
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .incentives header {
+    height: 300px;
+  }
+
+  .incentives header h1 {
+    font-size: 40px;
+  }
+
+  .incentives .content {
+    font-size: 14px;
+  }
+
+  .incentives .content__intro {
+    padding: 30px 10% 20px 5%;
+  }
+
+  .incentives .content__intro h2 {
+    font-size: 30px;
+  }
+
+  .incentives .content__intro p:first-of-type {
+    font-size: 16px;
+  }
+
+  .incentives .content > div:not(.content__intro) {
+    flex-wrap: wrap;
+    min-height: 300px;
+    max-height: 500px;
+  }
+
+  .incentives .content > div:not(.content__intro) div:first-child {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .incentives .content > div:not(.content__intro) div:last-child {
+    width: 100%;
+  }
+
+  .incentives .content h4 {
+    font-size: 30px;
+  }
+
+  .rally header {
+    height: 300px;
+  }
+
+  .rally header h1 {
+    font-size: 40px;
+  }
+
+  .rally .content {
+    font-size: 14px;
+  }
+
+  .rally .content__intro {
+    flex-direction: column;
+  }
+
+  .rally .content__intro > div {
+    width: 100%;
+  }
+
+  .rally .content__feature {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .rally .content__feature div:first-child {
+    margin-bottom: 20px;
+  }
+
+  .rally .content__feature div:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .rally .qualify {
+    margin-top: 20px;
+  }
+
+  .rally .qualify .ranks {
+    flex-direction: column;
+  }
+
+  .rally .qualify .ranks > div {
+    margin: 10px 40px;
+  }
+}
