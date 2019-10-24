@@ -695,7 +695,7 @@
     }
 
     // Gallery
-    if (location.pathname === "/admin/gallery") {
+    if (location.pathname === "/admin/gallery" || location.pathname === "/editor/gallery") {
       var gallery = document.querySelector('#gallery');
       var getVal = function (elem, style) { return parseInt(window.getComputedStyle(elem).getPropertyValue(style)); };
       var getHeight = function (item) { return item.querySelector('.content').getBoundingClientRect().height; };
@@ -745,7 +745,7 @@
 
     // Mini Gallery - Landing Page
 
-    if (location.pathname === "/admin/landing") {
+    if (location.pathname === "/admin/landing" || location.pathname === "/editor/landing") {
       // Handle Batch Delete
       $('#deleteImgs').click(function () {
         let selectedImgs = $(".gallery-item .md-check input:checkbox:checked").serializeArray();

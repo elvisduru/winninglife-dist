@@ -6,20 +6,24 @@
     grid-column-gap: 8px;
     grid-row-gap: 8px;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-auto-rows: 8px;
+    grid-auto-rows: minmax(200px, auto);
   }
+
   .gallery img {
     max-width: 100%;
     border-radius: 8px;
     box-shadow: 0 0 16px #333;
     transition: all 1.5s ease;
   }
+
   .gallery img:hover {
     box-shadow: 0 0 32px #333;
   }
+
   .gallery .content {
     padding: 4px;
   }
+
   .gallery .gallery-item {
     transition: grid-row-start 300ms linear;
     transition: transform 300ms ease;
@@ -42,87 +46,105 @@
     z-index: 10;
     padding: 10px;
   }
+
   @media (max-width: 600px) {
     .gallery {
       grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     }
   }
+
   @media (max-width: 400px) {
     .gallery {
       grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
     }
   }
+
   @-moz-keyframes zoomin {
     0% {
       max-width: 50%;
       transform: rotate(-30deg);
       filter: blur(4px);
     }
+
     30% {
       filter: blur(4px);
       transform: rotate(-80deg);
     }
+
     70% {
       max-width: 50%;
       transform: rotate(45deg);
     }
+
     100% {
       max-width: 100%;
       transform: rotate(0deg);
     }
   }
+
   @-webkit-keyframes zoomin {
     0% {
       max-width: 50%;
       transform: rotate(-30deg);
       filter: blur(4px);
     }
+
     30% {
       filter: blur(4px);
       transform: rotate(-80deg);
     }
+
     70% {
       max-width: 50%;
       transform: rotate(45deg);
     }
+
     100% {
       max-width: 100%;
       transform: rotate(0deg);
     }
   }
+
   @-o-keyframes zoomin {
     0% {
       max-width: 50%;
       transform: rotate(-30deg);
       filter: blur(4px);
     }
+
     30% {
       filter: blur(4px);
       transform: rotate(-80deg);
     }
+
     70% {
       max-width: 50%;
       transform: rotate(45deg);
     }
+
     100% {
       max-width: 100%;
       transform: rotate(0deg);
     }
   }
+
   @keyframes zoomin {
     0% {
       max-width: 50%;
       transform: rotate(-30deg);
       filter: blur(4px);
     }
+
     30% {
       filter: blur(4px);
       transform: rotate(-80deg);
     }
+
     70% {
       max-width: 50%;
       transform: rotate(45deg);
     }
+
     100% {
       max-width: 100%;
       transform: rotate(0deg);
@@ -173,18 +195,22 @@
                     </form>
                   </div>
                   <div class="box-body">
-                    <form enctype="multipart/form-data" action="/admin/sliders/<%= slide._id %>?_method=PUT" method="POST" role="form">
+                    <form enctype="multipart/form-data" action="/admin/sliders/<%= slide._id %>?_method=PUT"
+                      method="POST" role="form">
                       <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" name="title" placeholder="Enter Slider Title" class="form-control" value="<%= slide.title %>">
+                        <input type="text" name="title" placeholder="Enter Slider Title" class="form-control"
+                          value="<%= slide.title %>">
                       </div>
                       <div class="form-group">
                         <label for="leading">Leading</label>
-                        <input type="text" name="leading" placeholder="Enter Slider Leading" class="form-control" value="<%= slide.leading %>">
+                        <input type="text" name="leading" placeholder="Enter Slider Leading" class="form-control"
+                          value="<%= slide.leading %>">
                       </div>
                       <div class="form-group">
                         <label for="image">Image: </label>
-                        <input type="file" class="form-control" name="slideImg" id="fileUpload" required accept="image/*" />
+                        <input type="file" class="form-control" name="slideImg" id="fileUpload" required
+                          accept="image/*" />
                       </div>
                       <button type="submit" class="btn white m-b">Submit</button>
                     </form>
@@ -193,7 +219,7 @@
               </div>
               <% }) %>
             </div>
-            
+
           </div>
         </div>
 
@@ -218,7 +244,8 @@
                       </div>
                       <div class="form-group">
                         <label for="image">Image: </label>
-                        <input type="file" class="form-control" name="slideImg" id="fileUpload" required accept="image/*" />
+                        <input type="file" class="form-control" name="slideImg" id="fileUpload" required
+                          accept="image/*" />
                       </div>
                       <button type="submit" class="btn white m-b">Submit</button>
                     </form>
@@ -226,7 +253,7 @@
                 </div>
               </div>
             </div>
-        
+
           </div>
         </div>
       </div>
@@ -295,7 +322,7 @@
         <div class="p-a-md">
           <div class="clearfix m-b-lg">
             <div class="box">
-              
+
             </div>
           </div>
         </div>

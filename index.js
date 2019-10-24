@@ -27,6 +27,8 @@ var _User = _interopRequireDefault(require("./routes/User"));
 
 var _Admin = _interopRequireDefault(require("./routes/Admin"));
 
+var _Editor = _interopRequireDefault(require("./routes/Editor"));
+
 var _connectFlash = _interopRequireDefault(require("connect-flash"));
 
 var _models = require("./models");
@@ -50,9 +52,9 @@ const sessionOptions = {
   secret: "winninglifewearewinningwehavewon",
   store: new MongoStore({
     url:
-      "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
-    // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
-    // "mongodb://localhost/winninglife",
+      // "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
+      // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
+      "mongodb://localhost/winninglife",
     ttl: 1 * 24 * 60 * 60
   }),
   resave: false,
@@ -112,9 +114,30 @@ app.get("/gallery", async (req, res) => {
 app.get("/incentives", (req, res) => res.render("incentives"));
 app.get("/rally", (req, res) => res.render("rally"));
 
+app.get("/news", async (req, res) => {
+  try {
+    const blogs = await _models.Blog.find().sort({ created: -1 });
+    res.render("news", { blogs })
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+app.get("/news/:id", async (req, res) => {
+  try {
+    const blog = await _models.Blog.findOne({ slug: req.params.id });
+    res.render("post", { blog })
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 app.use("/auth", _auth.default);
 app.use("/user", _User.default);
-app.use("/admin", _Admin.default); // 404
+app.use("/admin", _Admin.default);
+app.use("/editor", _Editor.default);
+
+// 404
 
 app.use(function (req, res, next) {
   res.status(404).render("404");

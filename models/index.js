@@ -45,6 +45,12 @@ Object.defineProperty(exports, "Admin", {
     return _admin.default;
   }
 });
+Object.defineProperty(exports, "Editor", {
+  enumerable: true,
+  get: function () {
+    return _editor.default;
+  }
+});
 Object.defineProperty(exports, "Blog", {
   enumerable: true,
   get: function () {
@@ -92,6 +98,8 @@ var _transfer = _interopRequireDefault(require("./transfer"));
 
 var _admin = _interopRequireDefault(require("./admin"));
 
+var _editor = _interopRequireDefault(require("./editor"));
+
 var _blog = _interopRequireDefault(require("./blog"));
 
 var _event = _interopRequireDefault(require("./event"));
@@ -107,8 +115,8 @@ function _interopRequireDefault(obj) {
 }
 
 const connUri =
-  "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true";
-// "mongodb://localhost/winninglife";
+  // "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true";
+  "mongodb://localhost/winninglife";
 // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife";
 
 _mongoose.default.connect(

@@ -20,14 +20,16 @@
   <div class="p-y">
     <h6 class="text-muted m-a-0">Edit Post</h6>
   </div>
-  <form class="m-y" method="POST" enctype="multipart/form-data" action="/admin/blogs/<%= blog._id %>?_method=PUT" data-ui-jp="parsley">
+  <form class="m-y" method="POST" enctype="multipart/form-data"
+    action="<%= originPath.substring(0, originPath.lastIndexOf('/')) %>?_method=PUT" data-ui-jp="parsley">
     <div class="row">
       <div class="col-md-7">
         <div class="list box">
           <div class="list-item">
             <div class="list-body">
               <div class="md-form-group">
-                <input class="md-input title" placeholder="Your Post Title Here" name="title" value="<%= blog.title %>" required />
+                <input class="md-input title" placeholder="Your Post Title Here" name="title" value="<%= blog.title %>"
+                  required />
                 <label>Title</label>
               </div>
             </div>
@@ -35,7 +37,8 @@
           <div class="list-item">
             <div class="list-body">
               <div class="md-form-group">
-                <input class="md-input" placeholder="Your Post Subtitle Here" name="subtitle" value="<%= blog.subtitle %>" />
+                <input class="md-input" placeholder="Your Post Subtitle Here" name="subtitle"
+                  value="<%= blog.subtitle %>" />
                 <label>Subtitle</label>
               </div>
             </div>
@@ -69,15 +72,15 @@
               <div class="form-group form-inline">
                 <label class="text-muted">Status: </label>
                 <% if (blog.status === "public") { %>
-                  <select name="status" class="form-control form-control-sm">
-                    <option value="public" selected>Public</option>
-                    <option value="draft">Draft</option>
-                  </select>
+                <select name="status" class="form-control form-control-sm">
+                  <option value="public" selected>Public</option>
+                  <option value="draft">Draft</option>
+                </select>
                 <% } else { %>
-                  <select name="status" class="form-control form-control-sm">
-                    <option value="public">Public</option>
-                    <option value="draft" selected>Draft</option>
-                  </select>
+                <select name="status" class="form-control form-control-sm">
+                  <option value="public">Public</option>
+                  <option value="draft" selected>Draft</option>
+                </select>
                 <% } %>
               </div>
             </div>

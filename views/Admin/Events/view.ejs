@@ -23,7 +23,8 @@
               <a href="<%= event._id %>/edit" class="btn btn-sm success text-u-c m-y-sm">Edit Post</a>
             </li>
             <li>
-              <form method="POST" action="/admin/events/<%= event._id %>?_method=DELETE">
+              <form method="POST"
+                action="<%= originPath.substring(0, originPath.lastIndexOf('/')) %>/<%= event._id %>?_method=DELETE">
                 <button class="btn btn-sm danger text-u-c m-y-sm">Delete Post</button>
               </form>
             </li>
@@ -45,13 +46,15 @@
                     <div class="article">
                       <h1 class="m-b _600"><%= event.title %></h1>
                       <h3 class="p-y text-muted">
-                        <%= event.dayFrom %><%= event.dayTo === "same" ? null : " - " + event.dayTo %>, <%= event.month %>
+                        <%= event.dayFrom %><%= event.dayTo === "same" ? null : " - " + event.dayTo %>,
+                        <%= event.month %>
                       </h3>
                       <h4 class="p-b text-muted">
                         <%= event.timeFrom %> - <%= event.timeTo %>
                       </h4>
                       <div class="m-b-lg">
-                        <span class="label success pos-rlt m-r-xs"><b class="arrow right b-success pull-in"></b>Status</span>
+                        <span class="label success pos-rlt m-r-xs"><b
+                            class="arrow right b-success pull-in"></b>Status</span>
                         <span class="m-x-xs"><%= event.status %></span>
                       </div>
                     </div>

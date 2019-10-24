@@ -16,26 +16,16 @@
   <div class="p-y">
     <h6 class="text-muted m-a-0">New Post</h6>
   </div>
-  <form
-    class="m-y"
-    method="post"
-    enctype="multipart/form-data"
-    action="/admin/events/<%= event._id %>?_method=PUT"
-    data-ui-jp="parsley"
-  >
+  <form class="m-y" method="post" enctype="multipart/form-data"
+    action="<%= originPath.substring(0, originPath.lastIndexOf('/')) %>?_method=PUT" data-ui-jp="parsley">
     <div class="row">
       <div class="col-md-7">
         <div class="list box">
           <div class="list-item">
             <div class="list-body">
               <div class="md-form-group">
-                <input
-                  class="md-input title"
-                  placeholder="Your Event Title Here"
-                  name="title"
-                  required
-                  value="<%= event.title %>"
-                />
+                <input class="md-input title" placeholder="Your Event Title Here" name="title" required
+                  value="<%= event.title %>" />
                 <label>Title</label>
               </div>
             </div>
@@ -152,13 +142,7 @@
               <div class="form-group form-inline">
                 <label for="fileUpload">Feature Image:</label>
                 &nbsp;
-                <input
-                  type="file"
-                  class="form-control"
-                  name="featuredImg"
-                  id="fileUpload"
-                  accept="image/*"
-                />
+                <input type="file" class="form-control" name="featuredImg" id="fileUpload" accept="image/*" />
               </div>
             </div>
           </div>

@@ -10,7 +10,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _passport.default.use("user", _models.User.createStrategy());
 
-_passport.default.use("admin", _models.Admin.createStrategy()); // passport.use(
+_passport.default.use("admin", _models.Admin.createStrategy());
+
+_passport.default.use("editor", _models.Editor.createStrategy());
+
+// passport.use(
 //   "user",
 //   new LocalStrategy(function(username, password, done) {
 //     User.findOne({ username: username }, function(err, user) {
@@ -61,11 +65,41 @@ _passport.default.deserializeUser(function (id, done) {
     if (user) {
       done(null, user);
     } else {
-      _models.User.findById(id, function (err, user) {
-        console.log("deserializing user");
+
+      _models.Editor.findById(id, function (err, user) {
+        console.log("deserializing editor");
         if (err) done(err);
-        done(null, user);
+
+        if (user) {
+          done(null, user);
+        } else {
+          _models.User.findById(id, function (err, user) {
+            console.log("deserializing user");
+            if (err) done(err);
+            done(null, user);
+          });
+        }
       });
     }
   });
 });
+
+
+// _passport.default.deserializeUser(function (id, done) {
+//   console.log("deserializing");
+
+//   _models.Admin.findById(id, function (err, user) {
+//     console.log("deserializing admin");
+//     if (err) done(err);
+
+//     if (user) {
+//       done(null, user);
+//     } else {
+//       _models.User.findById(id, function (err, user) {
+//         console.log("deserializing user");
+//         if (err) done(err);
+//         done(null, user);
+//       });
+//     }
+//   });
+// });

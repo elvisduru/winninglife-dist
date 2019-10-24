@@ -23,7 +23,8 @@
               <a href="<%= blog._id %>/edit" class="btn btn-sm success text-u-c m-y-sm">Edit Post</a>
             </li>
             <li>
-              <form method="POST" action="/admin/blogs/<%= blog._id %>?_method=DELETE">
+              <form method="POST"
+                action="<%= originPath.substring(0, originPath.lastIndexOf('/')) %>/<%= blog._id %>?_method=DELETE">
                 <button class="btn btn-sm danger text-u-c m-y-sm">Delete Post</button>
               </form>
             </li>

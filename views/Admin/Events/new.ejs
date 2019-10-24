@@ -20,7 +20,8 @@
   <% messages.forEach((message, index) => { %>
   <% if (index == 1) { %>
   <div>
-    <a class="text-info" href="/admin/events/<%= message %>">Click here to View Post</a>
+    <a class="text-info" href="<%= originPath.substring(0, originPath.lastIndexOf('/')) %>/<%= message %>">Click here to
+      View Post</a>
   </div>
   <% } else { %>
   <div class="alert alert-success"><%= message %></div>

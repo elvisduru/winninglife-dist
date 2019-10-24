@@ -11,7 +11,7 @@ var _passportLocalMongoose = _interopRequireDefault(require("passport-local-mong
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const adminSchema = new _mongoose.default.Schema({
+const editorSchema = new _mongoose.default.Schema({
   username: {
     type: String,
     unique: true,
@@ -35,15 +35,11 @@ const adminSchema = new _mongoose.default.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  },
-  super: {
-    type: Boolean,
-    default: true
   }
 });
-adminSchema.plugin(_passportLocalMongoose.default);
+editorSchema.plugin(_passportLocalMongoose.default);
 
-const Admin = _mongoose.default.model('Admin', adminSchema);
+const Editor = _mongoose.default.model('Editor', editorSchema);
 
-var _default = Admin;
+var _default = Editor;
 exports.default = _default;

@@ -60,33 +60,26 @@
               <div class="padding">
                 <% blogs.forEach(blog => { %>
                 <div class="col-sm-4">
-                  <a class="link-overlay" href="/admin/blogs/<%= blog.slug %>">
+                  <a class="link-overlay"
+                    href="<%= originPath.substring(0, originPath.lastIndexOf('/')) %>/<%= blog.slug %>">
                     <div class="box">
                       <div class="box-tool">
                         <ul class="nav">
                           <li class="nav-item inline dropdown">
-                            <a
-                              class="nav-link text-muted"
-                              data-toggle="dropdown"
-                            >
+                            <a class="nav-link text-muted" data-toggle="dropdown">
                               <i class="material-icons md-18">menu</i>
                             </a>
-                            <div
-                              class="dropdown-menu dropdown-menu-scale pull-right dark"
-                            >
+                            <div class="dropdown-menu dropdown-menu-scale pull-right dark">
                               <a class="dropdown-item" href="<%= blog._id %>/edit">Edit</a>
-                              <form method="POST" action="/admin/blogs/<%= blog._id %>?_method=DELETE">
+                              <form method="POST"
+                                action="<%= originPath.substring(0, originPath.lastIndexOf('/')) %>/<%= blog._id %>?_method=DELETE">
                                 <button class="dropdown-item" href="#">Delete</button>
                               </form>
                             </div>
                           </li>
                         </ul>
                       </div>
-                      <img
-                        src="<%= blog.image %>"
-                        alt=""
-                        class="img-responsive"
-                      />
+                      <img src="<%= blog.image %>" alt="" class="img-responsive" />
                       <div class="p-a-sm">
                         <div class="text-ellipsis">
                           <h4><%= blog.title %></h4>

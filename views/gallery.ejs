@@ -1,93 +1,85 @@
 <% include ./partials/headerFront %>
 <div class="navbar-collapse collapse" id="navbar">
-                  <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                      <a
-                        href="/"
-                        title="Home"
-                        class="dropdown-toggle"
-                        role="button"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        >Home</a
-                      >
-                    </li>
-                    <li>
-                      <a href="/#about" title="About Us">about Us</a>
-                    </li>
-                    <%# <li>
+	<ul class="nav navbar-nav">
+		<li class="dropdown">
+			<a href="/" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+		</li>
+		<li>
+			<a href="/#about" title="About Us">about Us</a>
+		</li>
+		<%# <li>
                       <a href="#compensation" title="Compensation Plan"
                         >Compensation Plan</a
                       >
                     </li> %>
-                    <li class="active">
-                      <a href="#" title="Gallery">Gallery</a>
-                    </li>
-                    <li>
-                      <a href="#" title="News">News</a>
-                    </li>
-                    <li>
-                      <a href="/incentives" title="Incentives">Incentives</a>
-                    </li>
-                    <li>
-                      <a href="/contact" title="Contact">Contact</a>
-                    </li>
-                    <li>
-                      <a href="/auth/login" title="Sign In">Sign in</a>
-                    </li>
-                  </ul>
-                </div>
-              </nav>
-            </div>
-            <div class="col-md-2 book-now">
-              <a href="/auth/register" title="Join Us Now">Join Us Now</a>
-            </div>
-          </div>
-          <!-- Row /- -->
-        </div>
-        <!-- Container /- -->
-      </div>
-      <!-- Menu Block /- -->
-    </header>
-    <!-- Header Section /- -->
+		<li class="active">
+			<a href="#" title="Gallery">Gallery</a>
+		</li>
+		<li>
+			<a href="/news" title="News">News</a>
+		</li>
+		<li>
+			<a href="/incentives" title="Incentives">Incentives</a>
+		</li>
+		<li>
+			<a href="/contact" title="Contact">Contact</a>
+		</li>
+		<li>
+			<a href="/auth/login" title="Sign In">Sign in</a>
+		</li>
+	</ul>
+</div>
+</nav>
+</div>
+<div class="col-md-2 book-now">
+	<a href="/auth/register" title="Join Us Now">Join Us Now</a>
+</div>
+</div>
+<!-- Row /- -->
+</div>
+<!-- Container /- -->
+</div>
+<!-- Menu Block /- -->
+</header>
+<!-- Header Section /- -->
 
-	
-	<main class="site-main page-spacing">
-		<!-- Page Banner -->
-		<div class="container-fluid page-banner about-banner">
-			<div class="container">
-				<h3>gallery</h3>
-				<ol class="breadcrumb">
-					<li><a href="index.html">Home</a></li>
-					<li class="active">GALLERY</li>
-				</ol>
-			</div>
-		</div><!-- Page Banner /- -->
-		<div class="section-padding"></div>
+
+<main class="site-main page-spacing">
+	<!-- Page Banner -->
+	<div class="container-fluid page-banner about-banner">
 		<div class="container">
-			<!-- Portfolio Section -->
-			<div id="portfolio-section" class="container-fluid portfolio-section no-padding">		
-				<!-- Portfolio Filters --> 
-				<ul id="filters" class="portfolio-categories no-left-padding">
-					<li><a data-filter="*" class="active" href="#">all</a></li>
-					<%# <li><a data-filter=".deluxe" href="#">deluxe room</a></li>
+			<h3>gallery</h3>
+			<ol class="breadcrumb">
+				<li><a href="index.html">Home</a></li>
+				<li class="active">GALLERY</li>
+			</ol>
+		</div>
+	</div><!-- Page Banner /- -->
+	<div class="section-padding"></div>
+	<div class="container">
+		<!-- Portfolio Section -->
+		<div id="portfolio-section" class="container-fluid portfolio-section no-padding">
+			<!-- Portfolio Filters -->
+			<ul id="filters" class="portfolio-categories no-left-padding">
+				<li><a data-filter="*" class="active" href="#">all</a></li>
+				<%# <li><a data-filter=".deluxe" href="#">deluxe room</a></li>
 					<li><a data-filter=".single" href="#">single room</a></li>
 					<li><a data-filter=".family" href="#">family room</a></li>
 					<li><a data-filter=".luxury" href="#">luxury room</a></li>
 					<li><a data-filter=".classic" href="#">classic room</a></li>
 					<li><a data-filter=".double" href="#">double room</a></li> %>
-				</ul><!-- / Portfolio Filters -->
-				
-				<div class="col-md-12 col-sm-12 col-xs-12 portfolio-list no-padding">
-					<% uploads.forEach(upload => { %>
-						<div class="col-md-4 col-sm-4 col-xs-6 no-padding portfolio-box deluxe">
-							<a href="<%= upload.src %>" title="Portfolio" class="popup-modal">
-								<img width="387" height="350" alt="Portfolio" src="<%= upload.src %>" />
-								<h3><span> winninglife </span></h3>
-							</a>
-						</div>
-					<% }) %>
-					<!-- <div class="col-md-4 col-sm-4 col-xs-6 no-padding portfolio-box deluxe">
+			</ul><!-- / Portfolio Filters -->
+
+			<div class="col-md-12 col-sm-12 col-xs-12 portfolio-list no-padding">
+				<% uploads.forEach(upload => { %>
+				<div class="col-md-4 col-sm-4 col-xs-6 no-padding portfolio-box deluxe">
+					<a href="<%= upload.src %>" title="Portfolio" class="popup-modal">
+						<img width="387" height="350" alt="Portfolio" src="<%= upload.src %>" />
+						<h3><span> winninglife </span></h3>
+					</a>
+				</div>
+				<% }) %>
+				<!-- <div class="col-md-4 col-sm-4 col-xs-6 no-padding portfolio-box deluxe">
 						<a href="images/gallery/gallery1.jpg" title="Portfolio" class="popup-modal">
 							<img width="387" height="350" alt="Portfolio" src="images/gallery/gallery1.jpg" />
 							<h3><span> winninglife </span></h3>
@@ -183,23 +175,23 @@
 							<h3><span> winninglife </span></h3>
 						</a>						
 					</div> -->
-				</div>
-				<nav class="ow-pagination">
-					<ul class="pagination">						
-						<li><a href="#">1</a></li>
-						<%# <li><a href="#">2</a></li>
-						<li><a href="#">3</a></li> %>
-						<li>
-							<a href="#" aria-label="Next">
-								<span class="fa fa-angle-right" aria-hidden="true"></span>
-							</a>
-						</li>
-					</ul>
-				</nav>
 			</div>
-		</div><!-- Portfolio Section /- -->
-		<div class="section-padding"></div>
-		
-	</main>
-	
-	<% include ./partials/footerFront %>
+			<nav class="ow-pagination">
+				<ul class="pagination">
+					<li><a href="#">1</a></li>
+					<%# <li><a href="#">2</a></li>
+						<li><a href="#">3</a></li> %>
+					<li>
+						<a href="#" aria-label="Next">
+							<span class="fa fa-angle-right" aria-hidden="true"></span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div><!-- Portfolio Section /- -->
+	<div class="section-padding"></div>
+
+</main>
+
+<% include ./partials/footerFront %>

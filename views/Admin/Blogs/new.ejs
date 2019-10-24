@@ -26,15 +26,16 @@
     <h6 class="text-muted m-a-0">New Post</h6>
   </div>
   <% if (messages.length > 0) { %>
-      <% messages.forEach((message, index) => { %>
-        <% if (index == 1) { %>
-          <div>
-            <a class="text-info" href="/admin/blogs/<%= message %>">Click here to View Post</a>
-          </div>
-        <% } else { %>
-          <div class="alert alert-success"><%= message %></div>
-        <% } %>
-      <% }) %>
+  <% messages.forEach((message, index) => { %>
+  <% if (index == 1) { %>
+  <div>
+    <a class="text-info" href="<%= originPath.substring(0, originPath.lastIndexOf('/')) %>/<%= message %>">Click here to
+      View Post</a>
+  </div>
+  <% } else { %>
+  <div class="alert alert-success"><%= message %></div>
+  <% } %>
+  <% }) %>
   <%}%>
   <form
     class="m-y"

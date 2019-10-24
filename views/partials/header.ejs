@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <title>winninglife</title>
@@ -15,7 +16,7 @@
   <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" sizes="196x196" href="/images/logo.png">
-  
+
   <!-- style -->
   <link rel="stylesheet" href="/css/animate.css/animate.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/glyphicons/glyphicons.css" type="text/css" />
@@ -31,320 +32,434 @@
   <!-- endbuild -->
   <link rel="stylesheet" href="/css/styles/font.css" type="text/css" />
 </head>
+
 <body>
   <div class="app" id="app">
 
-<!-- ############ LAYOUT START-->
+    <!-- ############ LAYOUT START-->
 
-  <!-- aside -->
-  <div id="aside" class="app-aside fade nav-dropdown black">
-    <!-- fluid app aside -->
-    <div class="navside dk" data-layout="column">
-      <div class="navbar no-radius">
-        <!-- brand -->
-        <a href="/" class="navbar-brand">
-        	<div data-ui-include="'/images/logo.svg'"></div>
-        	<img src="/images/logo.png" alt="." class="hide">
-        	<span class="hidden-folded inline">winninglife</span>
-        </a>
-        <!-- / brand -->
-      </div>
-      <% if (originPath.startsWith("/admin")) { -%>
+    <!-- aside -->
+    <div id="aside" class="app-aside fade nav-dropdown black">
+      <!-- fluid app aside -->
+      <div class="navside dk" data-layout="column">
+        <div class="navbar no-radius">
+          <!-- brand -->
+          <a href="/" class="navbar-brand">
+            <div data-ui-include="'/images/logo.svg'"></div>
+            <img src="/images/logo.png" alt="." class="hide">
+            <span class="hidden-folded inline">winninglife</span>
+          </a>
+          <!-- / brand -->
+        </div>
+        <% if (originPath.startsWith("/admin")) { -%>
         <div data-flex class="hide-scroll">
           <% var currentPath = path.substring(1, path.length) %>
-            <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
-              <% var dashActive = "", withdrawActive = "", depositActive = "", usersActive = "", blogActive = "", eventActive = "", galleryActive = "", landingActive = "" %>
-              <% if (currentPath === 'dashboard') { %>
-                      <% dashActive = "active" %>
-              <% } %>
+          <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
+            <% var dashActive = "", withdrawActive = "", depositActive = "", usersActive = "", blogActive = "", eventActive = "", galleryActive = "", landingActive = "" %>
+            <% if (currentPath === 'dashboard') { %>
+            <% dashActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'withdraw') { %>
-                      <% withdrawActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'withdraw') { %>
+            <% withdrawActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'users') { %>
-                      <% profileActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'deposits') { %>
+            <% depositActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'deposits') { %>
-                      <% depositActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'users') { %>
+            <% usersActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'users') { %>
-                      <% usersActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'blogs') { %>
+            <% blogActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'blogs') { %>
-                      <% blogActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'events') { %>
+            <% eventActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'events') { %>
-                      <% eventActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'gallery') { %>
+            <% galleryActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'gallery') { %>
-                      <% galleryActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'landing') { %>
+            <% landingActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'landing') { %>
-                <% landingActive = "active" %>
-              <% } %>
+            <ul class="nav" data-ui-nav>
+              <li class="nav-header hidden-folded">
+                <span class="text-xs">Main</span>
+              </li>
+              <li class="<%= dashActive %>">
+                <a href="/admin/dashboard" class="b-danger">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-filing"></i>
+                  </span>
+                  <span class="nav-text">Dashboard</span>
+                </a>
+              </li>
+              <li class="<%= depositActive %>">
+                <a class="b-primary" href="/admin/deposits">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-cash"></i>
+                  </span>
+                  <span class="nav-text">Deposits</span>
+                </a>
+              </li>
+              <li class="<%= withdrawActive %>">
+                <a class="b-success" href="/admin/withdrawals">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-card"></i>
+                  </span>
+                  <span class="nav-text">Withdrawals</span>
+                </a>
+              </li>
+              <li class="<%= usersActive %>">
+                <a class="b-warn">
+                  <span class="nav-caret">
+                    <i class="fa fa-caret-down"></i>
+                  </span>
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-person"></i>
+                  </span>
+                  <span class="nav-text">Users</span>
+                </a>
+                <ul class="nav-sub">
+                  <li>
+                    <a href="/admin/users/edit">
+                      <span class="nav-text">Edit User</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/users/members">
+                      <span class="nav-text">Rank Members</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/users/analysis">
+                      <span class="nav-text">User Analysis</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/users/matrix">
+                      <span class="nav-text">Matrix</span>
+                    </a>
+                  </li>
+                </ul>
 
-              <ul class="nav" data-ui-nav>
-                <li class="nav-header hidden-folded">
-                  <span class="text-xs">Main</span>
-                </li>
-                <li class="<%= dashActive %>">
-                  <a href="/admin/dashboard" class="b-danger">
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-filing"></i>
-                    </span>
-                    <span class="nav-text">Dashboard</span>
-                  </a>
-                </li>
-                <li class="<%= depositActive %>">
-                  <a class="b-primary" href="/admin/deposits">
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-cash"></i>
-                    </span>
-                    <span class="nav-text">Deposits</span>
-                  </a>
-                </li>
-                <li class="<%= withdrawActive %>">
-                  <a class="b-success" href="/admin/withdrawals">
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-card"></i>
-                    </span>
-                    <span class="nav-text">Withdrawals</span>
-                  </a>
-                </li>
-                <li class="<%= usersActive %>">
-                  <a class="b-warn">
-                    <span class="nav-caret">
-                      <i class="fa fa-caret-down"></i>
-                    </span>
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-person"></i>
-                    </span>
-                    <span class="nav-text">Users</span>
-                  </a>
-                  <ul class="nav-sub">
-                    <li>
-                      <a href="/admin/users/edit">
-                        <span class="nav-text">Edit User</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/admin/users/members">
-                        <span class="nav-text">Rank Members</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/admin/users/analysis">
-                        <span class="nav-text">User Analysis</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/admin/users/matrix">
-                        <span class="nav-text">Matrix</span>
-                      </a>
-                    </li>
-                  </ul>
-                  
-                </li>
-                <li class="<%= blogActive %>">
-                  <a class="b-blue">
-                    <span class="nav-caret">
-                      <i class="fa fa-caret-down"></i>
-                    </span>
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-compose"></i>
-                    </span>
-                    <span class="nav-text">Blog</span>
-                  </a>
-                  <ul class="nav-sub">
-                    <li>
-                      <a href="/admin/blogs/new">
-                        <span class="nav-text">New Post</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/admin/blogs/">
-                        <span class="nav-text">View Posts</span>
-                      </a>
-                    </li>
-                  </ul>
-                
-                </li>
-                <li class="<%= eventActive %>">
-                  <a class="b-dark">
-                    <span class="nav-caret">
-                      <i class="fa fa-caret-down"></i>
-                    </span>
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-compose"></i>
-                    </span>
-                    <span class="nav-text">Event</span>
-                  </a>
-                  <ul class="nav-sub">
-                    <li>
-                      <a href="/admin/events/new">
-                        <span class="nav-text">New Event</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/admin/events/">
-                        <span class="nav-text">View Events</span>
-                      </a>
-                    </li>
-                  </ul>
-                
-                </li>
-                <li class="<%= galleryActive %>">
-                  <a class="b-black" href="/admin/gallery">
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-aperture"></i>
-                    </span>
-                    <span class="nav-text">Gallery</span>
-                  </a>
-                </li>
-                <li class="<%= landingActive %>">
-                  <a class="b-black" href="/admin/landing">
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-home"></i>
-                    </span>
-                    <span class="nav-text">Landing</span>
-                  </a>
-                </li>
-                <li class="m-t-lg"></li>
-                <li class="nav-header hidden-folded m-t-lg">
-                  <span class="text-xs">Secondary</span>
-                </li>            
-                <li>
-                  <a>
-                    <span class="nav-icon">
-                      <i class="ion-help-circled"></i>
-                    </span>
-                    <span class="nav-text">Help</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+              </li>
+              <li class="<%= blogActive %>">
+                <a class="b-blue">
+                  <span class="nav-caret">
+                    <i class="fa fa-caret-down"></i>
+                  </span>
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-compose"></i>
+                  </span>
+                  <span class="nav-text">Blog</span>
+                </a>
+                <ul class="nav-sub">
+                  <li>
+                    <a href="/admin/blogs/new">
+                      <span class="nav-text">New Post</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/blogs/">
+                      <span class="nav-text">View Posts</span>
+                    </a>
+                  </li>
+                </ul>
+
+              </li>
+              <li class="<%= eventActive %>">
+                <a class="b-dark">
+                  <span class="nav-caret">
+                    <i class="fa fa-caret-down"></i>
+                  </span>
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-compose"></i>
+                  </span>
+                  <span class="nav-text">Event</span>
+                </a>
+                <ul class="nav-sub">
+                  <li>
+                    <a href="/admin/events/new">
+                      <span class="nav-text">New Event</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/events/">
+                      <span class="nav-text">View Events</span>
+                    </a>
+                  </li>
+                </ul>
+
+              </li>
+              <li class="<%= galleryActive %>">
+                <a class="b-black" href="/admin/gallery">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-aperture"></i>
+                  </span>
+                  <span class="nav-text">Gallery</span>
+                </a>
+              </li>
+              <li class="<%= landingActive %>">
+                <a class="b-black" href="/admin/landing">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-home"></i>
+                  </span>
+                  <span class="nav-text">Landing</span>
+                </a>
+              </li>
+              <li class="m-t-lg"></li>
+              <li class="nav-header hidden-folded m-t-lg">
+                <span class="text-xs">Secondary</span>
+              </li>
+              <li>
+                <a>
+                  <span class="nav-icon">
+                    <i class="ion-help-circled"></i>
+                  </span>
+                  <span class="nav-text">Help</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
-      <% } else { -%>
+        <% } else if (originPath.startsWith("/editor")) { -%>
+        <div data-flex class="hide-scroll">
+          <% var currentPath = path.substring(1, path.length) %>
+          <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
+            <% var dashActive = "", blogActive = "", eventActive = "", galleryActive = "", landingActive = "" %>
+
+            <% if (currentPath === 'dashboard') { %>
+            <% dashActive = "active" %>
+            <% } %>
+
+            <% if (currentPath === 'blogs') { %>
+            <% blogActive = "active" %>
+            <% } %>
+
+            <% if (currentPath === 'events') { %>
+            <% eventActive = "active" %>
+            <% } %>
+
+            <% if (currentPath === 'gallery') { %>
+            <% galleryActive = "active" %>
+            <% } %>
+
+            <% if (currentPath === 'landing') { %>
+            <% landingActive = "active" %>
+            <% } %>
+
+            <ul class="nav" data-ui-nav>
+              <li class="nav-header hidden-folded">
+                <span class="text-xs">Main</span>
+              </li>
+              <!-- <li class="<%= dashActive %>">
+                <a href="/editor/dashboard" class="b-danger">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-filing"></i>
+                  </span>
+                  <span class="nav-text">Dashboard</span>
+                </a>
+              </li> -->
+              <li class="<%= blogActive %>">
+                <a class="b-blue">
+                  <span class="nav-caret">
+                    <i class="fa fa-caret-down"></i>
+                  </span>
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-compose"></i>
+                  </span>
+                  <span class="nav-text">Blog</span>
+                </a>
+                <ul class="nav-sub">
+                  <li>
+                    <a href="/editor/blogs/new">
+                      <span class="nav-text">New Post</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/editor/blogs/">
+                      <span class="nav-text">View Posts</span>
+                    </a>
+                  </li>
+                </ul>
+
+              </li>
+              <li class="<%= eventActive %>">
+                <a class="b-dark">
+                  <span class="nav-caret">
+                    <i class="fa fa-caret-down"></i>
+                  </span>
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-compose"></i>
+                  </span>
+                  <span class="nav-text">Event</span>
+                </a>
+                <ul class="nav-sub">
+                  <li>
+                    <a href="/editor/events/new">
+                      <span class="nav-text">New Event</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/editor/events/">
+                      <span class="nav-text">View Events</span>
+                    </a>
+                  </li>
+                </ul>
+
+              </li>
+              <li class="<%= galleryActive %>">
+                <a class="b-black" href="/editor/gallery">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-aperture"></i>
+                  </span>
+                  <span class="nav-text">Gallery</span>
+                </a>
+              </li>
+              <li class="<%= landingActive %>">
+                <a class="b-black" href="/editor/landing">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-home"></i>
+                  </span>
+                  <span class="nav-text">Landing</span>
+                </a>
+              </li>
+              <li class="m-t-lg"></li>
+              <li class="nav-header hidden-folded m-t-lg">
+                <span class="text-xs">Secondary</span>
+              </li>
+              <li>
+                <a>
+                  <span class="nav-icon">
+                    <i class="ion-help-circled"></i>
+                  </span>
+                  <span class="nav-text">Help</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <% } else { -%>
         <div data-flex class="hide-scroll">
           <% var currentPath = path.substring(1, path.lastIndexOf('/')) %>
-            <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
-              <% var dashActive = "", walletActive = "", matrixActive = "", placementActive = "", profileActive = "" %>
-              <% if (currentPath === 'dashboard') { %>
-                      <% dashActive = "active" %>
-              <% } %>
+          <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
+            <% var dashActive = "", walletActive = "", matrixActive = "", placementActive = "", profileActive = "" %>
+            <% if (currentPath === 'dashboard') { %>
+            <% dashActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'wallet') { %>
-                      <% walletActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'wallet') { %>
+            <% walletActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'profile') { %>
-                      <% profileActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'profile') { %>
+            <% profileActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'placement') { %>
-                      <% placementActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'placement') { %>
+            <% placementActive = "active" %>
+            <% } %>
 
-              <% if (currentPath === 'matrix') { %>
-                      <% matrixActive = "active" %>
-              <% } %>
+            <% if (currentPath === 'matrix') { %>
+            <% matrixActive = "active" %>
+            <% } %>
 
-              <ul class="nav" data-ui-nav>
-                <li class="nav-header hidden-folded">
-                  <span class="text-xs">Main</span>
-                </li>
-                <li class="<%= dashActive %>">
-                  <a href="/user/dashboard" class="b-danger">
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-filing"></i>
-                    </span>
-                    <span class="nav-text">Dashboard</span>
-                  </a>
-                </li>
-                <li class="<%= profileActive %>">
-                  <a class="b-info" href="/user/profile">
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-person"></i>
-                    </span>
-                    <span class="nav-text">Profile</span>
-                  </a>
-                </li>
-                <li class="<%= walletActive %>">
-                  <a class="b-success">
-                    <span class="nav-caret">
-                      <i class="fa fa-caret-down"></i>
-                    </span>
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-card"></i>
-                    </span>
-                    <span class="nav-text">Wallet</span>
-                  </a>
-                  <ul class="nav-sub">
-                    <li>
-                      <a href="/user/wallet/deposits">
-                        <span class="nav-text">Deposits</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/user/wallet/earnings">
-                        <span class="nav-text">Earnings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/user/wallet/transfer">
-                        <span class="nav-text">Transfer Funds</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/user/wallet/withdrawal">
-                        <span class="nav-text">Withdrawal</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="<%= placementActive %>">
-                  <a class="b-accent" href="/user/placement">
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-person-add"></i>
-                    </span>
-                    <span class="nav-text">Placement</span>
-                  </a>
-                </li>
-                <li class="<%= matrixActive %>">
-                  <a class="b-warn" href="/user/matrix">
-                    <span class="nav-icon text-white no-fade">
-                      <i class="ion-merge"></i>
-                    </span>
-                    <span class="nav-text">Matrix</span>
-                  </a>
-                </li>
-                
-                <li class="m-t-lg"></li>
-                <li class="nav-header hidden-folded m-t-lg">
-                  <span class="text-xs">Secondary</span>
-                </li>            
-                <li>
-                  <a>
-                    <span class="nav-icon">
-                      <i class="ion-help-circled"></i>
-                    </span>
-                    <span class="nav-text">Help</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <ul class="nav" data-ui-nav>
+              <li class="nav-header hidden-folded">
+                <span class="text-xs">Main</span>
+              </li>
+              <li class="<%= dashActive %>">
+                <a href="/user/dashboard" class="b-danger">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-filing"></i>
+                  </span>
+                  <span class="nav-text">Dashboard</span>
+                </a>
+              </li>
+              <li class="<%= profileActive %>">
+                <a class="b-info" href="/user/profile">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-person"></i>
+                  </span>
+                  <span class="nav-text">Profile</span>
+                </a>
+              </li>
+              <li class="<%= walletActive %>">
+                <a class="b-success">
+                  <span class="nav-caret">
+                    <i class="fa fa-caret-down"></i>
+                  </span>
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-card"></i>
+                  </span>
+                  <span class="nav-text">Wallet</span>
+                </a>
+                <ul class="nav-sub">
+                  <li>
+                    <a href="/user/wallet/deposits">
+                      <span class="nav-text">Deposits</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/user/wallet/earnings">
+                      <span class="nav-text">Earnings</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/user/wallet/transfer">
+                      <span class="nav-text">Transfer Funds</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/user/wallet/withdrawal">
+                      <span class="nav-text">Withdrawal</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="<%= placementActive %>">
+                <a class="b-accent" href="/user/placement">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-person-add"></i>
+                  </span>
+                  <span class="nav-text">Placement</span>
+                </a>
+              </li>
+              <li class="<%= matrixActive %>">
+                <a class="b-warn" href="/user/matrix">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-merge"></i>
+                  </span>
+                  <span class="nav-text">Matrix</span>
+                </a>
+              </li>
+
+              <li class="m-t-lg"></li>
+              <li class="nav-header hidden-folded m-t-lg">
+                <span class="text-xs">Secondary</span>
+              </li>
+              <li>
+                <a>
+                  <span class="nav-icon">
+                    <i class="ion-help-circled"></i>
+                  </span>
+                  <span class="nav-text">Help</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
-      <% } -%>
-      <div data-flex-no-shrink>
-        <div class="nav-fold dropup">
-          <a data-toggle="dropdown">
+        <% } -%>
+        <div data-flex-no-shrink>
+          <div class="nav-fold dropup">
+            <a data-toggle="dropdown">
               <div class="pull-left">
                 <div class="inline"><span class="avatar w-40 grey"><% if (currentUser.fullname.split(" ") > 2) { %> <%=
                                       currentUser.fullname.split(" ")[0][0] +
@@ -352,7 +467,7 @@
                                       (currentUser.fullname.split(" ") === 1) { %> <%=
                                       currentUser.fullname.split(" ")[0][0] +
                                       currentUser.fullname.split(" ")[1][0] %> <% } else { %>
-                <%= currentUser.fullname[0] %> <% } %></span></div>
+                    <%= currentUser.fullname[0] %> <% } %></span></div>
                 <img src="/images/a0.jpg" alt="..." class="w-40 img-circle hide">
               </div>
               <div class="clear hidden-folded p-x">
@@ -364,82 +479,84 @@
                                     currentUser.fullname.split(" ")[1] %> <% } else { %> <%=
                                     currentUser.fullname %> <% } %></span>
                 <div class="progress-xxs m-y-sm lt progress">
-                    <div class="progress-bar info" style="width: 15%;">
-                    </div>
+                  <div class="progress-bar info" style="width: 15%;">
+                  </div>
                 </div>
               </div>
-          </a>
-          <div class="dropdown-menu w dropdown-menu-scale ">
-            <a class="dropdown-item" href="/user/profile">
-              <span>Profile</span>
             </a>
-            <a class="dropdown-item" href="#">
-              <span>Settings</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              Need help?
-            </a>
-            <% if (originPath.startsWith("/admin")) { -%>
+            <div class="dropdown-menu w dropdown-menu-scale ">
+              <a class="dropdown-item" href="/user/profile">
+                <span>Profile</span>
+              </a>
+              <a class="dropdown-item" href="#">
+                <span>Settings</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">
+                Need help?
+              </a>
+              <% if (originPath.startsWith("/admin")) { -%>
               <a class="dropdown-item" href="/admin/logout">Sign out</a>
-            <% } else {-%>
+              <% } else if (originPath.startsWith("/editor")) {-%>
+              <a class="dropdown-item" href="/editor/logout">Sign out</a>
+              <% } else {-%>
               <a class="dropdown-item" href="/auth/logout">Sign out</a>
-            <% } -%>  
+              <% } -%>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- / -->
-  <%  %>
-  <!-- content -->
-  <div id="content" class="app-content box-shadow-z2 bg pjax-container" role="main">
-    <div class="app-header white bg b-b">
-          <div class="navbar" data-pjax>
-                <a data-toggle="modal" data-target="#aside" class="navbar-item pull-left hidden-lg-up p-r m-a-0">
-                  <i class="ion-navicon"></i>
-                </a>
-                <div class="navbar-item pull-left h5" id="pageTitle">
-                  <% var string = path.substring(1, 2).toUpperCase()%>
-                  
-                  <% if (path.substring(2).indexOf('/') === -1) { %>
-                      <% string += path.substring(2); %>
-                  <% } else { %>
-                      <% string += path.substring(2, path.lastIndexOf('/')); %>
-                  <% } %>
-                  
-                  <%= string %>
-                </div>
-                <!-- nabar right -->
-                <ul class="nav navbar-nav pull-right">
-                  <li class="nav-item dropdown pos-stc-xs">
-                    <a class="nav-link" data-toggle="dropdown">
-                      <i class="ion-android-search w-24"></i>
-                    </a>
-                    <div class="dropdown-menu text-color w-md animated fadeInUp pull-right">
-                      <!-- search form -->
-                      <form class="navbar-form form-inline navbar-item m-a-0 p-x v-m" role="search">
-                        <div class="form-group l-h m-a-0">
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                              <button type="submit" class="btn white b-a no-shadow"><i class="fa fa-search"></i></button>
-                            </span>
-                          </div>
-                        </div>
-                      </form>
-                      <!-- / search form -->
+    <!-- / -->
+    <%  %>
+    <!-- content -->
+    <div id="content" class="app-content box-shadow-z2 bg pjax-container" role="main">
+      <div class="app-header white bg b-b">
+        <div class="navbar" data-pjax>
+          <a data-toggle="modal" data-target="#aside" class="navbar-item pull-left hidden-lg-up p-r m-a-0">
+            <i class="ion-navicon"></i>
+          </a>
+          <div class="navbar-item pull-left h5" id="pageTitle">
+            <% var string = path.substring(1, 2).toUpperCase()%>
+
+            <% if (path.substring(2).indexOf('/') === -1) { %>
+            <% string += path.substring(2); %>
+            <% } else { %>
+            <% string += path.substring(2, path.lastIndexOf('/')); %>
+            <% } %>
+
+            <%= string %>
+          </div>
+          <!-- nabar right -->
+          <ul class="nav navbar-nav pull-right">
+            <li class="nav-item dropdown pos-stc-xs">
+              <a class="nav-link" data-toggle="dropdown">
+                <i class="ion-android-search w-24"></i>
+              </a>
+              <div class="dropdown-menu text-color w-md animated fadeInUp pull-right">
+                <!-- search form -->
+                <form class="navbar-form form-inline navbar-item m-a-0 p-x v-m" role="search">
+                  <div class="form-group l-h m-a-0">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search...">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn white b-a no-shadow"><i class="fa fa-search"></i></button>
+                      </span>
                     </div>
-                  </li>
-                  <li class="nav-item dropdown pos-stc-xs">
-                    <a class="nav-link clear" data-toggle="dropdown">
-                      <i class="ion-android-notifications-none w-24"></i>
-                      <%# <span class="label up p-a-0 danger"></span> %>
-                    </a>
-                    <!-- dropdown -->
-                    <div class="dropdown-menu pull-right w-xl animated fadeIn no-bg no-border no-shadow">
-                        <div class="scrollable" style="max-height: 220px">
-                          <%# <ul class="list-group list-group-gap m-a-0">
+                  </div>
+                </form>
+                <!-- / search form -->
+              </div>
+            </li>
+            <li class="nav-item dropdown pos-stc-xs">
+              <a class="nav-link clear" data-toggle="dropdown">
+                <i class="ion-android-notifications-none w-24"></i>
+                <%# <span class="label up p-a-0 danger"></span> %>
+              </a>
+              <!-- dropdown -->
+              <div class="dropdown-menu pull-right w-xl animated fadeIn no-bg no-border no-shadow">
+                <div class="scrollable" style="max-height: 220px">
+                  <%# <ul class="list-group list-group-gap m-a-0">
                             <li class="list-group-item dark-white box-shadow-z0 b">
                               <span class="pull-left m-r">
                                 <img src="/images/a0.jpg" alt="..." class="w-40 img-circle">
@@ -468,36 +585,38 @@
                               </span>
                             </li>
                           </ul> %>
-                        </div>
-                    </div>
-                    <!-- / dropdown -->
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link clear" data-toggle="dropdown">
-                      <span class="avatar w-32">
-                        <img src="/images/a3.jpg" class="w-full rounded" alt="...">
-                      </span>
-                    </a>
-                    <div class="dropdown-menu w dropdown-menu-scale pull-right">
-                      <a class="dropdown-item" href="/user/profile">
-                        <span>Profile</span>
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        <span>Settings</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="/docs.html">
-                        Need help?
-                      </a>
-                      <% if (originPath.startsWith("/admin")) { -%>
-                        <a class="dropdown-item" href="/admin/logout">Sign out</a>
-                      <% } else {-%>
-                        <a class="dropdown-item" href="/auth/logout">Sign out</a>
-                      <% } -%>
-                    </div>
-                  </li>
-                </ul>
-                <!-- / navbar right -->
-          </div>
-    </div>
-    <div class="app-body">
+                </div>
+              </div>
+              <!-- / dropdown -->
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link clear" data-toggle="dropdown">
+                <span class="avatar w-32">
+                  <img src="/images/a3.jpg" class="w-full rounded" alt="...">
+                </span>
+              </a>
+              <div class="dropdown-menu w dropdown-menu-scale pull-right">
+                <a class="dropdown-item" href="/user/profile">
+                  <span>Profile</span>
+                </a>
+                <a class="dropdown-item" href="#">
+                  <span>Settings</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/docs.html">
+                  Need help?
+                </a>
+                <% if (originPath.startsWith("/admin")) { -%>
+                <a class="dropdown-item" href="/admin/logout">Sign out</a>
+                <% } else if (originPath.startsWith("/editor")) {-%>
+                <a class="dropdown-item" href="/editor/logout">Sign out</a>
+                <% } else {-%>
+                <a class="dropdown-item" href="/auth/logout">Sign out</a>
+                <% } -%>
+              </div>
+            </li>
+          </ul>
+          <!-- / navbar right -->
+        </div>
+      </div>
+      <div class="app-body">

@@ -4,7 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.register = register;
+exports.registerEditor = registerEditor;
 exports.loadDashboard = loadDashboard;
+exports.loadEditorDashboard = loadEditorDashboard;
 exports.loadDeposits = loadDeposits;
 exports.loadWithdrawals = loadWithdrawals;
 exports.approveDeposit = approveDeposit;
@@ -87,8 +89,38 @@ async function register(req, res) {
   }
 }
 
+async function registerEditor(req, res) {
+  if (req.body.username && req.body.password) {
+    const { username, password, email, fullname, phone } = req.body;
+
+    try {
+      const editor = new _models.Editor({
+        username,
+        email,
+        fullname,
+        phone
+      });
+      await editor.setPassword(password);
+      await editor.save();
+
+      _passport.default.authenticate("editor")(req, res, () => {
+        res.status(201).redirect("/editor/blogs");
+      });
+    } catch (err) {
+      res.send(err);
+    }
+  } else {
+    res.status(500).send({
+      err: "Something is wrong with your input!"
+    });
+  }
+}
+
 async function loadDashboard(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     // Get total number of users
     const users = await _models.User.find();
     const totalUsers = users.length; // Get total number of withdrawals
@@ -125,8 +157,51 @@ async function loadDashboard(req, res) {
   }
 }
 
+async function loadEditorDashboard(req, res) {
+  try {
+    // Get total number of blogs
+    const posts = await _models.Blog.find();
+    const totalPosts = posts.length;
+
+    // Get total number of withdrawals
+
+    const withdrawals = await _models.Withdraw.find()
+      .populate("withdrawer")
+      .sort({
+        createdAt: -1
+      });
+    const totalWithdrawals = withdrawals.length; // Get total number of Deposits
+
+    const deposits = await _models.Deposit.find()
+      .populate("depositor")
+      .sort({
+        createdAt: -1
+      });
+    const totalDeposits = deposits.length; // Get total number of investments
+
+    const totalInvestments = deposits.reduce(function (acc, cur) {
+      return acc + cur.amount;
+    }, 0);
+    const latestDeposits = deposits.slice(0, 4);
+    const latestWithdrawals = withdrawals.slice(0, 4);
+    res.render("Admin/", {
+      totalUsers,
+      totalDeposits,
+      totalWithdrawals,
+      totalInvestments,
+      latestDeposits,
+      latestWithdrawals
+    });
+  } catch (err) {
+    res.send(err);
+  }
+}
+
 async function loadDeposits(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const pendingDeposits = await _models.Deposit.find({
       approved: false,
       declined: false
@@ -162,6 +237,9 @@ async function loadDeposits(req, res) {
 
 async function loadWithdrawals(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const pendingWithdrawals = await _models.Withdraw.find({
       approved: false,
       declined: false
@@ -197,6 +275,9 @@ async function loadWithdrawals(req, res) {
 
 async function approveDeposit(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const deposit = await _models.Deposit.findByIdAndUpdate(req.params.id, {
       approved: true
     });
@@ -218,6 +299,9 @@ async function approveDeposit(req, res) {
 
 async function batchApproveWithdrawals(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const withdrawals = req.body.data;
     withdrawals.forEach(async withdrawal => {
       await _models.Withdraw.findByIdAndUpdate(withdrawal.value, {
@@ -233,6 +317,9 @@ async function batchApproveWithdrawals(req, res) {
 
 async function approveWithdrawal(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     await _models.Withdraw.findByIdAndUpdate(req.params.id, {
       approved: true
     });
@@ -244,6 +331,9 @@ async function approveWithdrawal(req, res) {
 
 async function undoApproveDeposit(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const deposit = await _models.Deposit.findByIdAndUpdate(req.params.id, {
       approved: false
     });
@@ -266,6 +356,9 @@ async function undoApproveDeposit(req, res) {
 
 async function undoApproveWithdrawal(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     await _models.Withdraw.findByIdAndUpdate(req.params.id, {
       approved: false
     });
@@ -277,6 +370,9 @@ async function undoApproveWithdrawal(req, res) {
 
 async function declineDeposit(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const deposit = await _models.Deposit.findByIdAndUpdate(req.params.id, {
       declined: true
     });
@@ -288,6 +384,9 @@ async function declineDeposit(req, res) {
 
 async function declineWithdrawal(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const withdrawal = await _models.Withdraw.findByIdAndUpdate(req.params.id, {
       declined: true
     });
@@ -311,6 +410,9 @@ async function declineWithdrawal(req, res) {
 
 async function undoDeclineDeposit(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     await _models.Deposit.findByIdAndUpdate(req.params.id, {
       declined: false
     });
@@ -322,6 +424,9 @@ async function undoDeclineDeposit(req, res) {
 
 async function undoDeclineWithdrawal(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const withdrawal = await _models.Withdraw.findByIdAndUpdate(req.params.id, {
       declined: false
     });
@@ -345,6 +450,9 @@ async function undoDeclineWithdrawal(req, res) {
 
 async function loadUser(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const user = await _models.User.findOne({
       username: req.query.username
     });
@@ -379,6 +487,9 @@ async function updateUser(req, res) {
 
 async function setUserStatus(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     if (req.body.status === "disable") {
       await _models.User.update(
         {
@@ -407,6 +518,9 @@ async function setUserStatus(req, res) {
 
 async function loadMembers(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const users = await _models.User.find({
       rank: req.query.rank
     });
@@ -418,6 +532,9 @@ async function loadMembers(req, res) {
 
 async function userMatrix(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     const matrix = await _models.User.aggregate()
       .match({
         username: req.query.username
@@ -547,7 +664,7 @@ async function postBlog(req, res) {
       .on('file', (name, file) => {
         if (file.size === 0) {
           _fs.unlink(file.path, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
         if (file.type.startsWith('image')) {
@@ -633,7 +750,7 @@ async function updateBlog(req, res) {
       .on('file', (name, file) => {
         if (file.size === 0) {
           _fs.unlink(file.path, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
         if (file.name) {
@@ -647,10 +764,15 @@ async function updateBlog(req, res) {
         if (blog.image) {
           const filePath = _path.join(__basedir, '/public', updatedBlog.image);
           _fs.unlink(filePath, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
-        res.redirect(`/admin/blogs/${updatedBlog.slug}`);
+        console.log(req.originalUrl)
+        if (req.originalUrl.startsWith("/admin")) {
+          res.redirect(`/admin/blogs/${updatedBlog.slug}`);
+        } else {
+          res.redirect(`/editor/blogs/${updatedBlog.slug}`);
+        }
       })
   } catch (err) {
     console.log(err);
@@ -664,10 +786,14 @@ async function deleteBlog(req, res) {
     if (deletedBlog.image) {
       const filePath = _path.join(__basedir, '/public', deletedBlog.image);
       _fs.unlink(filePath, (err) => {
-        if (err) throw err;
+        if (err) console.log(err);
       });
     }
-    res.redirect("/admin/blogs");
+    if (req.originalUrl.startsWith("/admin")) {
+      res.redirect("/admin/blogs");
+    } else {
+      res.redirect("/editor/blogs");
+    }
   } catch (err) {
     console.log(err);
     res.send(err);
@@ -697,7 +823,7 @@ async function postEvent(req, res) {
       .on('file', (name, file) => {
         if (file.size === 0) {
           _fs.unlink(file.path, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
         if (file.type.startsWith('image')) {
@@ -768,7 +894,7 @@ async function updateEvent(req, res) {
         if (file.size === 0) {
           console.log(file.name, file.path)
           _fs.unlink(file.path, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
         if (file.type.startsWith('image')) {
@@ -780,10 +906,15 @@ async function updateEvent(req, res) {
         if (event.image) {
           const filePath = _path.join(__basedir, '/public', updatedEvent.image);
           _fs.unlink(filePath, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
-        res.redirect(`/admin/events/${updatedEvent._id}`);
+
+        if (req.originalUrl.startsWith("/admin")) {
+          res.redirect(`/admin/events/${updatedEvent._id}`);
+        } else {
+          res.redirect(`/editor/events/${updatedEvent._id}`);
+        }
       })
   } catch (err) {
     console.log(err);
@@ -797,10 +928,15 @@ async function deleteEvent(req, res) {
     if (deletedEvent.image) {
       const filePath = _path.join(__basedir, '/public', deletedEvent.image);
       _fs.unlink(filePath, (err) => {
-        if (err) throw err;
+        if (err) console.log(err);
       });
     }
-    res.redirect("/admin/events");
+
+    if (req.originalUrl.startsWith("/admin")) {
+      res.redirect("/admin/events");
+    } else {
+      res.redirect("/editor/events");
+    }
   } catch (err) {
     console.log(err);
     res.send(err);
@@ -823,6 +959,9 @@ function tConvert(time) {
 
 async function changePassword(req, res) {
   try {
+    if (!req.user.super) {
+      throw "Error: You are not Authorized"
+    }
     if (!req.body.userID || !req.body.password || !req.body.passwordConf) {
       throw "Error: Something is wrong with your input";
     }
@@ -870,7 +1009,7 @@ async function postGallery(req, res) {
       .on('file', (name, file) => {
         if (file.size === 0) {
           _fs.unlink(file.path, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
       })
@@ -895,7 +1034,7 @@ async function deleteGallery(req, res) {
       const deletedImage = await _models.Gallery.findByIdAndRemove(image);
       const filePath = _path.join(__basedir, '/public', deletedImage.src);
       _fs.unlink(filePath, (err) => {
-        if (err) throw err;
+        if (err) console.log(err);
       });
     })
     res.status(200).send("");
@@ -913,7 +1052,7 @@ async function getLanding(req, res) {
     const slides = await _models.Slider.find().sort({
       created: 1
     })
-    res.render('Admin/landing', {uploads, slides})
+    res.render('Admin/landing', { uploads, slides })
   } catch (err) {
     console.log(err);
   }
@@ -935,7 +1074,7 @@ async function postMiniGallery(req, res) {
       .on('file', (name, file) => {
         if (file.size === 0) {
           _fs.unlink(file.path, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
       })
@@ -960,7 +1099,7 @@ async function deleteMiniGallery(req, res) {
       const deletedImage = await _models.MiniGallery.findByIdAndRemove(image);
       const filePath = _path.join(__basedir, '/public', deletedImage.src);
       _fs.unlink(filePath, (err) => {
-        if (err) throw err;
+        if (err) console.log(err);
       });
     })
     res.status(200).send("");
@@ -988,7 +1127,7 @@ async function postSlider(req, res) {
       .on('file', (name, file) => {
         if (file.size === 0) {
           _fs.unlink(file.path, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
         if (file.type.startsWith('image')) {
@@ -1026,7 +1165,7 @@ async function editSlider(req, res) {
         if (file.size === 0) {
           console.log(file.name, file.path)
           _fs.unlink(file.path, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
         if (file.type.startsWith('image')) {
@@ -1038,14 +1177,14 @@ async function editSlider(req, res) {
         if (slide.image) {
           const filePath = _path.join(__basedir, '/public', updatedSlide.image);
           _fs.unlink(filePath, (err) => {
-            if (err) throw err;
+            if (err) console.log(err);
           });
         }
         console.log(slide)
         res.status(200).redirect('back');
       })
   } catch (err) {
-    
+
   }
 }
 
@@ -1055,7 +1194,7 @@ async function deleteSlider(req, res) {
     if (deletedSlide.image) {
       const filePath = _path.join(__basedir, '/public', deletedSlide.image);
       _fs.unlink(filePath, (err) => {
-        if (err) throw err;
+        if (err) console.log(err);
       });
     }
     res.redirect("back");

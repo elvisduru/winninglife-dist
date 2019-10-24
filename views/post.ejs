@@ -1,0 +1,65 @@
+<% include ./partials/headerBlog %>
+<div class="navbar-collapse collapse" id="navbar">
+  <ul class="nav navbar-nav">
+    <li class="dropdown">
+      <a href="/" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+    </li>
+    <li>
+      <a href="#about" title="About Us">about Us</a>
+    </li>
+    <%# <li>
+                      <a href="#compensation" title="Compensation Plan"
+                        >Compensation Plan</a
+                      >
+                    </li> %>
+    <li>
+      <a href="/gallery" title="Gallery">Gallery</a>
+    </li>
+    <li class="active">
+      <a href="#" title="News">News</a>
+    </li>
+    <li>
+      <a href="/incentives" title="Incentives">Incentives</a>
+    </li>
+    <li>
+      <a href="/contact" title="Contact">Contact</a>
+    </li>
+    <li>
+      <a href="/auth/login" title="Sign In">Sign in</a>
+    </li>
+  </ul>
+</div>
+</nav>
+</div>
+<div class="col-md-2 book-now">
+  <a href="/auth/register" title="Join Us Now">Join Us Now</a>
+</div>
+</div>
+<!-- Row /- -->
+</div>
+<!-- Container /- -->
+</div>
+<!-- Menu Block /- -->
+</header>
+<!-- Header Section /- -->
+
+
+<main class="site-main page-spacing">
+  <div class="post">
+    <header>
+      <h1><%= blog.title %></h1>
+      <p>By Admin - <%=blog.created.toDateString() %></p>
+    </header>
+    <div class="content">
+      <div class="featured-image">
+        <img src="<%= blog.image %>" alt="">
+      </div>
+      <div class="body">
+        <%- blog.content %>
+      </div>
+      <a href="/news">Read More News ➡</a>
+    </div>
+  </div>
+</main>
+
+<% include ./partials/footerBlog %>
