@@ -103,7 +103,8 @@ async function getWithdrawals(req, res) {
       createdAt: -1
     });
     res.render("Dashboard/withdrawal", {
-      withdrawals
+      withdrawals,
+      makeWithdrawal: req.app.locals.withdraw
     });
   } catch (err) {
     res.send(err);

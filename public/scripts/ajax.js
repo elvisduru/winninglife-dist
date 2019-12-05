@@ -759,5 +759,21 @@
       })
     }
 
+    if (location.pathname === '/admin/users/settings') {
+      $('.withdraw-switch').change(function () {
+        if ($(this).is(":checked")) {
+          $.ajax("/admin/users/settings", { method: 'PUT', data: { withdraw: 'true' } })
+            .done(() => {
+              location.reload(true);
+            }).fail(err => console.log(err))
+        } else {
+          $.ajax("/admin/users/settings", { method: 'PUT', data: { withdraw: 'false' } })
+            .done(() => {
+              location.reload(true);
+            }).fail(err => console.log(err))
+        }
+      })
+    }
+
   });
 })(jQuery);

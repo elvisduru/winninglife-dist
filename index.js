@@ -78,6 +78,8 @@ app.use(_passport.default.session());
 
 global.__basedir = __dirname;
 
+app.locals.withdraw = 'true';
+
 // if (environment !== "production") {
 //   app.use((0, _morgan.default)("dev"));
 // }

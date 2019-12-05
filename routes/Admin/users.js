@@ -38,6 +38,19 @@ router.get("/members", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), 
   }
   res.render("Admin/Users/members")
 });
+router.route("/settings").get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), (req, res) => {
+  if (!req.user.super) {
+    throw "Error: You are not Authorized"
+  }
+  res.render("Admin/Users/settings", { makeWithdrawal: req.app.locals.withdraw })
+}).put(async (req, res) => {
+  try {
+    req.app.locals.withdraw = req.body.withdraw;
+    res.send("")
+  } catch (err) {
+    console.log(err);
+  }
+});
 router.get("/loadMembers", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.loadMembers);
 router.get("/analysis", (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), (req, res) => {
   if (!req.user.super) {
