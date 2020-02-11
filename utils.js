@@ -281,3 +281,45 @@
 //   console.log(`Saving ${foundUser.username}`);
 //   await foundUser.save();
 // });
+
+
+// Users Bulk Delete and Update Task
+
+// (async function () {
+//   let userArr = await _models.User.aggregate()
+//     .match({
+//       username: '4C8941'
+//     })
+//     .graphLookup({
+//       from: "users",
+//       startWith: "$username",
+//       connectFromField: "username",
+//       connectToField: "parent",
+//       depthField: "depth",
+//       as: "descendants"
+//     })
+//     .unwind("$descendants")
+//     .replaceRoot("$descendants")
+//     .match({ depth: 2 })
+
+  // loop and remove documents
+  // userArr.forEach(async doc => {
+  //   await _models.User.findByIdAndDelete(doc._id)
+  // })
+
+  // Reset Data for Last Tree
+  // userArr.forEach(async doc => {
+  //   await _models.User.findByIdAndUpdate(doc._id, {
+  //     rank: "None",
+  //     nextlevel: 1,
+  //     children: [],
+  //     downlines: 0,
+  //     level: {
+  //       position: 0,
+  //       paid: false
+  //     }
+  //   })
+  // })
+
+//   await console.log(userArr.length)
+// })()
