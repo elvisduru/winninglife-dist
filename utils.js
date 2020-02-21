@@ -323,3 +323,23 @@
 
 //   await console.log(userArr.length)
 // })()
+
+// Find Empty/Faulty Deposit records
+
+// (async function () {
+//   const emptyDeposits = await _models.Deposits.find().populate({path: 'depositor'})
+//   let results = emptyDeposits.filter(user => {
+//     return !user.depositor
+//   })
+//   console.log(results)
+// })()
+
+  // Find Empty/Faulty Withdrawal records
+
+  // (async function () {
+  //   const emptyWithdrawals = await _models.Withdraw.find().populate({ path: 'withdrawer' })
+  //   let results = emptyWithdrawals.filter(user => {
+  //     return !user.withdrawer
+  //   })
+  //   console.log(results)
+  // })()

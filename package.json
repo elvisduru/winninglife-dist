@@ -1,6 +1,9 @@
 {
   "name": "winninglife",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.4.0"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,7 +22,6 @@
   "homepage": "https://github.com/elvisduru/winninglife-dist#readme",
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
-    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",
