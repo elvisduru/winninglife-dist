@@ -327,7 +327,7 @@
 // Find Empty/Faulty Deposit records
 
 // (async function () {
-//   const emptyDeposits = await _models.Deposits.find().populate({path: 'depositor'})
+//   const emptyDeposits = await _models.Deposit.find().populate({path: 'depositor'})
 //   let results = emptyDeposits.filter(user => {
 //     return !user.depositor
 //   })

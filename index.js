@@ -115,6 +115,7 @@ app.get("/gallery", async (req, res) => {
 
 app.get("/incentives", (req, res) => res.render("incentives"));
 app.get("/rally", (req, res) => res.render("rally"));
+app.get("/terms", (req, res) => res.render("terms"));
 
 app.get("/news", async (req, res) => {
   try {
