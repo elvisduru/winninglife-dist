@@ -70,7 +70,7 @@ app.use(
 );
 app.use(_express.default.static(_path.default.join(__dirname, "/views")));
 app.use(_express.default.static(_path.default.join(__dirname, "/public")));
-app.use(_express.default.static(_path.default.join(__dirname, "/uploads")));
+app.use("uploads", _express.default.static(_path.default.join(__dirname, "/uploads")));
 app.use((0, _connectFlash.default)());
 app.use((0, _expressSession.default)(sessionOptions));
 app.use(_passport.default.initialize());
