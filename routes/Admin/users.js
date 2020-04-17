@@ -42,10 +42,19 @@ router.route("/settings").get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/lo
   if (!req.user.super) {
     throw "Error: You are not Authorized"
   }
-  res.render("Admin/Users/settings", { makeWithdrawal: req.app.locals.withdraw })
+  res.render("Admin/Users/settings", { makeWithdrawal: req.app.locals.withdraw, showAnnouncement: req.app.locals.announce })
 }).put(async (req, res) => {
   try {
-    req.app.locals.withdraw = req.body.withdraw;
+    if (req.body.withdraw) {
+      console.log("withdraw setting triggered")
+      req.app.locals.withdraw = req.body.withdraw;
+    }
+
+    if (req.body.announce) {
+      console.log("announce setting triggered")
+      req.app.locals.announce = req.body.announce;
+    }
+
     res.send("")
   } catch (err) {
     console.log(err);

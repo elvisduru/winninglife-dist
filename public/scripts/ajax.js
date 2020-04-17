@@ -773,6 +773,20 @@
             }).fail(err => console.log(err))
         }
       })
+
+      $('.announcement-switch').change(function () {
+        if ($(this).is(":checked")) {
+          $.ajax("/admin/users/settings", { method: 'PUT', data: { announce: 'true' } })
+            .done(() => {
+              location.reload(true);
+            }).fail(err => console.log(err))
+        } else {
+          $.ajax("/admin/users/settings", { method: 'PUT', data: { announce: 'false' } })
+            .done(() => {
+              location.reload(true);
+            }).fail(err => console.log(err))
+        }
+      })
     }
 
   });

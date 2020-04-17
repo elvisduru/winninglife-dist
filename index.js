@@ -52,9 +52,9 @@ const sessionOptions = {
   secret: "winninglifewearewinningwehavewon",
   store: new MongoStore({
     url:
-      "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
-    // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
-    // "mongodb://localhost/winninglife",
+      // "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
+      // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
+      "mongodb://localhost/winninglife",
     ttl: 1 * 24 * 60 * 60
   }),
   resave: false,
@@ -79,6 +79,7 @@ app.use(_passport.default.session());
 global.__basedir = __dirname;
 
 app.locals.withdraw = 'true';
+app.locals.announce = 'false';
 
 // if (environment !== "production") {
 //   app.use((0, _morgan.default)("dev"));
@@ -103,7 +104,7 @@ app.get("/", async (req, res) => {
   const slides = await _models.Slider.find().sort({
     created: 1
   })
-  res.render("index", { events, uploads, slides })
+  res.render("index", { events, uploads, slides, showAnnouncement: req.app.locals.announce })
 });
 app.get("/contact", (req, res) => res.render("contact"));
 app.get("/gallery", async (req, res) => {
