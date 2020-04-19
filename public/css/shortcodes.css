@@ -1715,11 +1715,11 @@
   background-color: #fff;
   /* padding: 38px; */
   display: inline-block;
-  width: 300px;
+  width: 450px;
 }
 
 .event-box img {
-  width: 300px;
+  width: 100%;
 }
 
 .event-box h3 {
@@ -3528,7 +3528,7 @@
     font-size: 16px;
   }
   .event-box {
-    padding: 30px;
+    width: 100%;
   }
 
   /* -- Video Section */
