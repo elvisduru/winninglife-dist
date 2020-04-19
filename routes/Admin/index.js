@@ -145,6 +145,8 @@ router.route('/events')
   .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getEvents)
   .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postEvent);
 
+router.put('/announcement', (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.changeAnnouncement)
+
 router.use("/users", _users.default);
 router.use("/blogs", _blogs.default);
 router.use("/events", _events.default);

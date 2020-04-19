@@ -169,7 +169,10 @@
             <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-2">Mini Gallery</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-3">Footer</a>
+            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-3">Announcements</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-4">Footer</a>
           </li>
         </ul>
       </div>
@@ -318,6 +321,52 @@
         </div>
       </div>
       <div class="tab-pane" id="tab-3">
+        <div class="p-a-md b-b _600">Announcements</div>
+        <div class="p-a-md">
+          <div class="clearfix m-b-lg">
+            <div class="row m-b">
+              <div class="col-sm-4">
+                <div class="box">
+                  <div class="box-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="#" class="btn btn-xs rounded primary" data-toggle="modal"
+                      data-target="#uploadModalAnnouncement"><i class="fa fa-plus m-r-xs"></i> New Announcement</a>
+                  </div>
+                  <% if (announcement) { %>
+                  <div class="box-body">
+                    <img style="object-fit: cover; width: 100%; height: 100%;" src="<%= announcement.src%>" alt="">
+                  </div>
+                  <% } %>
+                  <div id="uploadModalAnnouncement" class="modal black-overlay in" data-backdrop="false">
+                    <div class="modal-dialog">
+                      <form action="/admin/announcement?_method=PUT" method="POST" enctype="multipart/form-data">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title"></h5>
+                          </div>
+                          <div class="modal-body p-lg">
+                            <h3 class="m-b">Upload File</h3>
+                            <input type="file" name="image" id="announceImage" accept="image/*" />
+                          </div>
+                          <div class="modal-footer">
+                            <div class="pull-left">
+                              <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">
+                                Cancel
+                              </button>
+                              <button type="submit" class="btn primary p-x-md">Upload</button>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-4">
         <div class="p-a-md b-b _600">Footer</div>
         <div class="p-a-md">
           <div class="clearfix m-b-lg">

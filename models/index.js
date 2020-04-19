@@ -81,6 +81,12 @@ Object.defineProperty(exports, "Slider", {
     return _slider.default;
   }
 })
+Object.defineProperty(exports, "Announcement", {
+  enumerable: true,
+  get: function () {
+    return _announcement.default;
+  }
+})
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
@@ -109,6 +115,8 @@ var _gallery = _interopRequireDefault(require('./gallery'));
 var _miniGallery = _interopRequireDefault(require('./miniGallery'));
 
 var _slider = _interopRequireDefault(require('./slider'));
+
+var _announcement = _interopRequireDefault(require('./announcement'));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };

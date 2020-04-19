@@ -45,6 +45,7 @@ exports.deleteMiniGallery = deleteMiniGallery;
 exports.postSlider = postSlider;
 exports.editSlider = editSlider;
 exports.deleteSlider = deleteSlider;
+exports.changeAnnouncement = changeAnnouncement;
 
 var _models = require("../models/");
 
@@ -1052,7 +1053,8 @@ async function getLanding(req, res) {
     const slides = await _models.Slider.find().sort({
       created: 1
     })
-    res.render('Admin/landing', { uploads, slides })
+    const announcement = await _models.Announcement.findOne()
+    res.render('Admin/landing', { uploads, slides, announcement })
   } catch (err) {
     console.log(err);
   }
@@ -1184,7 +1186,7 @@ async function editSlider(req, res) {
         res.status(200).redirect('back');
       })
   } catch (err) {
-
+    console.log(err)
   }
 }
 
@@ -1198,6 +1200,52 @@ async function deleteSlider(req, res) {
       });
     }
     res.redirect("back");
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function changeAnnouncement(req, res) {
+  try {
+    console.log("changing Announcement")
+
+    const announcement = {};
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('fileBegin', (name, file) => {
+        const directory = _path.join(__basedir, '/public/uploads/announcement/');;
+
+        _fs.readdir(directory, (err, files) => {
+          if (err) throw err;
+
+          for (const file of files) {
+            _fs.unlink(_path.join(directory, file), err => {
+              if (err) throw err;
+            });
+          }
+        });
+
+        newFileName = new Date().getTime() + file.name;
+        file.path = _path.join(directory, newFileName);
+      })
+      .on('file', (name, file) => {
+        if (file.size === 0) {
+          _fs.unlink(file.path, (err) => {
+            if (err) console.log(err);
+          });
+        }
+        if (file.type.startsWith('image')) {
+
+          announcement.src = '/uploads/announcement/' + newFileName;
+        }
+      })
+      .on('end', async () => {
+        await _models.Announcement.deleteMany({});
+        const Announcement = new _models.Announcement(announcement);
+        await Announcement.save();
+        res.status(200).redirect("back");
+      })
   } catch (err) {
     console.log(err)
   }

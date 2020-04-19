@@ -104,7 +104,8 @@ app.get("/", async (req, res) => {
   const slides = await _models.Slider.find().sort({
     created: 1
   })
-  res.render("index", { events, uploads, slides, showAnnouncement: req.app.locals.announce })
+  const announcement = await _models.Announcement.findOne()
+  res.render("index", { events, uploads, slides, announcement, showAnnouncement: req.app.locals.announce })
 });
 app.get("/contact", (req, res) => res.render("contact"));
 app.get("/gallery", async (req, res) => {
