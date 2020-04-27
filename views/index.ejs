@@ -199,6 +199,25 @@
   </div>
   <!-- Offer Section /- -->
 
+  <!-- More offer -->
+  <div id="more-offer">
+    <div class="container">
+      <div class="container-fluid">
+        <div class="row">
+          <% featuredPosts.forEach(post => { %>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div style="background-image: url(<%= post.image %>);background-size: cover;background-position: center;">
+              <p><%= post.title %></p>
+              <a href="<%= post.url %>">SEE MORE</a>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
   <div id="recommended-section" class="slick-center-container recommended-section container-fluid no-padding">
     <!-- Container -->
     <div class="container">
@@ -497,6 +516,9 @@
               <img src="images/bethel.png" alt="Testi" />
               <h4>Chukwu Joy Bethel</h4>
             </div>
+            <!-- <div class="item">
+              <video controls src="uploads/videos/corona.mp4"></video>
+            </div> -->
             <div class="item">
               <span>
                 <i class="fa fa-star"></i>
@@ -536,6 +558,7 @@
             <li data-target="#testimonial-carousel" data-slide-to="0" class="active"></li>
             <li data-target="#testimonial-carousel" data-slide-to="1"></li>
             <li data-target="#testimonial-carousel" data-slide-to="2"></li>
+            <li data-target="#testimonial-carousel" data-slide-to="3"></li>
           </ol>
 
           <!-- Controls -->

@@ -166,13 +166,16 @@
             <a class="nav-link block active" href="#" data-toggle="tab" data-target="#tab-1">Slider</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-2">Mini Gallery</a>
+            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-2">Featured Posts</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-3">Announcements</a>
+            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-3">Mini Gallery</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-4">Footer</a>
+            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-4">Announcements</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link block" href="#" data-toggle="tab" data-target="#tab-5">Footer</a>
           </li>
         </ul>
       </div>
@@ -260,7 +263,48 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane" id="tab-2">
+      <div class="tab-pane active" id="tab-2">
+        <div class="p-a-md b-b _600">Edit Featured Posts</div>
+        <div class="p-a-md">
+          <div class="clearfix m-b-lg">
+            <div class="row m-b">
+              <% var count = 1; %>
+              <% featuredPosts.forEach(featuredPost => { %>
+              <div class="col-sm-4">
+                <div class="box">
+                  <div class="box-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Edit Featured <%= count++ %></h3>
+                  </div>
+                  <div class="box-body">
+                    <form enctype="multipart/form-data" action="/admin/featuredPost/<%= featuredPost._id %>?_method=PUT"
+                      method="POST" role="form">
+                      <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" placeholder="Enter Post Title" class="form-control"
+                          value="<%= featuredPost.title %>">
+                      </div>
+                      <div class="form-group">
+                        <label for="leading">URL</label>
+                        <input type="text" name="url" placeholder="Enter Post URL" class="form-control"
+                          value="<%= featuredPost.url %>">
+                      </div>
+                      <div class="form-group">
+                        <label for="image">Image: </label>
+                        <input type="file" class="form-control" name="featuredPostImg" id="fileUpload" required
+                          accept="image/*" />
+                      </div>
+                      <button type="submit" class="btn white m-b">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-3">
         <div class="p-a-md b-b _600">Edit Mini Gallery</div>
         <div class="p-a-md">
           <div class="clearfix m-b-lg">
@@ -320,7 +364,7 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane" id="tab-3">
+      <div class="tab-pane" id="tab-4">
         <div class="p-a-md b-b _600">Announcements</div>
         <div class="p-a-md">
           <div class="clearfix m-b-lg">
@@ -366,7 +410,7 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane" id="tab-4">
+      <div class="tab-pane" id="tab-5">
         <div class="p-a-md b-b _600">Footer</div>
         <div class="p-a-md">
           <div class="clearfix m-b-lg">

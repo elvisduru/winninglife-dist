@@ -46,6 +46,7 @@ exports.postSlider = postSlider;
 exports.editSlider = editSlider;
 exports.deleteSlider = deleteSlider;
 exports.changeAnnouncement = changeAnnouncement;
+exports.editFeaturedPost = editFeaturedPost;
 
 var _models = require("../models/");
 
@@ -1054,7 +1055,8 @@ async function getLanding(req, res) {
       created: 1
     })
     const announcement = await _models.Announcement.findOne()
-    res.render('Admin/landing', { uploads, slides, announcement })
+    const featuredPosts = await _models.FeaturedPost.find()
+    res.render('Admin/landing', { uploads, slides, announcement, featuredPosts })
   } catch (err) {
     console.log(err);
   }
@@ -1245,6 +1247,50 @@ async function changeAnnouncement(req, res) {
         const Announcement = new _models.Announcement(announcement);
         await Announcement.save();
         res.status(200).redirect("back");
+      })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function editFeaturedPost(req, res) {
+  try {
+    const featuredPost = {};
+    let newFileName;
+    const form = new _formidable.IncomingForm()
+    form.parse(req)
+      .on('field', (name, field) => {
+        if (field) {
+          featuredPost[name] = _sanitizeHtml(field);
+        }
+      })
+      .on('fileBegin', (name, file) => {
+        if (file.name) {
+          newFileName = new Date().getTime() + file.name;
+          file.path = _path.join(__basedir, '/public/uploads/featuredPosts/', newFileName);
+        }
+      })
+      .on('file', (name, file) => {
+        if (file.size === 0) {
+          console.log(file.name, file.path)
+          _fs.unlink(file.path, (err) => {
+            if (err) console.log(err);
+          });
+        }
+        if (file.type.startsWith('image')) {
+          featuredPost.image = '/uploads/featuredPosts/' + newFileName;
+        }
+      })
+      .on('end', async () => {
+        const updatedFeaturedPost = await _models.FeaturedPost.findByIdAndUpdate(req.params.id, featuredPost);
+        if (featuredPost.image) {
+          const filePath = _path.join(__basedir, '/public', updatedFeaturedPost.image);
+          _fs.unlink(filePath, (err) => {
+            if (err) console.log(err);
+          });
+        }
+        console.log(featuredPost)
+        res.status(200).redirect('back');
       })
   } catch (err) {
     console.log(err)

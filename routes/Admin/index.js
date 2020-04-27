@@ -147,6 +147,8 @@ router.route('/events')
 
 router.put('/announcement', (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.changeAnnouncement)
 
+router.put('/featuredPost/:id', (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.editFeaturedPost)
+
 router.use("/users", _users.default);
 router.use("/blogs", _blogs.default);
 router.use("/events", _events.default);
