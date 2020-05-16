@@ -105,8 +105,8 @@ app.get("/", async (req, res) => {
     created: 1
   })
   const announcement = await _models.Announcement.findOne()
-  const featuredPosts = await _models.FeaturedPost.find()
-  res.render("index", { events, uploads, slides, announcement, featuredPosts, showAnnouncement: req.app.locals.announce })
+  // const featuredPosts = await _models.FeaturedPost.find()
+  res.render("index", { events, uploads, slides, announcement, showAnnouncement: req.app.locals.announce })
 });
 app.get("/contact", (req, res) => res.render("contact"));
 app.get("/gallery", async (req, res) => {
