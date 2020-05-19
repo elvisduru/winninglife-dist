@@ -23,5 +23,6 @@ router.route('/transfer').get(_users.getTransfers).put(_users.transferFund);
 router.get('/withdrawal', _users.getWithdrawals);
 router.post('/withdrawal/ref', _users.withdrawRefBonus);
 router.post('/withdrawal/rank', _users.withdrawRankEarning);
+router.post('/paystack', _users.handlePaystack)
 var _default = router;
 exports.default = _default;

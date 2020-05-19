@@ -90,6 +90,45 @@
   }
 
   $(document).on("ready pjax:end", function () {
+    if (location.pathname === "/user/wallet/deposits") {
+      if (location.hash === '#tab-2') $('a[data-target="#tab-2"]').tab('show')
+
+      $('#paystackForm').submit(function (e) {
+        e.preventDefault();
+        var $btnSubmit = $("#checkoutBtn");
+        var $amtInput = $btnSubmit.prev().find('input')
+        var isValid = $amtInput.parsley().isValid()
+        const amount = $amtInput.val()
+        const name = $(this).find('#name').val()
+        const email = $(this).find('#email').val()
+        {
+          isValid
+            ? $btnSubmit.text("Please wait. Sending data...")
+            : $btnSubmit.text("Checkout")
+        }
+        if (isValid) {
+          const data = {
+            "email": email,
+            "amount": amount,
+            "currency": "NGN",
+            "callback_url": "http://localhost:3000/user/wallet/deposits#tab-2",
+            "metadata": {
+              "cancel_action": "http://localhost:3000/"
+            }
+          }
+          $.ajax({
+            url: "https://api.paystack.co/transaction/initialize/",
+            type: "POST",
+            data
+          })
+            .then(data => {
+              console.log(data)
+            })
+            .fail(err => console.log(err))
+        }
+      })
+    }
+
     if (location.pathname === "/user/wallet/transfer") {
       $("#formtransfer").submit(function (event) {
         event.preventDefault();

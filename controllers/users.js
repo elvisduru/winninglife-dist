@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.register = register;
 exports.getDeposits = getDeposits;
+exports.handlePaystack = handlePaystack;
 exports.getTransfers = getTransfers;
 exports.getWithdrawals = getWithdrawals;
 exports.getEarnings = getEarnings;
@@ -77,6 +78,16 @@ async function getDeposits(req, res) {
     });
   } catch (err) {
     res.send(err);
+  }
+}
+
+async function handlePaystack(req, res) {
+  try {
+    const { name, amount } = req.body
+    console.log(name, amount)
+    res.json({ status: "success", url: "https://www.google.com" })
+  } catch (err) {
+    res.send(err)
   }
 }
 
