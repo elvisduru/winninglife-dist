@@ -42,27 +42,8 @@
         <!-- Newsletter /- -->
         <!-- Gallery -->
         <aside class="col-md-4 col-sm-6 col-xs-6 widget widget_gallery">
-          <h4 class="widget_title">Gallery</h4>
-          <ul>
-            <li>
-              <a href="/gallery"><img src="uploads/gallery/gallery1.jpg" alt="Gallery" /></a>
-            </li>
-            <li>
-              <a href="/gallery"><img src="uploads/gallery/gallery2.jpg" alt="Gallery" /></a>
-            </li>
-            <li>
-              <a href="/gallery"><img src="uploads/gallery/gallery3.jpg" alt="Gallery" /></a>
-            </li>
-            <li>
-              <a href="/gallery"><img src="uploads/gallery/gallery4.jpg" alt="Gallery" /></a>
-            </li>
-            <li>
-              <a href="/gallery"><img src="uploads/gallery/gallery5.jpg" alt="Gallery" /></a>
-            </li>
-            <!-- <li>
-              <a href="#"><img src="uploads/gallery/ftr-gallery6.jpg" alt="Gallery" /></a>
-            </li> -->
-          </ul>
+          <h4 class="widget_title">Latest from Instagram</h4>
+          <div id="instafeed"></div>
         </aside>
         <!-- Gallery /- -->
       </div>
@@ -81,6 +62,8 @@
 
 <!-- Library JS -->
 <script src="libraries/lib.js"></script>
+<script src='https://winninglife-token-generator.herokuapp.com/token.js'></script>
+<script type="text/javascript" src="libraries/instafeed.min.js"></script>
 <script src="libraries/calender/jquery-ui-datepicker.min.js"></script>
 <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 
@@ -113,6 +96,12 @@
   });
 
   $('#m-b-b').modal();
+
+  var feed = new Instafeed({
+    accessToken: InstagramToken,
+    limit: 10
+  });
+  feed.run();
 </script>
 
 <!-- Library - Theme JS -->

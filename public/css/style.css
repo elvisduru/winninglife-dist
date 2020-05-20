@@ -1306,43 +1306,38 @@ main {
 .top-footer .widget_newsletter form input[type="submit"]:hover {
   background-color: #1d1d1d;
 }
-.top-footer .widget_gallery ul {
+.top-footer .widget_gallery div {
   padding-left: 0;
   margin-bottom: 0;
 }
-.top-footer .widget_gallery li {
+.top-footer .widget_gallery a {
   float: left;
   width: 33.3333%;
   height: 70px;
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 20px;
+  position: relative;
 }
 
-.top-footer .widget_gallery li:last-child {
+.top-footer .widget_gallery a:last-child {
   display: none;
 }
 
 @media (max-width: 600px) {
-  .top-footer .widget_gallery li {
+  .top-footer .widget_gallery a {
     width: 40%;
     height: 210px;
   }
 }
 
-.top-footer .widget_gallery li img {
+.top-footer .widget_gallery a img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
-.top-footer .widget_gallery li a {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.top-footer .widget_gallery li a::before {
+.top-footer .widget_gallery a::before {
   background-color: rgba(42, 169, 224, 0.85);
   content: "";
   left: 0;
@@ -1357,10 +1352,10 @@ main {
   transition: all 1s ease 0s;
   opacity: 0;
 }
-.top-footer .widget_gallery li a:hover::before {
+.top-footer .widget_gallery a:hover::before {
   opacity: 1;
 }
-.top-footer .widget_gallery li a:hover::after {
+.top-footer .widget_gallery a:hover::after {
   content: "\f065";
   font-family: "FontAwesome";
   position: absolute;
