@@ -2344,6 +2344,10 @@ main {
   height: 100%;
 }
 
+.slick-div {
+  height: 300px;
+}
+
 @media (max-width: 768px) {
   #features h3 {
     font-size: 35px;
