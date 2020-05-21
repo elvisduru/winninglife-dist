@@ -47,6 +47,8 @@ exports.editSlider = editSlider;
 exports.deleteSlider = deleteSlider;
 exports.changeAnnouncement = changeAnnouncement;
 exports.editFeaturedPost = editFeaturedPost;
+exports.postVideoTestimonial = postVideoTestimonial;
+exports.deleteVideoTestimonial = deleteVideoTestimonial;
 
 var _models = require("../models/");
 
@@ -1064,7 +1066,9 @@ async function getLanding(req, res) {
     })
     const announcement = await _models.Announcement.findOne()
     const featuredPosts = await _models.FeaturedPost.find()
-    res.render('Admin/landing', { uploads, slides, announcement, featuredPosts })
+    const videoTestimonials = await _models.VideoTestimonial.find()
+
+    res.render('Admin/landing', { uploads, slides, announcement, featuredPosts, videoTestimonials })
   } catch (err) {
     console.log(err);
   }
@@ -1300,6 +1304,27 @@ async function editFeaturedPost(req, res) {
         console.log(featuredPost)
         res.status(200).redirect('back');
       })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function postVideoTestimonial(req, res) {
+  try {
+    const { videoID } = req.body
+    const newVideoTestimonial = new _models.VideoTestimonial({ videoID })
+    await newVideoTestimonial.save()
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function deleteVideoTestimonial(req, res) {
+  try {
+    const { videoID } = req.body
+    const deletedVideoTestimonial = await _models.VideoTestimonial.findOneAndDelete({ videoID })
+    res.sendStatus(200)
   } catch (err) {
     console.log(err)
   }

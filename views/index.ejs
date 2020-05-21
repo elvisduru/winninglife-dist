@@ -515,7 +515,25 @@
         <div id="testimonial-carousel" class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
+            <% videoTestimonials.forEach((videoTestimonial, index) => { %>
+            <% if (index === 0) { %>
             <div class="item active">
+              <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/<%= videoTestimonial.videoID %>" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+            <% } else { %>
+            <div class="item">
+              <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/<%= videoTestimonial.videoID %>" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+            <% } %>
+
+            <% }) %>
+            <div class="item <%= videoTestimonials.length === 0 ? 'active' : null%>">
               <span>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -531,9 +549,6 @@
               <img src="images/bethel.png" alt="Testi" />
               <h4>Chukwu Joy Bethel</h4>
             </div>
-            <!-- <div class="item">
-              <video controls src="uploads/videos/corona.mp4"></video>
-            </div> -->
             <div class="item">
               <span>
                 <i class="fa fa-star"></i>
@@ -593,7 +608,7 @@
   <!-- .modal -->
 
   <% if (showAnnouncement === "true") { %>
-  <div id="m-b-b" class="modal" data-backdrop="true">
+  <div id=" m-b-b" class="modal" data-backdrop="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" style="display: flex; align-items: center;">

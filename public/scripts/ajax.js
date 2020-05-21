@@ -804,6 +804,40 @@
           })
           .fail(err => console.log(err));
       })
+
+      $('#video-testimonials #submit').click(function () {
+        let $input = $(this).prev()
+        const videoID = $input.val()
+        $input.val('')
+        console.log(videoID)
+        $('#links').append(`
+          <div class="input-group">
+            <input type="text" readonly class="form-control form-control-sm" placeholder="Youtube Video ID"
+              required="" value="https://www.youtube-nocookie.com/embed/${videoID}" />
+            <span class="input-group-btn"><button class="btn btn-default btn-sm no-shadow" type="button">
+                <i class="fa fa-times"></i></button></span>
+          </div>
+        `)
+
+        $.ajax('/admin/videoTestimonials', {
+          method: "POST",
+          data: { videoID },
+        })
+          .then(res => console.log(res))
+          .fail(err => console.log(err))
+      })
+
+      $('#video-testimonials #links').on('click', 'span', function () {
+        let $parentEl = $(this).parent()
+        const videoID = $parentEl.find('input').val().substring(39)
+        $parentEl.remove()
+        $.ajax('/admin/videoTestimonials', {
+          method: "DELETE",
+          data: { videoID }
+        })
+          .then(res => console.log(res))
+          .fail(err => console.log(err))
+      })
     }
 
     if (location.pathname === '/admin/users/settings') {

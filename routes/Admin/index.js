@@ -149,6 +149,10 @@ router.put('/announcement', (0, _connectEnsureLogin.ensureLoggedIn)("/admin/logi
 
 router.put('/featuredPost/:id', (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.editFeaturedPost)
 
+router.route('/videoTestimonials')
+  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postVideoTestimonial)
+  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteVideoTestimonial)
+
 router.use("/users", _users.default);
 router.use("/blogs", _blogs.default);
 router.use("/events", _events.default);
