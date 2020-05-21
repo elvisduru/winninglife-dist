@@ -115,6 +115,7 @@
             "metadata": {
               "cancel_action": "https://www.winninglifeinternational.com/user/wallet/deposits#tab-2",
               "username": username,
+              "name": name,
               "amount": +$amtInput.val()
             }
           }

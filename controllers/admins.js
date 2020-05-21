@@ -60,6 +60,8 @@ var _sanitizeHtml = require('sanitize-html');
 
 var _passport = _interopRequireDefault(require("passport"));
 
+var paystack = require('paystack')('sk_test_05631a4af42c9effd6fb807472ad9073cb06e8d2');
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -227,10 +229,16 @@ async function loadDeposits(req, res) {
       .sort({
         createdAt: -1
       });
+
+    const paystackDeposits = await paystack.transaction.list()
+
+    console.log(paystackDeposits.data[0])
+
     res.render("Admin/deposits", {
       pendingDeposits,
       approvedDeposits,
-      declinedDeposits
+      declinedDeposits,
+      paystackDeposits
     });
   } catch (err) {
     res.send(err);
