@@ -60,7 +60,7 @@ var _sanitizeHtml = require('sanitize-html');
 
 var _passport = _interopRequireDefault(require("passport"));
 
-var paystack = require('paystack')('sk_test_05631a4af42c9effd6fb807472ad9073cb06e8d2');
+var paystack = require('paystack')('sk_live_86fa5a492c8b353e91cadd828fb198107db7b833');
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };

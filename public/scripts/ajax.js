@@ -124,7 +124,7 @@
             type: "POST",
             data: JSON.stringify(data),
             beforeSend: function (xhr) {
-              xhr.setRequestHeader("Authorization", "Bearer sk_test_05631a4af42c9effd6fb807472ad9073cb06e8d2")
+              xhr.setRequestHeader("Authorization", "Bearer sk_live_86fa5a492c8b353e91cadd828fb198107db7b833")
               xhr.setRequestHeader("Content-Type", "application/json")
             }
           })
