@@ -98,9 +98,10 @@
         var $btnSubmit = $("#checkoutBtn");
         var $amtInput = $btnSubmit.prev().find('input')
         var isValid = $amtInput.parsley().isValid()
-        const amount = $amtInput.val()
+        const amount = (+$amtInput.val() + (0.0154 * +$amtInput.val() + 100)) * 100
         const name = $(this).find('#name').val()
         const email = $(this).find('#email').val()
+        const username = $(this).find('#username').val()
         {
           isValid
             ? $btnSubmit.text("Please wait. Sending data...")
@@ -111,18 +112,24 @@
             "email": email,
             "amount": amount,
             "currency": "NGN",
-            "callback_url": "http://localhost:3000/user/wallet/deposits#tab-2",
             "metadata": {
-              "cancel_action": "http://localhost:3000/"
+              "cancel_action": "https://www.winninglifeinternational.com/user/wallet/deposits#tab-2",
+              "username": username,
+              "amount": +$amtInput.val()
             }
           }
           $.ajax({
             url: "https://api.paystack.co/transaction/initialize/",
             type: "POST",
-            data
+            data: JSON.stringify(data),
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader("Authorization", "Bearer sk_test_05631a4af42c9effd6fb807472ad9073cb06e8d2")
+              xhr.setRequestHeader("Content-Type", "application/json")
+            }
           })
-            .then(data => {
-              console.log(data)
+            .then(res => {
+              console.log(res)
+              location.assign(res.data.authorization_url)
             })
             .fail(err => console.log(err))
         }

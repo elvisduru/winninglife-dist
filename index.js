@@ -142,6 +142,30 @@ app.get("/news/:id", async (req, res) => {
   }
 })
 
+app.post("/hooks", async function (req, res) {
+  try {
+    // Retrieve the request's body
+    var event = req.body;
+    const { username, amount } = event.data.metadata
+    // Do something with event
+    if (event.data.status === 'success') {
+      await _models.User.update(
+        {
+          username
+        },
+        {
+          $inc: {
+            depositWallet: amount
+          }
+        }
+      );
+    }
+    res.sendStatus(200);
+  } catch (err) {
+    res.send(err)
+  }
+});
+
 app.use("/auth", _auth.default);
 app.use("/user", _User.default);
 app.use("/admin", _Admin.default);
