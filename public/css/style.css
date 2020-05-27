@@ -1157,6 +1157,11 @@ main {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.page-banner.contact {
+  background-image: url("/images/contact.jpg");
+}
+
 .page-banner h3 {
   font-family: "Montserrat", sans-serif;
   font-size: 35px;
@@ -1839,6 +1844,11 @@ main {
     > div:not(.content__intro):nth-of-type(5)
     div:first-child {
     order: 1;
+  }
+
+  #photo-slider img {
+    height: 70vh;
+    margin-top: 22vh;
   }
 }
 

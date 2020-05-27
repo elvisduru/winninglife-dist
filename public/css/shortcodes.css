@@ -2826,6 +2826,11 @@
   height: 400px;
   margin-bottom: 100px;
 }
+
+.map {
+  display: flex;
+  justify-content: center;
+}
 .contact-content h4 {
   font-family: "montserratsemi_bold";
   font-size: 18px;
