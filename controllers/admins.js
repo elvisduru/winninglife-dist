@@ -234,8 +234,6 @@ async function loadDeposits(req, res) {
 
     const paystackDeposits = await paystack.transaction.list()
 
-    console.log(paystackDeposits.data[0])
-
     res.render("Admin/deposits", {
       pendingDeposits,
       approvedDeposits,

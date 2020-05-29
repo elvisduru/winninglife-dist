@@ -329,9 +329,9 @@
                       <td data-value="<%= paystackCounter %>">
                         <%= paystackCounter %>
                       </td>
-                      <td><%= deposit.metadata.username %></td>
-                      <td><%= deposit.metadata.name %></td>
-                      <td><%= deposit.metadata.amount %></td>
+                      <td><%= deposit.metadata && deposit.metadata.username %></td>
+                      <td><%= deposit.metadata && deposit.metadata.name %></td>
+                      <td><%= deposit.metadata && deposit.metadata.amount %></td>
                       <td>
                         <span class="label <%= deposit.status === 'success' ? 'success' : 'danger' %>"
                           title="<%= deposit.status %>"><%= deposit.status %></span>
