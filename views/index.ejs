@@ -22,7 +22,7 @@
       <a href="/incentives" title="Incentives">Incentives</a>
     </li>
     <li>
-      <a href="/contact" title="Contact">Contact</a>
+      <a href="/contact" title="Contact">Contact us</a>
     </li>
     <li>
       <a href="/auth/login" title="Sign In">Sign in</a>
@@ -532,62 +532,16 @@
             <% } %>
 
             <% }) %>
-            <div class="item <%= videoTestimonials.length === 0 ? 'active' : null%>">
-              <span>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </span>
-              <p>
-                I've involved myself with several Network Marketing Businesses and WinningLife International is by far
-                the best of all. I don't think anyone could go wrong with the superior training and support that
-                WinningLife freely offers to their WBO. And the Food products are great too.
-              </p>
-              <img src="images/bethel.png" alt="Testi" />
-              <h4>Chukwu Joy Bethel</h4>
-            </div>
-            <div class="item">
-              <span>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </span>
-              <p>
-                I've been in network marketing for a very long time and thought I had seen it all. WinningLife
-                International is the most incredible and absolutely best system I have ever seen to become financially
-                free while helping other people do the same.
-              </p>
-              <img src="images/ernest.png" alt="Testi" />
-              <h4>Ernest Ebalu</h4>
-            </div>
-            <div class="item">
-              <span>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </span>
-              <p>
-                I am so HAPPY I found WinningLife International! I've tried every program out there. WinningLife is the
-                only one that has given me what I was looking for. WL delivers. If you're looking for a way to create
-                residual income for your family, DO IT TODAY! WL is fun and the most cost-effective business out there.
-                They do what they say they will do.
-              </p>
-              <img src="images/felicia.png" alt="Testi" />
-              <h4>Oyebanji Felicia</h4>
-            </div>
           </div>
           <!-- Indicators -->
           <ol class="carousel-indicators">
-            <li data-target="#testimonial-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#testimonial-carousel" data-slide-to="1"></li>
-            <li data-target="#testimonial-carousel" data-slide-to="2"></li>
-            <li data-target="#testimonial-carousel" data-slide-to="3"></li>
+            <% videoTestimonials.forEach((videoTestimonial, index) => { %>
+            <% if (index === 0) { %>
+            <li data-target="#testimonial-carousel" data-slide-to="<%= index %>" class="active"></li>
+            <% } else { %>
+            <li data-target="#testimonial-carousel" data-slide-to="<%= index %>"></li>
+            <% } %>
+            <% }) %>
           </ol>
 
           <!-- Controls -->
