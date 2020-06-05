@@ -1,0 +1,183 @@
+<% include ../partials/header %>
+
+<style>
+  #left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search input {
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    outline: none;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+
+  .search p {
+    font-size: 16px;
+    padding-left: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .submissions {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 400px;
+  }
+
+  .submissions ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .submissions li {
+    margin-bottom: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .submissions li p {
+    margin: 0;
+  }
+
+  .submissions li.selected {
+    background-color: #20C98B;
+    color: #fff;
+  }
+
+  .submissions li:not(.selected):hover {
+    background-color: rgba(214, 225, 229, 0.4);
+  }
+
+  #right {
+    padding-left: 30px;
+    padding-top: 15px;
+    flex: 1;
+    padding-right: 200px;
+  }
+
+  #right .details>div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .controls {
+    margin-left: auto;
+    padding-bottom: 15px;
+  }
+
+  .controls button {
+    padding: 5px 30px;
+    background-color: transparent;
+    border: 2px solid orangered;
+    border-radius: 30px;
+    color: orangered;
+    font-weight: 500;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .title {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  .title>div {
+    display: flex;
+    align-items: center;
+  }
+
+  .title>div .avatar {
+    margin-right: 15px;
+    padding: 15px;
+    background-color: #9673d0;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .body>div {
+    margin-bottom: 40px;
+    width: 50%;
+  }
+
+  .body>div h4 {
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 19px;
+  }
+
+  #right .alert-box {
+    height: 70px;
+  }
+
+  #right .alert {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #right .alert p {
+    margin: 0;
+  }
+
+  #right .alert p:last-child {
+    cursor: pointer;
+  }
+</style>
+
+<div class="row-col m-b-lg">
+  <div class="col-sm-3 b-r">
+    <div class="p-y p-t-lg p-x" id="left">
+      <div class="search">
+        <input type="text" id="searchbar" placeholder="Search Submissions">
+        <p>0 submissions</p>
+      </div>
+      <div class="submissions">
+        <ul>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9 light bg" id="right">
+    <div class="alert-box">
+      <div class="alert alert-success hide">
+        <p></p>
+        <p>&times;</p>
+      </div>
+    </div>
+    <div class="details"></div>
+  </div>
+</div>
+<% include ../partials/footer %>

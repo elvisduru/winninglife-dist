@@ -18,6 +18,7 @@ exports.withdrawRefBonus = withdrawRefBonus;
 exports.withdrawRankEarning = withdrawRankEarning;
 exports.userMatrix = userMatrix;
 exports.logout = logout;
+exports.postContact = postContact;
 
 var _models = require("../models/");
 
@@ -964,6 +965,27 @@ async function userMatrix(req, res) {
   } catch (err) {
     console.log(err);
     res.send(err);
+  }
+}
+
+async function postContact(req, res) {
+  try {
+    const { name, email, phone, message } = req.body;
+    if (!name || !phone || !message) {
+      res.json({
+        type: "error",
+        msg: "Something is wrong with your input"
+      })
+    } else {
+      const contact = new _models.Contact({ name, email, phone, message })
+      await contact.save()
+      res.json({
+        type: "success",
+        msg: "Your message has been sent successfully!"
+      })
+    }
+  } catch (err) {
+    res.sendStatus(500)
   }
 }
 

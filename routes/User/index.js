@@ -36,6 +36,7 @@ router
   .put(_users.placeUser);
 router.get("/matrix", (req, res) => res.render("Dashboard/matrix"));
 router.get("/loadMatrix", _users.userMatrix);
+router.post("/contact", _users.postContact)
 router.use("/wallet", _wallet.default);
 var _default = router;
 exports.default = _default;

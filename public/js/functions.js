@@ -37,7 +37,7 @@
 		- Site Loader
 */
 
-(function($) {
+(function ($) {
   "use strict";
 
   /* -- Recommended */
@@ -219,13 +219,13 @@
       icon: image
     });
 
-    google.maps.event.addListener(marker, "click", function() {
+    google.maps.event.addListener(marker, "click", function () {
       infowindow.open(map, marker);
     });
   }
 
   /* ## Document Scroll - Window Scroll */
-  $(document).scroll(function() {
+  $(document).scroll(function () {
     var scroll = $(window).scrollTop();
     var height = $(window).height();
 
@@ -249,7 +249,7 @@
     }
   });
 
-  $("#back-to-top").on("click", function() {
+  $("#back-to-top").on("click", function () {
     /* When arrow is clicked */
     $("body,html").animate(
       {
@@ -260,7 +260,7 @@
   });
 
   /* ## Document Ready - Handler for .ready() called */
-  $(document).ready(function($) {
+  $(document).ready(function ($) {
     /* -- Scrolling Navigation */
     var scroll = $(window).scrollTop();
     var width = $(window).width();
@@ -284,7 +284,7 @@
     /* Find all anchors */
     $("#navbar")
       .find("a[href]")
-      .each(function(i, a) {
+      .each(function (i, a) {
         var $a = $(a);
         var href = $a.attr("href");
         /* check is anchor href starts with page's URI */
@@ -299,10 +299,10 @@
     /* Add Easing Effect on Section Scroll */
     $(
       ".navbar-nav > li a[href*=#]:not([href=#]), .site-logo a[href*=#]:not([href=#]), a.scroll[href*=#]:not([href=#])"
-    ).on("click", function() {
+    ).on("click", function () {
       if (
         location.pathname.replace(/^\//, "") ==
-          this.pathname.replace(/^\//, "") &&
+        this.pathname.replace(/^\//, "") &&
         location.hostname == this.hostname
       ) {
         var target = $(this.hash);
@@ -321,7 +321,7 @@
     });
 
     /* -- Responsive Caret */
-    $(".ddl-switch").on("click", function() {
+    $(".ddl-switch").on("click", function () {
       var li = $(this).parent();
       if (
         li.hasClass("ddl-active") ||
@@ -340,7 +340,7 @@
     });
 
     /* -- Remove p empty tag for Shortcode */
-    $("p").each(function() {
+    $("p").each(function () {
       var $this = $(this);
       if ($this.html().replace(/\s|&nbsp;/g, "").length == 0) {
         $this.remove();
@@ -352,10 +352,10 @@
       /* Cache the animationend event in a variable */
       var animEndEv = "webkitAnimationEnd animationend";
 
-      elems.each(function() {
+      elems.each(function () {
         var $this = $(this),
           $animationType = $this.data("animation");
-        $this.addClass($animationType).one(animEndEv, function() {
+        $this.addClass($animationType).one(animEndEv, function () {
           $this.removeClass($animationType);
         });
       });
@@ -377,7 +377,7 @@
     $myCarousel.carousel("pause");
 
     /* Other slides to be animated on carousel slide event */
-    $myCarousel.on("slide.bs.carousel", function(e) {
+    $myCarousel.on("slide.bs.carousel", function (e) {
       var $animatingElems = $(e.relatedTarget).find(
         "[data-animation ^= 'animated']"
       );
@@ -385,7 +385,7 @@
     });
 
     /* -- Offer Section */
-    setTimeout(function() {
+    setTimeout(function () {
       var $container = $(".offer-list");
       $container.isotope({
         itemSelector: ".offer-box",
@@ -396,10 +396,10 @@
 
     /* -- Price Section */
     if ($(".price-section").length) {
-      $(".price-section").each(function() {
+      $(".price-section").each(function () {
         var $this = $(this);
         var myVal = $(this).data("value");
-        $this.appear(function() {
+        $this.appear(function () {
           $(".price-section .price-box").addClass("animated flipInY");
         });
       });
@@ -408,10 +408,10 @@
     /* -- Recommended Section */
     recommended();
     if ($(".recommended-section").length) {
-      $(".recommended-section").each(function() {
+      $(".recommended-section").each(function () {
         var $this = $(this);
         var myVal = $(this).data("value");
-        $this.appear(function() {
+        $this.appear(function () {
           $(".recommended-section .hotel-img-box").addClass(
             "animated rotateIn"
           );
@@ -424,10 +424,10 @@
 
     /* -- Services Section */
     if ($(".services-section").length) {
-      $(".services-section").each(function() {
+      $(".services-section").each(function () {
         var $this = $(this);
         var myVal = $(this).data("value");
-        $this.appear(function() {
+        $this.appear(function () {
           $(".services-section .srv-left").addClass("animated fadeInLeft");
           $(".services-section .srv-img").addClass("animated zoomIn");
           $(".services-section .srv-right").addClass("animated fadeInRight");
@@ -437,10 +437,10 @@
 
     /* -- Accmmodation Section */
     if ($(".accmmodation-section").length) {
-      $(".accmmodation-section").each(function() {
+      $(".accmmodation-section").each(function () {
         var $this = $(this);
         var myVal = $(this).data("value");
-        $this.appear(function() {
+        $this.appear(function () {
           $(".accmmodation-section .accmmodation-box").addClass(
             "animated flipInY"
           );
@@ -450,10 +450,10 @@
 
     /* -- Portfolio Section */
     if ($(".portfolio-section").length) {
-      $(".portfolio-section").each(function() {
+      $(".portfolio-section").each(function () {
         var $this = $(this);
         var myVal = $(this).data("value");
-        $this.appear(function() {
+        $this.appear(function () {
           $(".portfolio-section").addClass("animated zoomIn");
         });
       });
@@ -513,11 +513,11 @@
     }
 
     /* -- Statistics Section */
-    $(".statistics-section").each(function() {
+    $(".statistics-section").each(function () {
       var $this = $(this);
       var myVal = $(this).data("value");
 
-      $this.appear(function() {
+      $this.appear(function () {
         var statistics_item_count = 0;
         var statistics_count = 0;
         statistics_item_count = $("[id*='statistics_count-']").length;
@@ -536,7 +536,7 @@
     });
 
     /* -- Portfolio Section */
-    setTimeout(function() {
+    setTimeout(function () {
       var $container = $(".portfolio-list");
       $container.isotope({
         itemSelector: ".portfolio-box",
@@ -544,7 +544,7 @@
         transitionDuration: "0.5s"
       });
 
-      $("#filters a").on("click", function() {
+      $("#filters a").on("click", function () {
         $("#filters a").removeClass("active");
         $(this).addClass("active");
         var selector = $(this).attr("data-filter");
@@ -607,15 +607,15 @@
     }
 
     /* -- Quick Contact Form */
-    $("#btn_submit").on("click", function(event) {
+    $("#btn_submit").on("click", function (event) {
       event.preventDefault();
       var mydata = $("form").serialize();
       $.ajax({
         type: "POST",
         dataType: "json",
-        url: "contact.php",
+        url: "/user/contact",
         data: mydata,
-        success: function(data) {
+        success: function (data) {
           if (data["type"] == "error") {
             $("#alert-msg").html(data["msg"]);
             $("#alert-msg").removeClass("alert-msg-success");
@@ -627,11 +627,12 @@
             $("#alert-msg").removeClass("alert-msg-failure");
             $("#input_name").val("");
             $("#input_email").val("");
+            $("#input_phone").val("");
             $("#textarea_message").val("");
             $("#alert-msg").show();
           }
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
           /* alert(textStatus); */
         }
       });
@@ -643,7 +644,7 @@
   }); /* document.ready /- */
 
   /* ## Window Resize */
-  $(window).resize(function() {
+  $(window).resize(function () {
     var width = $(window).width();
     var height = $(window).height();
 
@@ -655,7 +656,7 @@
   });
 
   /* ## Window Load - Handler for .load() called */
-  $(window).load(function() {
+  $(window).load(function () {
     /* - Site Loader */
     if (!$("html").is(" .ie6, .ie7, .ie8 ")) {
       $("#site-loader")

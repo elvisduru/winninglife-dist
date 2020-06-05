@@ -99,6 +99,12 @@ Object.defineProperty(exports, "VideoTestimonial", {
     return _videoTestimonial.default;
   }
 })
+Object.defineProperty(exports, "Contact", {
+  enumerable: true,
+  get: function () {
+    return _contact.default;
+  }
+})
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
@@ -133,6 +139,8 @@ var _announcement = _interopRequireDefault(require('./announcement'));
 var _featuredPost = _interopRequireDefault(require('./featuredPost'));
 
 var _videoTestimonial = _interopRequireDefault(require('./videoTestimonial'));
+
+var _contact = _interopRequireDefault(require('./contact'));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };

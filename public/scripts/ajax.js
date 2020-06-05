@@ -870,5 +870,108 @@
       })
     }
 
+    if (location.pathname === '/admin/contact') {
+      let contacts = [], filtered = [];
+      let selected;
+      let selectedID;
+
+      const calculateSubmissions = () => $('.search p').text(`${filtered.length} submissions`)
+      const listSubmissions = () => {
+        calculateSubmissions()
+        let elements = $()
+        elements = filtered.map((submission, index) => elements.add(`
+          <li class=${index === selected ? "selected" : null} data-id="${submission._id}">
+            <p>${submission.email}</p><p>${new Date(submission.created).toDateString()}</p>
+          </li>
+        `))
+        $('.submissions ul').empty().append(elements)
+      }
+
+      const showSubmission = (selected) => {
+        $('#right .details').html(`
+          <div>
+            <div class="controls">
+              <button>Delete</button>
+            </div>
+            <div class="title">
+              <div>
+                <p class="avatar">${selected.email[0].toUpperCase()}</p>
+                <p>${selected.email}</p>
+              </div>
+              <p>${new Date(selected.created).toDateString()}</p>
+            </div>
+            <div class="body">
+              <div>
+                <h4>Name</h4>
+                <p>${selected.name}</p>
+              </div>
+              <div>
+                <h4>Email</h4>
+                <p>${selected.email}</p>
+              </div>
+              <div>
+                <h4>Phone</h4>
+                <p>${selected.phone}</p>
+              </div>
+              <div>
+                <h4>Message</h4>
+                <p>${selected.message}</p>
+              </div>
+            </div>
+          </div>
+        `)
+      }
+
+      const fetchSubmissions = () => {
+        $.get('/admin/contacts')
+          .done(data => {
+            contacts = [...data]
+            filtered = [...data]
+            listSubmissions()
+          }).fail(err => console.log(err))
+      }
+
+      fetchSubmissions()
+
+      const filterSubmissions = e => {
+        const filteredList = contacts.filter(submission => {
+          return submission.email.toLowerCase().includes(e.target.value.toLowerCase())
+        })
+
+        filtered = [...filteredList]
+        listSubmissions()
+      }
+
+      const setSelected = id => {
+        selectedID = contacts.findIndex(x => x._id === id)
+        selected = contacts[selectedID]
+        showSubmission(selected)
+      }
+
+      const deleteSubmission = id => {
+        let submissionID = contacts[id]._id
+        $.ajax('/admin/contact', { method: 'DELETE', data: { id: submissionID } })
+          .done(() => {
+            $('#right .alert').removeClass('hide')
+            $('#right .alert p:first').text('Submission deleted successfully!')
+            $('#right .details').html('')
+            fetchSubmissions()
+          }).fail(err => console.log(err))
+      }
+
+      $('#right .alert p:last').click(function () {
+        $(this).parent().addClass('hide')
+      })
+
+      $('#right .details').on('click', 'button', () => deleteSubmission(selectedID))
+
+      $('.search input').on('input', filterSubmissions)
+      $('.submissions ul').on('click', 'li', function () {
+        $(this).siblings().removeClass('selected')
+        $(this).addClass('selected')
+        setSelected($(this).attr('data-id'))
+      })
+    }
+
   });
 })(jQuery);

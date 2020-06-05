@@ -49,6 +49,9 @@ exports.changeAnnouncement = changeAnnouncement;
 exports.editFeaturedPost = editFeaturedPost;
 exports.postVideoTestimonial = postVideoTestimonial;
 exports.deleteVideoTestimonial = deleteVideoTestimonial;
+exports.fetchContacts = fetchContacts;
+exports.getContact = getContact;
+exports.deleteContact = deleteContact;
 
 var _models = require("../models/");
 
@@ -1325,5 +1328,34 @@ async function deleteVideoTestimonial(req, res) {
     res.sendStatus(200)
   } catch (err) {
     console.log(err)
+  }
+}
+
+async function getContact(req, res) {
+  try {
+    res.render('Admin/contacts')
+  } catch (err) {
+    res.sendStatus(500)
+  }
+}
+
+async function fetchContacts(req, res) {
+  try {
+    const contacts = await _models.Contact.find({}).sort({ created: -1 })
+    res.status(200).json(contacts)
+  } catch (err) {
+    res.sendStatus(500)
+  }
+}
+
+async function deleteContact(req, res) {
+  try {
+    const { id } = req.body
+    console.log(id)
+    await _models.Contact.findByIdAndRemove(id, { useFindAndModify: false })
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
   }
 }

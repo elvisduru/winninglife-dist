@@ -153,6 +153,13 @@ router.route('/videoTestimonials')
   .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postVideoTestimonial)
   .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteVideoTestimonial)
 
+router.route('/contact')
+  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getContact)
+  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteContact)
+
+router.route('/contacts')
+  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.fetchContacts)
+
 router.use("/users", _users.default);
 router.use("/blogs", _blogs.default);
 router.use("/events", _events.default);
