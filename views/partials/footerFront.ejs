@@ -128,6 +128,35 @@
     limit: 10
   });
   feed.run();
+
+  $('.carousel-indicators > li:not(.active), .carousel-control').click(function () {
+    $('.ytplayer').each(function () {
+      $(this)[0].contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+    });
+  })
+
+  $('.yt-overlay').one("click", handlerOne)
+
+  $('.carousel-inner .item').on('touchstart click mouseover', function () {
+    $('.carousel').carousel('pause')
+  })
+
+  if (window.innerWidth < 768) {
+    $('iframe.ytplayer').width('100%').height(180)
+  }
+
+  function handlerOne() {
+    $('.carousel').carousel('pause')
+    $(this).prev('.ytplayer')[0].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    $(this).one("click", handlerTwo)
+  }
+
+  function handlerTwo() {
+    $('.carousel').carousel('pause')
+    $(this).prev('.ytplayer')[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    $(this).one("click", handlerOne)
+  }
+
 </script>
 
 <!-- Library - Theme JS -->
