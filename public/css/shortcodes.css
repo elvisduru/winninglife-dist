@@ -1249,7 +1249,8 @@
   top: 0;
 }
 
-.slick-center-container {
+.slick-center-container,
+#compensation-section {
   /* background-image: url("../images/slider/slider3.jpg");
   background-repeat: no-repeat;
   background-size: cover; */
@@ -1257,6 +1258,41 @@
   position: relative;
   color: white;
   padding: 70px 0;
+}
+
+#compensation-section .section-header h3 {
+  color: white;
+}
+
+#compensationVideo {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+#compOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#myModal .modal-dialog .modal-content {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+#myModal .modal-dialog .modal-content .modal-header {
+  border-bottom: 0px;
+}
+
+@media (max-width: 768px) {
+  #compensationVideo iframe {
+    width: 350px;
+    height: 196px;
+  }
 }
 
 .slick-center-container .section-header h3 {
