@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports.register = register;
 exports.getDeposits = getDeposits;
@@ -36,15 +36,15 @@ async function register(req, res) {
       const foundUser = await _models.User.findOne({ username: username });
 
       if (foundUser) {
-        console.log('User already created');
-        res.redirect('back');
+        console.log("User already created");
+        res.redirect("back");
       } else {
         const user = new _models.User({
           email,
           username,
           fullname,
           phone,
-          gender
+          gender,
         });
         await user.setPassword(password);
         await user.save();
@@ -55,12 +55,12 @@ async function register(req, res) {
       }
     } catch (err) {
       res.status(500).send({
-        err
+        err,
       });
     }
   } else {
     res.status(500).send({
-      err: "Something is wrong with your input!"
+      err: "Something is wrong with your input!",
     });
   }
 }
@@ -68,13 +68,13 @@ async function register(req, res) {
 async function getDeposits(req, res) {
   try {
     const deposits = await _models.Deposit.find({
-      depositor: req.user.id
+      depositor: req.user.id,
     }).sort({
-      createdAt: -1
+      createdAt: -1,
     });
     res.render("Dashboard/deposits", {
       deposits,
-      message: req.flash("msg")
+      message: req.flash("msg"),
     });
   } catch (err) {
     res.send(err);
@@ -84,12 +84,12 @@ async function getDeposits(req, res) {
 async function getTransfers(req, res) {
   try {
     const transfers = await _models.Transfer.find({
-      from: req.user.username
+      from: req.user.username,
     }).sort({
-      created: -1
+      created: -1,
     });
     res.render("Dashboard/transfer", {
-      transfers
+      transfers,
     });
   } catch (err) {
     res.send(err);
@@ -99,13 +99,13 @@ async function getTransfers(req, res) {
 async function getWithdrawals(req, res) {
   try {
     const withdrawals = await _models.Withdraw.find({
-      withdrawer: req.user.id
+      withdrawer: req.user.id,
     }).sort({
-      createdAt: -1
+      createdAt: -1,
     });
     res.render("Dashboard/withdrawal", {
       withdrawals,
-      makeWithdrawal: req.app.locals.withdraw
+      makeWithdrawal: req.app.locals.withdraw,
     });
   } catch (err) {
     res.send(err);
@@ -115,18 +115,18 @@ async function getWithdrawals(req, res) {
 async function getEarnings(req, res) {
   try {
     const rankEarnings = await _models.RankEarning.find({
-      recipient: req.user.username
+      recipient: req.user.username,
     }).sort({
-      created: -1
+      created: -1,
     });
     const refEarnings = await _models.RefEarning.find({
-      recipient: req.user.username
+      recipient: req.user.username,
     }).sort({
-      created: -1
+      created: -1,
     });
     res.render("Dashboard/earnings", {
       rankEarnings,
-      refEarnings
+      refEarnings,
     });
   } catch (err) {
     res.send(err);
@@ -141,12 +141,12 @@ async function transferFund(req, res) {
       } else {
         const fundedUser = await _models.User.findOneAndUpdate(
           {
-            username: req.body.username
+            username: req.body.username,
           },
           {
             $inc: {
-              depositWallet: req.body.amount
-            }
+              depositWallet: req.body.amount,
+            },
           }
         );
 
@@ -157,25 +157,23 @@ async function transferFund(req, res) {
         const transfer = new _models.Transfer({
           from: req.user.username,
           to: req.body.username,
-          amount: req.body.amount
+          amount: req.body.amount,
         });
         await transfer.save();
         await _models.User.update(
           {
-            _id: req.user.id
+            _id: req.user.id,
           },
           {
             $inc: {
-              depositWallet: -req.body.amount
-            }
+              depositWallet: -req.body.amount,
+            },
           }
         );
         res
           .status(200)
           .send(
-            `Successfully transfered ${req.body.amount} to ${
-            fundedUser.username
-            }`
+            `Successfully transfered ${req.body.amount} to ${fundedUser.username}`
           );
       }
     } catch (err) {
@@ -190,10 +188,12 @@ async function placeUser(req, res) {
   if (req.body.referralId && req.body.placementId) {
     try {
       // check if record is created
-      const referralRecord = await _models.RefEarning.findOne({ from: req.user.username });
+      const referralRecord = await _models.RefEarning.findOne({
+        from: req.user.username,
+      });
 
       if (referralRecord) {
-        throw "Error: Referral has already been created."
+        throw "Error: Referral has already been created.";
       }
 
       // check if placement is current user
@@ -208,7 +208,7 @@ async function placeUser(req, res) {
         throw `Error: You have already been placed under ${req.user.parent}`;
       }
 
-      if (req.user.depositWallet < 9000) {
+      if (req.user.depositWallet < 10000) {
         throw "Error: You do not have enough funds.";
       }
 
@@ -222,12 +222,12 @@ async function placeUser(req, res) {
 
       // Find Referrer
       const referrer = await _models.User.findOne({
-        username: req.body.referralId
+        username: req.body.referralId,
       });
       // Find Placement
 
       const placement = await _models.User.findOne({
-        username: req.body.placementId
+        username: req.body.placementId,
       });
 
       if (!referrer || !placement) {
@@ -249,13 +249,13 @@ async function placeUser(req, res) {
           placement.earnings.food += 2000;
           placement.level = {
             position: 1,
-            paid: true
+            paid: true,
           };
           placement.nextlevel++;
           const rankEarning = new _models.RankEarning({
             recipient: placement.username,
             amount: 5000,
-            rank: "SilverLife"
+            rank: "SilverLife",
           });
           await rankEarning.save();
         }
@@ -265,10 +265,9 @@ async function placeUser(req, res) {
 
         const refEarning = new _models.RefEarning({
           recipient: req.body.referralId,
-          from: req.user.username
+          from: req.user.username,
         });
         await refEarning.save();
-
       } else {
         // if (req.body.referralId === req.body.placementId) {
         //   await _models.User.findOneAndUpdate(
@@ -287,16 +286,16 @@ async function placeUser(req, res) {
 
       await _models.User.findOneAndUpdate(
         {
-          _id: req.user.id
+          _id: req.user.id,
         },
         {
           $set: {
             parent: req.body.placementId,
-            referrer: req.body.referralId
+            referrer: req.body.referralId,
           },
           $inc: {
-            depositWallet: -9000
-          }
+            depositWallet: -10000,
+          },
         }
       );
 
@@ -312,7 +311,7 @@ async function placeUser(req, res) {
 async function fetchLevel(num, username) {
   let levelSum = await _models.User.aggregate()
     .match({
-      username: username
+      username: username,
     })
     .graphLookup({
       from: "users",
@@ -320,17 +319,17 @@ async function fetchLevel(num, username) {
       connectFromField: "username",
       connectToField: "parent",
       depthField: "depth",
-      as: "descendants"
+      as: "descendants",
     })
     .unwind("$descendants")
     .match({
-      "descendants.depth": num
+      "descendants.depth": num,
     })
     .group({
       _id: null,
       count: {
-        $sum: 1
-      }
+        $sum: 1,
+      },
     });
 
   return levelSum[0];
@@ -345,7 +344,7 @@ async function graphUser(req, res) {
 
     while (!emptyLevel) {
       await fetchLevel(levelsProcessed, req.user.username)
-        .then(level => {
+        .then((level) => {
           if (level === undefined) {
             levelsProcessed = 0;
             emptyLevel = true;
@@ -354,7 +353,7 @@ async function graphUser(req, res) {
             levelsProcessed++;
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
 
     if (levels.length) {
@@ -372,14 +371,14 @@ async function graphUser(req, res) {
         req.user.earnings.food += 2000;
         req.user.level = {
           position: 1,
-          paid: true
+          paid: true,
         };
         req.user.nextlevel++;
         await req.user.save();
         const rankEarning = new _models.RankEarning({
           recipient: req.user.username,
           amount: 5000,
-          rank: "SilverLife"
+          rank: "SilverLife",
         });
         await rankEarning.save();
       }
@@ -390,14 +389,14 @@ async function graphUser(req, res) {
         req.user.earnings.food += 10000;
         req.user.level = {
           position: 2,
-          paid: true
+          paid: true,
         };
         req.user.nextlevel++;
         await req.user.save();
         const rankEarning = new _models.RankEarning({
           recipient: req.user.username,
           amount: 40000,
-          rank: "GoldLife 1"
+          rank: "GoldLife 1",
         });
         await rankEarning.save();
       }
@@ -408,14 +407,14 @@ async function graphUser(req, res) {
         req.user.earnings.food += 12000;
         req.user.level = {
           position: 3,
-          paid: true
+          paid: true,
         };
         req.user.nextlevel++;
         await req.user.save();
         const rankEarning = new _models.RankEarning({
           recipient: req.user.username,
           amount: 72000,
-          rank: "GoldLife 2"
+          rank: "GoldLife 2",
         });
         await rankEarning.save();
       }
@@ -426,14 +425,14 @@ async function graphUser(req, res) {
         req.user.earnings.food += 30000;
         req.user.level = {
           position: 4,
-          paid: true
+          paid: true,
         };
         req.user.nextlevel++;
         await req.user.save();
         const rankEarning = new _models.RankEarning({
           recipient: req.user.username,
           amount: 150000,
-          rank: "DiamondLife 1"
+          rank: "DiamondLife 1",
         });
         await rankEarning.save();
       }
@@ -444,14 +443,14 @@ async function graphUser(req, res) {
         req.user.earnings.food += 50000;
         req.user.level = {
           position: 5,
-          paid: true
+          paid: true,
         };
         req.user.nextlevel++;
         await req.user.save();
         const rankEarning = new _models.RankEarning({
           recipient: req.user.username,
           amount: 300000,
-          rank: "DiamondLife 2"
+          rank: "DiamondLife 2",
         });
         await rankEarning.save();
       } // TODO: Monthly increment of Food Bonus
@@ -462,14 +461,14 @@ async function graphUser(req, res) {
         req.user.earnings.food += 250000;
         req.user.level = {
           position: 6,
-          paid: true
+          paid: true,
         };
         req.user.nextlevel++;
         await req.user.save();
         const rankEarning = new _models.RankEarning({
           recipient: req.user.username,
           amount: 700000,
-          rank: "SapphireLife 1"
+          rank: "SapphireLife 1",
         });
         await rankEarning.save();
       } // TODO: Monthly appreciation bonus of 100000 for 5 months
@@ -480,14 +479,14 @@ async function graphUser(req, res) {
         req.user.earnings.food += 500000;
         req.user.level = {
           position: 7,
-          paid: true
+          paid: true,
         };
         req.user.nextlevel++;
         await req.user.save();
         const rankEarning = new _models.RankEarning({
           recipient: req.user.username,
           amount: 1500000,
-          rank: "SapphireLife 2"
+          rank: "SapphireLife 2",
         });
         await rankEarning.save();
       }
@@ -498,14 +497,14 @@ async function graphUser(req, res) {
         req.user.earnings.car += 4500000;
         req.user.level = {
           position: 8,
-          paid: true
+          paid: true,
         };
         req.user.nextlevel++;
         await req.user.save();
         const rankEarning = new _models.RankEarning({
           recipient: req.user.username,
           amount: 6500000,
-          rank: "EmeraldLife 1"
+          rank: "EmeraldLife 1",
         });
         await rankEarning.save();
       } // if (lastCompleteLevel === 262144 &&
@@ -689,20 +688,20 @@ async function graphUser(req, res) {
     // }
 
     const deposits = await _models.Deposit.find({
-      depositor: req.user.id
+      depositor: req.user.id,
     }).sort({
-      createdAt: -1
+      createdAt: -1,
     });
     const withdrawals = await _models.Withdraw.find({
-      withdrawer: req.user.id
+      withdrawer: req.user.id,
     }).sort({
-      createdAt: -1
+      createdAt: -1,
     });
     const latestDeposits = deposits.slice(0, 4);
     const latestWithdrawals = withdrawals.slice(0, 4);
     const downlines = await _models.User.aggregate()
       .match({
-        username: req.user.username
+        username: req.user.username,
       })
       .graphLookup({
         from: "users",
@@ -710,7 +709,7 @@ async function graphUser(req, res) {
         connectFromField: "username",
         connectToField: "parent",
         depthField: "depth",
-        as: "descendants"
+        as: "descendants",
       })
       .unwind("$descendants");
     // console.log("Total downlines", downlines.length); // console.log("Downlines: ", downlines.descendants.length)
@@ -720,7 +719,7 @@ async function graphUser(req, res) {
       withdrawalCount: withdrawals.length,
       downlines: downlines.length,
       latestWithdrawals,
-      latestDeposits
+      latestDeposits,
     });
   } catch (err) {
     res.send(err);
@@ -741,12 +740,12 @@ async function deposit(req, res) {
       res.status(201).redirect("back");
     } catch (err) {
       res.status(500).send({
-        err
+        err,
       });
     }
   } else {
     res.status(500).send({
-      err: "Something is wrong with your input!"
+      err: "Something is wrong with your input!",
     });
   }
 }
@@ -754,7 +753,7 @@ async function deposit(req, res) {
 async function cancelDeposit(req, res) {
   try {
     await _models.Deposit.remove({
-      _id: req.params.id
+      _id: req.params.id,
     });
     res.redirect("back");
   } catch (err) {
@@ -767,19 +766,19 @@ async function updateProfile(req, res) {
     try {
       await _models.User.update(
         {
-          _id: req.user.id
+          _id: req.user.id,
         },
         req.body.user
       );
       res.status(200).redirect("back");
     } catch (err) {
       res.status(500).send({
-        err
+        err,
       });
     }
   } else {
     res.status(500).send({
-      err: "Something is wrong with your input!"
+      err: "Something is wrong with your input!",
     });
   }
 }
@@ -797,15 +796,15 @@ async function withdrawRefBonus(req, res) {
     const withdraw = new _models.Withdraw({
       type: "ref",
       withdrawer: req.user.id,
-      amount: req.user.referralBonus
+      amount: req.user.referralBonus,
     });
     await withdraw.save();
     await _models.User.update(
       {
-        _id: req.user.id
+        _id: req.user.id,
       },
       {
-        referralBonus: 0
+        referralBonus: 0,
       }
     );
     res.send("Transaction Successful");
@@ -839,20 +838,20 @@ async function withdrawRankEarning(req, res) {
     const withdraw = new _models.Withdraw({
       type: req.user.rank,
       withdrawer: req.user.id,
-      amount
+      amount,
     });
     await withdraw.save(); // Deduct earnings
 
     await _models.User.update(
       {
-        _id: req.user.id
+        _id: req.user.id,
       },
       {
         "earnings.cash": 0,
         "earnings.food": 0,
         "earnings.car": 0,
         "earnings.suv": 0,
-        "earnings.scholarship": 0
+        "earnings.scholarship": 0,
       }
     );
     res.send("Transaction Successful");
@@ -865,7 +864,7 @@ async function userMatrix(req, res) {
   try {
     const matrix = await _models.User.aggregate()
       .match({
-        username: req.user.username
+        username: req.user.username,
       })
       .graphLookup({
         from: "users",
@@ -873,7 +872,7 @@ async function userMatrix(req, res) {
         connectFromField: "username",
         connectToField: "parent",
         depthField: "depth",
-        as: "descendants"
+        as: "descendants",
       })
       .unwind("$descendants")
       .replaceRoot("$descendants")
@@ -883,18 +882,18 @@ async function userMatrix(req, res) {
         children: 1,
         username: 1,
         fullname: 1,
-        _id: 0
+        _id: 0,
       });
     const rootUserArr = await _models.User.aggregate()
       .match({
-        username: req.user.username
+        username: req.user.username,
       })
       .project({
         rank: 1,
         username: 1,
         children: 1,
         fullname: 1,
-        _id: 0
+        _id: 0,
       });
     const rootUser = rootUserArr[0];
     var image = "";
@@ -915,7 +914,7 @@ async function userMatrix(req, res) {
       rank: rootUser.rank,
       firstName: rootUser.fullname
         ? rootUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
-        : null
+        : null,
     };
     rootUser.collapsed = true;
     const transformedMatrix = matrix.map((user, index, arr) => {
@@ -925,7 +924,7 @@ async function userMatrix(req, res) {
         rank: newUser.rank,
         firstName: newUser.fullname
           ? newUser.fullname.substring(0, rootUser.fullname.indexOf(" "))
-          : null
+          : null,
       };
       if (newUser.rank.startsWith("SilverLife"))
         image = "/images/SilverLife.png";
@@ -947,7 +946,7 @@ async function userMatrix(req, res) {
 
       if (finalUser.children.length > 0) {
         finalUser.children.forEach((child, index, childarr) => {
-          arr.forEach(item => {
+          arr.forEach((item) => {
             if (child === item.username) {
               finalUser.children[index] = item;
 
@@ -974,18 +973,18 @@ async function postContact(req, res) {
     if (!name || !phone || !message) {
       res.json({
         type: "error",
-        msg: "Something is wrong with your input"
-      })
+        msg: "Something is wrong with your input",
+      });
     } else {
-      const contact = new _models.Contact({ name, email, phone, message })
-      await contact.save()
+      const contact = new _models.Contact({ name, email, phone, message });
+      await contact.save();
       res.json({
         type: "success",
-        msg: "Your message has been sent successfully!"
-      })
+        msg: "Your message has been sent successfully!",
+      });
     }
   } catch (err) {
-    res.sendStatus(500)
+    res.sendStatus(500);
   }
 }
 
