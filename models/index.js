@@ -1,110 +1,110 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 Object.defineProperty(exports, "User", {
   enumerable: true,
   get: function () {
     return _user.default;
-  }
+  },
 });
 Object.defineProperty(exports, "Deposit", {
   enumerable: true,
   get: function () {
     return _deposit.default;
-  }
+  },
 });
 Object.defineProperty(exports, "RankEarning", {
   enumerable: true,
   get: function () {
     return _rankEarning.default;
-  }
+  },
 });
 Object.defineProperty(exports, "RefEarning", {
   enumerable: true,
   get: function () {
     return _refEarnings.default;
-  }
+  },
 });
 Object.defineProperty(exports, "Withdraw", {
   enumerable: true,
   get: function () {
     return _withdraw.default;
-  }
+  },
 });
 Object.defineProperty(exports, "Transfer", {
   enumerable: true,
   get: function () {
     return _transfer.default;
-  }
+  },
 });
 Object.defineProperty(exports, "Admin", {
   enumerable: true,
   get: function () {
     return _admin.default;
-  }
+  },
 });
 Object.defineProperty(exports, "Editor", {
   enumerable: true,
   get: function () {
     return _editor.default;
-  }
+  },
 });
 Object.defineProperty(exports, "Blog", {
   enumerable: true,
   get: function () {
     return _blog.default;
-  }
+  },
 });
 Object.defineProperty(exports, "Event", {
   enumerable: true,
   get: function () {
     return _event.default;
-  }
+  },
 });
 Object.defineProperty(exports, "Gallery", {
   enumerable: true,
   get: function () {
     return _gallery.default;
-  }
-})
+  },
+});
 Object.defineProperty(exports, "MiniGallery", {
   enumerable: true,
   get: function () {
     return _miniGallery.default;
-  }
-})
+  },
+});
 Object.defineProperty(exports, "Slider", {
   enumerable: true,
   get: function () {
     return _slider.default;
-  }
-})
+  },
+});
 Object.defineProperty(exports, "Announcement", {
   enumerable: true,
   get: function () {
     return _announcement.default;
-  }
-})
+  },
+});
 Object.defineProperty(exports, "FeaturedPost", {
   enumerable: true,
   get: function () {
     return _featuredPost.default;
-  }
-})
+  },
+});
 Object.defineProperty(exports, "VideoTestimonial", {
   enumerable: true,
   get: function () {
     return _videoTestimonial.default;
-  }
-})
+  },
+});
 Object.defineProperty(exports, "Contact", {
   enumerable: true,
   get: function () {
     return _contact.default;
-  }
-})
+  },
+});
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
@@ -128,19 +128,19 @@ var _blog = _interopRequireDefault(require("./blog"));
 
 var _event = _interopRequireDefault(require("./event"));
 
-var _gallery = _interopRequireDefault(require('./gallery'));
+var _gallery = _interopRequireDefault(require("./gallery"));
 
-var _miniGallery = _interopRequireDefault(require('./miniGallery'));
+var _miniGallery = _interopRequireDefault(require("./miniGallery"));
 
-var _slider = _interopRequireDefault(require('./slider'));
+var _slider = _interopRequireDefault(require("./slider"));
 
-var _announcement = _interopRequireDefault(require('./announcement'));
+var _announcement = _interopRequireDefault(require("./announcement"));
 
-var _featuredPost = _interopRequireDefault(require('./featuredPost'));
+var _featuredPost = _interopRequireDefault(require("./featuredPost"));
 
-var _videoTestimonial = _interopRequireDefault(require('./videoTestimonial'));
+var _videoTestimonial = _interopRequireDefault(require("./videoTestimonial"));
 
-var _contact = _interopRequireDefault(require('./contact'));
+var _contact = _interopRequireDefault(require("./contact"));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -154,9 +154,9 @@ const connUri =
 _mongoose.default.connect(
   connUri,
   {
-    useNewUrlParser: true
+    useNewUrlParser: true,
   },
-  err => console.log(err)
+  (err) => console.log(err)
 );
 
 _mongoose.default.Promise = Promise;

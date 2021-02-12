@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports.default = void 0;
 
@@ -33,7 +33,7 @@ var _connectFlash = _interopRequireDefault(require("connect-flash"));
 
 var _models = require("./models");
 
-var cors = require('cors')
+var cors = require("cors");
 
 require("./passportSetup");
 
@@ -57,19 +57,19 @@ const sessionOptions = {
       "mongodb+srv://elvisduru:winninglife101@winninglifedb-eytgk.mongodb.net/winninglife?retryWrites=true",
     // "mongodb://elvisduru:winninglife101@ds123513.mlab.com:23513/winninglife",
     // "mongodb://localhost/winninglife",
-    ttl: 1 * 24 * 60 * 60
+    ttl: 1 * 24 * 60 * 60,
   }),
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
 };
 
-app.use(cors())
+app.use(cors());
 app.set("view engine", "ejs");
 app.use((0, _methodOverride.default)("_method"));
 app.use(_bodyParser.default.json());
 app.use(
   _bodyParser.default.urlencoded({
-    extended: true
+    extended: true,
   })
 );
 app.use(_express.default.static(_path.default.join(__dirname, "/views")));
@@ -82,8 +82,8 @@ app.use(_passport.default.session());
 
 global.__basedir = __dirname;
 
-app.locals.withdraw = 'true';
-app.locals.announce = 'false';
+app.locals.withdraw = "true";
+app.locals.announce = "false";
 
 // if (environment !== "production") {
 //   app.use((0, _morgan.default)("dev"));
@@ -93,32 +93,39 @@ if (environment == "production") {
   const prodSessOptions = {
     ...sessionOptions,
     cookie: {
-      secure: true
-    }
+      secure: true,
+    },
   };
   app.set("trust proxy", 1);
   app.use(require("express-session")(prodSessOptions));
 }
 
 app.get("/", async (req, res) => {
-  const events = await _models.Event.find()
+  const events = await _models.Event.find();
   const uploads = await _models.MiniGallery.find().sort({
-    created: -1
-  })
+    created: -1,
+  });
   const slides = await _models.Slider.find().sort({
-    created: 1
-  })
-  const announcement = await _models.Announcement.findOne()
+    created: 1,
+  });
+  const announcement = await _models.Announcement.findOne();
   // const featuredPosts = await _models.FeaturedPost.find()
-  const videoTestimonials = await _models.VideoTestimonial.find()
-  res.render("index", { events, uploads, slides, announcement, videoTestimonials, showAnnouncement: req.app.locals.announce })
+  const videoTestimonials = await _models.VideoTestimonial.find();
+  res.render("index", {
+    events,
+    uploads,
+    slides,
+    announcement,
+    videoTestimonials,
+    showAnnouncement: req.app.locals.announce,
+  });
 });
 app.get("/contact", (req, res) => res.render("contact"));
 app.get("/gallery", async (req, res) => {
   const uploads = await _models.Gallery.find().sort({
-    created: -1
-  })
-  res.render("gallery", { uploads })
+    created: -1,
+  });
+  res.render("gallery", { uploads });
 });
 
 app.get("/incentives", (req, res) => res.render("incentives"));
@@ -128,42 +135,42 @@ app.get("/terms", (req, res) => res.render("terms"));
 app.get("/news", async (req, res) => {
   try {
     const blogs = await _models.Blog.find().sort({ created: -1 });
-    res.render("news", { blogs })
+    res.render("news", { blogs });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-})
+});
 
 app.get("/news/:id", async (req, res) => {
   try {
     const blog = await _models.Blog.findOne({ slug: req.params.id });
-    res.render("post", { blog })
+    res.render("post", { blog });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-})
+});
 
 app.post("/hooks", async function (req, res) {
   try {
     // Retrieve the request's body
     var event = req.body;
-    const { username, amount } = event.data.metadata
+    const { username, amount } = event.data.metadata;
     // Do something with event
-    if (event.data.status === 'success') {
+    if (event.data.status === "success") {
       await _models.User.update(
         {
-          username
+          username,
         },
         {
           $inc: {
-            depositWallet: amount
-          }
+            depositWallet: amount,
+          },
         }
       );
     }
     res.sendStatus(200);
   } catch (err) {
-    res.send(err)
+    res.send(err);
   }
 });
 

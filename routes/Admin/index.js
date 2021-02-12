@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports.default = void 0;
 
@@ -30,10 +30,10 @@ router.use((req, res, next) => {
   res.locals.originPath = req.originalUrl;
   next();
 });
-// router
-//   .route("/register")
-//   .get((req, res) => res.render("Admin/signup"))
-//   .post(_admins.register);
+router
+  .route("/register")
+  .get((req, res) => res.render("Admin/signup"))
+  .post(_admins.register);
 router
   .route("/login")
   .get((req, res) =>
@@ -43,7 +43,7 @@ router
     _passport.default.authenticate("admin", {
       successReturnToOrRedirect: "/admin/dashboard",
       failureRedirect: "/admin/login",
-      failureFlash: "Invalid username or password."
+      failureFlash: "Invalid username or password.",
     })
   );
 router.get("/logout", (req, res) => {
@@ -117,48 +117,117 @@ router
 
 router
   .route("/gallery")
-  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getGallery)
-  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postGallery)
-  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteGallery);
+  .get(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.getGallery
+  )
+  .post(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.postGallery
+  )
+  .delete(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.deleteGallery
+  );
 
-router.route('/landing')
-  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getLanding);
+router
+  .route("/landing")
+  .get(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.getLanding
+  );
 
 router
   .route("/minigallery")
-  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postMiniGallery)
-  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteMiniGallery);
+  .post(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.postMiniGallery
+  )
+  .delete(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.deleteMiniGallery
+  );
 
 router
   .route("/sliders")
-  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postSlider);
+  .post(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.postSlider
+  );
 
-router.route('/sliders/:id')
-  .put((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.editSlider)
-  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteSlider);
+router
+  .route("/sliders/:id")
+  .put(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.editSlider
+  )
+  .delete(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.deleteSlider
+  );
 
-router.route('/blogs')
-  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getBlogs)
-  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postBlog);
+router
+  .route("/blogs")
+  .get(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.getBlogs
+  )
+  .post(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.postBlog
+  );
 
-router.route('/events')
-  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getEvents)
-  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postEvent);
+router
+  .route("/events")
+  .get(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.getEvents
+  )
+  .post(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.postEvent
+  );
 
-router.put('/announcement', (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.changeAnnouncement)
+router.put(
+  "/announcement",
+  (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+  _admins.changeAnnouncement
+);
 
-router.put('/featuredPost/:id', (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.editFeaturedPost)
+router.put(
+  "/featuredPost/:id",
+  (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+  _admins.editFeaturedPost
+);
 
-router.route('/videoTestimonials')
-  .post((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.postVideoTestimonial)
-  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteVideoTestimonial)
+router
+  .route("/videoTestimonials")
+  .post(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.postVideoTestimonial
+  )
+  .delete(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.deleteVideoTestimonial
+  );
 
-router.route('/contact')
-  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.getContact)
-  .delete((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.deleteContact)
+router
+  .route("/contact")
+  .get(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.getContact
+  )
+  .delete(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.deleteContact
+  );
 
-router.route('/contacts')
-  .get((0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"), _admins.fetchContacts)
+router
+  .route("/contacts")
+  .get(
+    (0, _connectEnsureLogin.ensureLoggedIn)("/admin/login"),
+    _admins.fetchContacts
+  );
 
 router.use("/users", _users.default);
 router.use("/blogs", _blogs.default);
